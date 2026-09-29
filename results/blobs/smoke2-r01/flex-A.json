@@ -1,0 +1,179 @@
+{
+  "run_id": "smoke2-r01",
+  "mode": "flex",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "flex",
+  "message": {
+    "enqueued_at": "2026-09-29T08:34:34.970000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T08:35:13.734670+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 38.76467,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "flex",
+    "replica": "worker-flex--0000001-5b7679bb66-k6v6q",
+    "revision": "worker-flex--0000001",
+    "process_started_at": "2026-09-29T08:35:12.454011+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T08:35:19.668231+00:00",
+  "records": [
+    {
+      "run_id": "smoke2-r01",
+      "mode": "flex",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "smoke2-r01-classify",
+      "success": true,
+      "started_at": "2026-09-29T08:35:13.768441+00:00",
+      "finished_at": "2026-09-29T08:35:15.353740+00:00",
+      "latency_s": 1.5852411529631354,
+      "total_s": 1.5852997520123608,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T08:35:13.768449+00:00",
+          "duration_s": 1.5852411529631354,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "92f206c9-08d7-4f12-bce4-574c855c2a97",
+            "x-request-id": "1a9c9257-c59d-43fb-9fce-343702826c6f",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99952"
+          }
+        }
+      ],
+      "requested_service_tier": "flex",
+      "service_tier": "flex",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 110,
+      "output_preview": "Positive \u2014 despite the late delivery, the customer praises the prompt refund and says the product works great.",
+      "usage": {
+        "prompt_tokens": 48,
+        "completion_tokens": 23,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "92f206c9-08d7-4f12-bce4-574c855c2a97",
+        "x-request-id": "1a9c9257-c59d-43fb-9fce-343702826c6f",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99952"
+      }
+    },
+    {
+      "run_id": "smoke2-r01",
+      "mode": "flex",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "smoke2-r01-summarize",
+      "success": true,
+      "started_at": "2026-09-29T08:35:15.353927+00:00",
+      "finished_at": "2026-09-29T08:35:17.604798+00:00",
+      "latency_s": 2.250807647011243,
+      "total_s": 2.250875745958183,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T08:35:15.353931+00:00",
+          "duration_s": 2.250807647011243,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "f3a44897-a59a-4e8c-b539-928ad9f44154",
+            "x-request-id": "c78a5a19-c3ef-4fac-974c-02c3460b8984",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99975"
+          }
+        }
+      ],
+      "requested_service_tier": "flex",
+      "service_tier": "flex",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 483,
+      "output_preview": "- **Decouple services:** Producers and consumers operate independently, preventing one service\u2019s failure or slowdown from immediately disrupting others.\n- **Buffer traffic spikes:** Queues absorb burs",
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 84,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "f3a44897-a59a-4e8c-b539-928ad9f44154",
+        "x-request-id": "c78a5a19-c3ef-4fac-974c-02c3460b8984",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99975"
+      }
+    },
+    {
+      "run_id": "smoke2-r01",
+      "mode": "flex",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "smoke2-r01-translate",
+      "success": true,
+      "started_at": "2026-09-29T08:35:17.605045+00:00",
+      "finished_at": "2026-09-29T08:35:19.658215+00:00",
+      "latency_s": 2.0531264069722965,
+      "total_s": 2.053173506981693,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T08:35:17.605048+00:00",
+          "duration_s": 2.0531264069722965,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "1bd985b7-dfce-4ca7-8b4e-7c040940fb4a",
+            "x-request-id": "54dab1ca-eb37-462f-8147-0b8cdf542008",
+            "x-ratelimit-remaining-requests": "98",
+            "x-ratelimit-remaining-tokens": "99978"
+          }
+        }
+      ],
+      "requested_service_tier": "flex",
+      "service_tier": "flex",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 176,
+      "output_preview": "**Czech:** D\u00e1vkov\u00e9 zpracov\u00e1n\u00ed je levn\u011bj\u0161\u00ed, ale v\u00fdsledky jsou k dispozici pozd\u011bji.\n\n**German:** Die Stapelverarbeitung ist g\u00fcnstiger, aber die Ergebnisse liegen erst sp\u00e4ter vor.",
+      "usage": {
+        "prompt_tokens": 22,
+        "completion_tokens": 48,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "1bd985b7-dfce-4ca7-8b4e-7c040940fb4a",
+        "x-request-id": "54dab1ca-eb37-462f-8147-0b8cdf542008",
+        "x-ratelimit-remaining-requests": "98",
+        "x-ratelimit-remaining-tokens": "99978"
+      }
+    }
+  ]
+}

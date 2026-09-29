@@ -1,0 +1,10 @@
+[project]
+name = "flex-demo"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "azure-identity==1.25.3",
+    "azure-servicebus==7.14.3",
+    "azure-storage-blob==12.30.3",
+    "openai==3.17.0",
+]

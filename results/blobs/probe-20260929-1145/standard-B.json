@@ -1,0 +1,85 @@
+{
+  "run_id": "probe-20260929-1145",
+  "mode": "standard",
+  "pair": "B",
+  "deployment": "gpt-54-mini",
+  "service_tier_requested": "default",
+  "message": {
+    "enqueued_at": "2026-09-29T11:45:22.141000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T11:45:22.153719+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 0.012719,
+    "cold_start": false
+  },
+  "worker": {
+    "mode": "standard",
+    "replica": "worker-standard--0000003-c7cc6d4cc-m5gxh",
+    "revision": "worker-standard--0000003",
+    "process_started_at": "2026-09-29T11:37:51.095396+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T11:45:38.283018+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260929-1145",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "probe-20260929-1145-explain",
+      "success": true,
+      "started_at": "2026-09-29T11:45:22.157868+00:00",
+      "finished_at": "2026-09-29T11:45:38.256869+00:00",
+      "latency_s": 16.0989444560837,
+      "total_s": 16.099003957002424,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T11:45:22.157873+00:00",
+          "duration_s": 16.0989444560837,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "55177390-9c14-4450-ae5b-843cba90ee6c",
+            "x-request-id": "99a7c614-6a09-4888-88ec-324c2c04e551",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99973"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 338,
+      "output_preview": "\u201cLatency percentile p90\u201d means that 90% of requests were completed in that amount of time or less. For example, if p90 latency is 200 ms, then 9 out of 10 requests finished in 200 ms or faster, and th",
+      "usage": {
+        "prompt_tokens": 27,
+        "completion_tokens": 102,
+        "reasoning_tokens": 11,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "55177390-9c14-4450-ae5b-843cba90ee6c",
+        "x-request-id": "99a7c614-6a09-4888-88ec-324c2c04e551",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99973"
+      }
+    }
+  ]
+}

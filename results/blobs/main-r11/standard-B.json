@@ -1,0 +1,289 @@
+{
+  "run_id": "main-r11",
+  "mode": "standard",
+  "pair": "B",
+  "deployment": "gpt-54-mini",
+  "service_tier_requested": "default",
+  "message": {
+    "enqueued_at": "2026-09-29T11:22:25.976000+00:00",
+    "scheduled_enqueue_at": "2026-09-29T11:22:25.850000+00:00",
+    "received_at": "2026-09-29T11:22:51.516724+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 25.666724,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "standard",
+    "replica": "worker-standard--0000003-c7cc6d4cc-466tb",
+    "revision": "worker-standard--0000003",
+    "process_started_at": "2026-09-29T11:22:50.266208+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T11:24:47.746472+00:00",
+  "records": [
+    {
+      "run_id": "main-r11",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "main-r11-reason",
+      "success": true,
+      "started_at": "2026-09-29T11:22:51.597723+00:00",
+      "finished_at": "2026-09-29T11:23:27.037104+00:00",
+      "latency_s": 15.697711454002274,
+      "total_s": 35.439380645999336,
+      "attempt_count": 2,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T11:22:51.597730+00:00",
+          "duration_s": 17.391603910000413,
+          "status": 500,
+          "error": {
+            "type": "InternalServerError",
+            "code": null,
+            "message": "Error code: 500 - {'error': {'message': 'The server is overloaded or not ready yet. Please try again later.', 'type': 'service_unavailable_error', 'param': None, 'code': None}}"
+          },
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "e0c4743b-cc58-45be-849b-3de7f057cb00",
+            "x-request-id": "478f4174-d9d2-4531-9f03-d364c38c6686"
+          }
+        },
+        {
+          "attempt": 2,
+          "started_at": "2026-09-29T11:23:11.339342+00:00",
+          "duration_s": 15.697711454002274,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "d919f2c8-7dea-42f3-819c-8ba6df8e636a",
+            "x-request-id": "a08f1676-7763-4db2-a8e2-642f17ffa949",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99949"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 426,
+      "output_preview": "About **72 cold starts per day**.\n\n### Why\n- There are **24 \u00d7 60 = 1440 minutes** in a day.\n- A message arrives every **20 minutes**, so that\u2019s **1440 / 20 = 72 messages per day**.\n- The app scales ba",
+      "usage": {
+        "prompt_tokens": 51,
+        "completion_tokens": 220,
+        "reasoning_tokens": 98,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "d919f2c8-7dea-42f3-819c-8ba6df8e636a",
+        "x-request-id": "a08f1676-7763-4db2-a8e2-642f17ffa949",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99949"
+      }
+    },
+    {
+      "run_id": "main-r11",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "main-r11-translate",
+      "success": true,
+      "started_at": "2026-09-29T11:23:27.037242+00:00",
+      "finished_at": "2026-09-29T11:23:38.765726+00:00",
+      "latency_s": 11.72844095900291,
+      "total_s": 11.728487258998939,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T11:23:27.037245+00:00",
+          "duration_s": 11.72844095900291,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "5facff9f-e357-4a19-a9d4-13cb7aa431df",
+            "x-request-id": "8f5eb080-43e9-4de6-aab0-c1c81dea72f7",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99978"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 154,
+      "output_preview": "Czech: \u201eD\u00e1vkov\u00e9 zpracov\u00e1n\u00ed je levn\u011bj\u0161\u00ed, ale v\u00fdsledky p\u0159ijdou pozd\u011bji.\u201c\n\nGerman: \u201eDie Stapelverarbeitung ist g\u00fcnstiger, aber die Ergebnisse kommen sp\u00e4ter.\u201c",
+      "usage": {
+        "prompt_tokens": 22,
+        "completion_tokens": 55,
+        "reasoning_tokens": 4,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "5facff9f-e357-4a19-a9d4-13cb7aa431df",
+        "x-request-id": "8f5eb080-43e9-4de6-aab0-c1c81dea72f7",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99978"
+      }
+    },
+    {
+      "run_id": "main-r11",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "main-r11-summarize",
+      "success": true,
+      "started_at": "2026-09-29T11:23:38.765840+00:00",
+      "finished_at": "2026-09-29T11:23:58.382055+00:00",
+      "latency_s": 19.616170654000598,
+      "total_s": 19.616218654002296,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T11:23:38.765842+00:00",
+          "duration_s": 19.616170654000598,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "cc169515-344c-40ab-9466-ea36e519c1cb",
+            "x-request-id": "080cb1d2-c567-4e7c-9635-44108d059c17",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99975"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 602,
+      "output_preview": "- **They decouple services:** Producers can keep sending work even if downstream services are slow, temporarily unavailable, or scaling up, which prevents failures from spreading across the applicatio",
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 121,
+        "reasoning_tokens": 7,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "cc169515-344c-40ab-9466-ea36e519c1cb",
+        "x-request-id": "080cb1d2-c567-4e7c-9635-44108d059c17",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99975"
+      }
+    },
+    {
+      "run_id": "main-r11",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "main-r11-code",
+      "success": true,
+      "started_at": "2026-09-29T11:23:58.382220+00:00",
+      "finished_at": "2026-09-29T11:24:40.294464+00:00",
+      "latency_s": 41.91219700200236,
+      "total_s": 41.91224700100065,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T11:23:58.382223+00:00",
+          "duration_s": 41.91219700200236,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "539de81c-8da3-4ed5-a0ee-b6588a66106b",
+            "x-request-id": "472521cc-7353-434f-baaa-8b7a8b18012f",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99976"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 387,
+      "output_preview": "```python\ndef p95(values):\n    if not values:\n        raise ValueError(\"empty list\")\n    xs = sorted(values)\n    k = (len(xs) - 1) * 0.95\n    i = int(k)\n    j = min(i + 1, len(xs) - 1)\n    return xs[i",
+      "usage": {
+        "prompt_tokens": 24,
+        "completion_tokens": 200,
+        "reasoning_tokens": 42,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "539de81c-8da3-4ed5-a0ee-b6588a66106b",
+        "x-request-id": "472521cc-7353-434f-baaa-8b7a8b18012f",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99976"
+      }
+    },
+    {
+      "run_id": "main-r11",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "main-r11-classify",
+      "success": true,
+      "started_at": "2026-09-29T11:24:40.294580+00:00",
+      "finished_at": "2026-09-29T11:24:47.664363+00:00",
+      "latency_s": 7.369739580000896,
+      "total_s": 7.369785679002234,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T11:24:40.294583+00:00",
+          "duration_s": 7.369739580000896,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "997a4f07-09c4-40a9-aab8-5003f7f44df2",
+            "x-request-id": "1ca087df-d603-4dc9-a97a-fbc645eb4208",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99952"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 157,
+      "output_preview": "**Positive** \u2014 although the delivery was late, the prompt shipping refund and the fact that the product \u201cworks great\u201d create an overall favorable impression.",
+      "usage": {
+        "prompt_tokens": 48,
+        "completion_tokens": 63,
+        "reasoning_tokens": 24,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "997a4f07-09c4-40a9-aab8-5003f7f44df2",
+        "x-request-id": "1ca087df-d603-4dc9-a97a-fbc645eb4208",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99952"
+      }
+    }
+  ]
+}

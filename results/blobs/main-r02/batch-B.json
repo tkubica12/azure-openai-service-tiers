@@ -1,0 +1,218 @@
+{
+  "run_id": "main-r02",
+  "mode": "batch",
+  "pair": "B",
+  "deployment": "gpt-54-mini-batch",
+  "message": {
+    "enqueued_at": "2026-09-29T09:07:25.886000+00:00",
+    "scheduled_enqueue_at": "2026-09-29T09:07:25.850000+00:00",
+    "received_at": "2026-09-29T09:07:59.097165+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 33.247165,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "batch",
+    "replica": "worker-batch--0000002-786b8cdf86-qmfhm",
+    "revision": "worker-batch--0000002",
+    "process_started_at": "2026-09-29T09:14:31.911355+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T09:15:34.118290+00:00",
+  "batch": {
+    "status": "completed",
+    "created_at": "2026-09-29T09:08:02+00:00",
+    "in_progress_at": "2026-09-29T09:09:53+00:00",
+    "finalizing_at": "2026-09-29T09:14:26+00:00",
+    "completed_at": "2026-09-29T09:15:09+00:00",
+    "failed_at": null,
+    "expired_at": null,
+    "request_counts": {
+      "completed": 5,
+      "failed": 0,
+      "total": 5
+    },
+    "errors": null,
+    "output_file_id": "file-bb5889f1-8866-49ad-86cc-93a5d32f540d",
+    "error_file_id": null
+  },
+  "timeline": [
+    {
+      "observed_at": "2026-09-29T09:08:03.288651+00:00",
+      "status": "validating"
+    },
+    {
+      "observed_at": "2026-09-29T09:10:04.158254+00:00",
+      "status": "in_progress",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 5
+      }
+    },
+    {
+      "observed_at": "2026-09-29T09:14:33.585817+00:00",
+      "status": "finalizing",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 5
+      }
+    },
+    {
+      "observed_at": "2026-09-29T09:15:33.919878+00:00",
+      "status": "completed",
+      "counts": {
+        "completed": 5,
+        "failed": 0,
+        "total": 5
+      }
+    }
+  ],
+  "polls": 7,
+  "records": [
+    {
+      "run_id": "main-r02",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r02-reason",
+      "success": true,
+      "batch_id": "batch_1e3025ae-f45f-4c71-a71f-d016c8ca52fb",
+      "batch_status": "completed",
+      "latency_s": 427,
+      "total_s": 450.631227,
+      "end_to_end_s": 488.069878,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 521,
+      "output_preview": "About **72 cold starts per day**.\n\n### Why\n- A message arrives every **20 minutes**.\n- The app scales back to **0 replicas after 5 idle minutes**.\n- Since **20 > 5**, the app will always scale down to",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 51,
+        "completion_tokens": 241,
+        "reasoning_tokens": 90,
+        "cached_tokens": 0
+      }
+    },
+    {
+      "run_id": "main-r02",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r02-classify",
+      "success": true,
+      "batch_id": "batch_1e3025ae-f45f-4c71-a71f-d016c8ca52fb",
+      "batch_status": "completed",
+      "latency_s": 427,
+      "total_s": 450.631227,
+      "end_to_end_s": 488.069878,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 155,
+      "output_preview": "**Positive** \u2014 although the delivery was late, the quick shipping refund and the fact that the product \u201cworks great\u201d make the overall experience favorable.",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 48,
+        "completion_tokens": 66,
+        "reasoning_tokens": 27,
+        "cached_tokens": 0
+      }
+    },
+    {
+      "run_id": "main-r02",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r02-translate",
+      "success": true,
+      "batch_id": "batch_1e3025ae-f45f-4c71-a71f-d016c8ca52fb",
+      "batch_status": "completed",
+      "latency_s": 427,
+      "total_s": 450.631227,
+      "end_to_end_s": 488.069878,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 161,
+      "output_preview": "Czech: **D\u00e1vkov\u00e9 zpracov\u00e1n\u00ed je levn\u011bj\u0161\u00ed, ale v\u00fdsledky p\u0159ich\u00e1zej\u00ed pozd\u011bji.**\n\nGerman: **Die Stapelverarbeitung ist g\u00fcnstiger, aber die Ergebnisse kommen sp\u00e4ter.**",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 22,
+        "completion_tokens": 58,
+        "reasoning_tokens": 3,
+        "cached_tokens": 0
+      }
+    },
+    {
+      "run_id": "main-r02",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r02-summarize",
+      "success": true,
+      "batch_id": "batch_1e3025ae-f45f-4c71-a71f-d016c8ca52fb",
+      "batch_status": "completed",
+      "latency_s": 427,
+      "total_s": 450.631227,
+      "end_to_end_s": 488.069878,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 520,
+      "output_preview": "- **They decouple services**, so if one component is slow, busy, or temporarily unavailable, producers can keep sending messages without bringing the whole application down.  \n- **They absorb traffic ",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 97,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      }
+    },
+    {
+      "run_id": "main-r02",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r02-write",
+      "success": true,
+      "batch_id": "batch_1e3025ae-f45f-4c71-a71f-d016c8ca52fb",
+      "batch_status": "completed",
+      "latency_s": 427,
+      "total_s": 450.631227,
+      "end_to_end_s": 488.069878,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 625,
+      "output_preview": "Stay hydrated on every trail with this durable reusable stainless-steel water bottle, designed for hikers who need reliable performance in the great outdoors. Its double-wall insulation helps keep dri",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 26,
+        "completion_tokens": 133,
+        "reasoning_tokens": 8,
+        "cached_tokens": 0
+      }
+    }
+  ]
+}

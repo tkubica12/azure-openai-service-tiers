@@ -1,0 +1,269 @@
+{
+  "run_id": "main-r08",
+  "mode": "standard",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "default",
+  "message": {
+    "enqueued_at": "2026-09-29T10:37:25.913000+00:00",
+    "scheduled_enqueue_at": "2026-09-29T10:37:25.850000+00:00",
+    "received_at": "2026-09-29T10:37:51.795803+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 25.945803,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "standard",
+    "replica": "worker-standard--0000003-c7cc6d4cc-kwnnr",
+    "revision": "worker-standard--0000003",
+    "process_started_at": "2026-09-29T10:37:50.369798+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T10:38:14.275926+00:00",
+  "records": [
+    {
+      "run_id": "main-r08",
+      "mode": "standard",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r08-classify",
+      "success": true,
+      "started_at": "2026-09-29T10:37:51.877481+00:00",
+      "finished_at": "2026-09-29T10:37:59.463266+00:00",
+      "latency_s": 7.585724647999996,
+      "total_s": 7.585787548999974,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T10:37:51.877487+00:00",
+          "duration_s": 7.585724647999996,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "59f84012-f50a-4899-a292-da90d27f1a09",
+            "x-request-id": "d6a1942b-58e2-42da-8ef6-4e3f95444a62",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99952"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 110,
+      "output_preview": "Positive \u2014 despite the late delivery, the customer praises the prompt refund and says the product works great.",
+      "usage": {
+        "prompt_tokens": 48,
+        "completion_tokens": 23,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "59f84012-f50a-4899-a292-da90d27f1a09",
+        "x-request-id": "d6a1942b-58e2-42da-8ef6-4e3f95444a62",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99952"
+      }
+    },
+    {
+      "run_id": "main-r08",
+      "mode": "standard",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r08-reason",
+      "success": true,
+      "started_at": "2026-09-29T10:37:59.463494+00:00",
+      "finished_at": "2026-09-29T10:38:01.723630+00:00",
+      "latency_s": 2.260058063000031,
+      "total_s": 2.2601393649999864,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T10:37:59.463498+00:00",
+          "duration_s": 2.260058063000031,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "e103d825-a8d7-4865-9ac6-ae93a4d23877",
+            "x-request-id": "a5cb4e59-e370-4c86-bb2c-bcad1fcc0093",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99949"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 324,
+      "output_preview": "**About 72 cold starts per day.**\n\n- Messages arrive every 20 minutes: \\(24 \\times 60 / 20 = 72\\) messages/day.\n- The app scales to zero after 5 idle minutes, leaving 15 minutes before the next messag",
+      "usage": {
+        "prompt_tokens": 51,
+        "completion_tokens": 140,
+        "reasoning_tokens": 53,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "e103d825-a8d7-4865-9ac6-ae93a4d23877",
+        "x-request-id": "a5cb4e59-e370-4c86-bb2c-bcad1fcc0093",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99949"
+      }
+    },
+    {
+      "run_id": "main-r08",
+      "mode": "standard",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r08-summarize",
+      "success": true,
+      "started_at": "2026-09-29T10:38:01.723826+00:00",
+      "finished_at": "2026-09-29T10:38:03.587977+00:00",
+      "latency_s": 1.8641071079999847,
+      "total_s": 1.8641541089999691,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T10:38:01.723830+00:00",
+          "duration_s": 1.8641071079999847,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "7c775412-5932-4f56-9c51-c69055fb7b06",
+            "x-request-id": "baa9680c-6a6d-48f9-90ea-7d033b5e416b"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 486,
+      "output_preview": "- **Decouples services:** Producers and consumers operate independently, so temporary failures or slowdowns in one service do not immediately disrupt others.\n- **Buffers traffic spikes:** Queues absor",
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 90,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "7c775412-5932-4f56-9c51-c69055fb7b06",
+        "x-request-id": "baa9680c-6a6d-48f9-90ea-7d033b5e416b"
+      }
+    },
+    {
+      "run_id": "main-r08",
+      "mode": "standard",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r08-extract",
+      "success": true,
+      "started_at": "2026-09-29T10:38:03.588120+00:00",
+      "finished_at": "2026-09-29T10:38:11.192972+00:00",
+      "latency_s": 7.604794836000053,
+      "total_s": 7.604855838000049,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T10:38:03.588123+00:00",
+          "duration_s": 7.604794836000053,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "2f969e19-d3c5-4944-97c9-21b6c2061e3f",
+            "x-request-id": "00bdde86-b448-40c7-b7e9-8ce42bb8d0f0",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99954"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 113,
+      "output_preview": "{\n  \"name\": \"Petra Novak\",\n  \"company\": \"Contoso Logistics\",\n  \"city\": \"Brno\",\n  \"requested_date\": \"14 October\"\n}",
+      "usage": {
+        "prompt_tokens": 46,
+        "completion_tokens": 73,
+        "reasoning_tokens": 27,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "2f969e19-d3c5-4944-97c9-21b6c2061e3f",
+        "x-request-id": "00bdde86-b448-40c7-b7e9-8ce42bb8d0f0",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99954"
+      }
+    },
+    {
+      "run_id": "main-r08",
+      "mode": "standard",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r08-write",
+      "success": true,
+      "started_at": "2026-09-29T10:38:11.193125+00:00",
+      "finished_at": "2026-09-29T10:38:14.240006+00:00",
+      "latency_s": 3.046824739999977,
+      "total_s": 3.0468856420000066,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T10:38:11.193128+00:00",
+          "duration_s": 3.046824739999977,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "a4912e11-1576-4940-8bd2-e71396680853",
+            "x-request-id": "5673dd2e-624f-410c-8fc8-350398238fd8",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99974"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 505,
+      "output_preview": "Stay hydrated on every trail with this rugged reusable water bottle, crafted from durable stainless steel to withstand demanding adventures. Its insulated design keeps drinks cold for hours, while the",
+      "usage": {
+        "prompt_tokens": 26,
+        "completion_tokens": 96,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "a4912e11-1576-4940-8bd2-e71396680853",
+        "x-request-id": "5673dd2e-624f-410c-8fc8-350398238fd8",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99974"
+      }
+    }
+  ]
+}

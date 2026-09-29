@@ -1,0 +1,40 @@
+{
+  "campaign": "smoke1",
+  "sent_at": "2026-09-29T08:16:13.406571+00:00",
+  "args": {
+    "campaign": "smoke1",
+    "runs": 1,
+    "interval_min": 20.0,
+    "start_delay_min": 0.0,
+    "prompts": 3,
+    "max_completion_tokens": 1000,
+    "reasoning_effort": "low",
+    "seed": 42
+  },
+  "runs": [
+    {
+      "run_id": "smoke1-r01",
+      "campaign": "smoke1",
+      "created_at": "2026-09-29T08:16:13.406571+00:00",
+      "scheduled_for": "2026-09-29T08:16:13.406571+00:00",
+      "prompts": [
+        {
+          "id": "smoke1-r01-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        },
+        {
+          "id": "smoke1-r01-summarize",
+          "text": "Summarize in 3 bullet points why asynchronous message queues improve the resilience of cloud applications."
+        },
+        {
+          "id": "smoke1-r01-translate",
+          "text": "Translate to Czech and German: 'Batch processing is cheaper but results arrive later.'"
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    }
+  ]
+}

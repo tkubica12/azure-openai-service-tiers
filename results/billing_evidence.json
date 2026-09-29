@@ -1,0 +1,248 @@
+{
+  "queried_at": "2026-09-29T12:21:16+00:00",
+  "window": [
+    "2026-09-28T00:00:00+00:00",
+    "2026-09-29T13:00:00+00:00"
+  ],
+  "metrics": [
+    {
+      "metric": "AzureOpenAIRequests",
+      "deployment": "gpt-56-sol",
+      "tier_request": "default",
+      "tier_response": "default",
+      "status": "200",
+      "total": 36.0
+    },
+    {
+      "metric": "AzureOpenAIRequests",
+      "deployment": "gpt-56-sol",
+      "tier_request": "flex",
+      "tier_response": "flex",
+      "status": "200",
+      "total": 35.0
+    },
+    {
+      "metric": "AzureOpenAIRequests",
+      "deployment": "gpt-54-mini",
+      "tier_request": "default",
+      "tier_response": "default",
+      "status": "200",
+      "total": 22.0
+    },
+    {
+      "metric": "AzureOpenAIRequests",
+      "deployment": "gpt-56-sol",
+      "tier_request": "priority",
+      "tier_response": "priority",
+      "status": "200",
+      "total": 10.0
+    },
+    {
+      "metric": "AzureOpenAIRequests",
+      "deployment": "gpt-56-sol",
+      "tier_request": "default",
+      "tier_response": "default",
+      "status": "500",
+      "total": 8.0
+    },
+    {
+      "metric": "AzureOpenAIRequests",
+      "deployment": "gpt-54-mini-batch",
+      "tier_request": "default",
+      "tier_response": "default",
+      "status": "200",
+      "total": 6.0
+    },
+    {
+      "metric": "AzureOpenAIRequests",
+      "deployment": "gpt-54-mini",
+      "tier_request": "default",
+      "tier_response": "default",
+      "status": "500",
+      "total": 2.0
+    },
+    {
+      "metric": "AzureOpenAIRequests",
+      "deployment": "gpt-54-mini",
+      "tier_request": "priority",
+      "tier_response": "priority",
+      "status": "200",
+      "total": 1.0
+    },
+    {
+      "metric": "ProcessedPromptTokens",
+      "deployment": "gpt-54-mini",
+      "tier_request": "default",
+      "tier_response": "default",
+      "status": null,
+      "total": 1210.0
+    },
+    {
+      "metric": "ProcessedPromptTokens",
+      "deployment": "gpt-56-sol",
+      "tier_request": "default",
+      "tier_response": "default",
+      "status": null,
+      "total": 1172.0
+    },
+    {
+      "metric": "ProcessedPromptTokens",
+      "deployment": "gpt-56-sol",
+      "tier_request": "flex",
+      "tier_response": "flex",
+      "status": null,
+      "total": 1172.0
+    },
+    {
+      "metric": "ProcessedPromptTokens",
+      "deployment": "gpt-54-mini-batch",
+      "tier_request": "default",
+      "tier_response": "default",
+      "status": null,
+      "total": 1151.0
+    },
+    {
+      "metric": "GeneratedTokens",
+      "deployment": "gpt-54-mini",
+      "tier_request": "default",
+      "tier_response": "default",
+      "status": null,
+      "total": 3855.0
+    },
+    {
+      "metric": "GeneratedTokens",
+      "deployment": "gpt-54-mini-batch",
+      "tier_request": "default",
+      "tier_response": "default",
+      "status": null,
+      "total": 3646.0
+    },
+    {
+      "metric": "GeneratedTokens",
+      "deployment": "gpt-56-sol",
+      "tier_request": "default",
+      "tier_response": "default",
+      "status": null,
+      "total": 2796.0
+    },
+    {
+      "metric": "GeneratedTokens",
+      "deployment": "gpt-56-sol",
+      "tier_request": "flex",
+      "tier_response": "flex",
+      "status": null,
+      "total": 2686.0
+    }
+  ],
+  "cost": {
+    "error": "ERROR: Too Many Requests({\"error\":{\"code\":\"429\",\"message\":\"Too many requests. Please retry.\"}})\n",
+    "rows": []
+  },
+  "retail": [
+    {
+      "meter": "5.4 mini Batch Inp Gl",
+      "price_per_1m": 0.375,
+      "currency": "USD",
+      "meterId": "0c1851c3-8cae-5082-ae62-209491d54df5",
+      "effective": "2026-03-01"
+    },
+    {
+      "meter": "5.4 mini Batch Opt Gl",
+      "price_per_1m": 2.25,
+      "currency": "USD",
+      "meterId": "b23051bc-fad9-5348-a150-8bfa5021a5a3",
+      "effective": "2026-03-01"
+    },
+    {
+      "meter": "5.4 mini Batch cd Inp Gl",
+      "price_per_1m": 0.0375,
+      "currency": "USD",
+      "meterId": "dd518fa0-93bf-5fbc-b1e7-13984bf99cb9",
+      "effective": "2026-03-01"
+    },
+    {
+      "meter": "5.4 mini Inp Gl",
+      "price_per_1m": 0.75,
+      "currency": "USD",
+      "meterId": "5b48fee4-7a0f-5596-9df6-6f54c6c16080",
+      "effective": "2026-03-01"
+    },
+    {
+      "meter": "5.4 mini Opt Gl",
+      "price_per_1m": 4.5,
+      "currency": "USD",
+      "meterId": "48adaa34-4229-5aca-8a44-b2e3c3b91f64",
+      "effective": "2026-03-01"
+    },
+    {
+      "meter": "5.4 mini cd Inp Gl",
+      "price_per_1m": 0.075,
+      "currency": "USD",
+      "meterId": "1fe2fb18-bc09-569d-bbb5-c4ad834c71b4",
+      "effective": "2026-03-01"
+    },
+    {
+      "meter": "5.6 sol ShortCo Cd Inp PP Gl",
+      "price_per_1m": 0.8,
+      "currency": "USD",
+      "meterId": "2ee67c00-4bc0-5df3-a7ae-b50355a8e6d6",
+      "effective": "2026-09-01"
+    },
+    {
+      "meter": "5.6 sol ShortCo Cd Inp Std Gl",
+      "price_per_1m": 0.4,
+      "currency": "USD",
+      "meterId": "4f38fdce-1b5c-5343-abdc-74f893f29602",
+      "effective": "2026-09-01"
+    },
+    {
+      "meter": "5.6 sol ShortCo Inp PP Gl",
+      "price_per_1m": 8.0,
+      "currency": "USD",
+      "meterId": "ff4f54db-b777-57f1-948f-9e29096f8331",
+      "effective": "2026-09-01"
+    },
+    {
+      "meter": "5.6 sol ShortCo Inp Std Gl",
+      "price_per_1m": 4.0,
+      "currency": "USD",
+      "meterId": "cd1696d5-9956-5121-a0ec-f0940beee306",
+      "effective": "2026-09-01"
+    },
+    {
+      "meter": "5.6 sol ShortCo Opt PP Gl",
+      "price_per_1m": 40.0,
+      "currency": "USD",
+      "meterId": "5ea38d6a-6538-50bf-bc91-45a01d245443",
+      "effective": "2026-09-01"
+    },
+    {
+      "meter": "5.6 sol ShortCo Opt Std Gl",
+      "price_per_1m": 20.0,
+      "currency": "USD",
+      "meterId": "fb483d52-8a48-5fa9-8abd-f16eb0e5508a",
+      "effective": "2026-09-01"
+    },
+    {
+      "meter": "54 mini Inp Flex Gl",
+      "price_per_1m": 0.375,
+      "currency": "USD",
+      "meterId": "78c00653-dcd7-5d3c-b866-58e36e64f3d2",
+      "effective": "2026-09-01"
+    },
+    {
+      "meter": "54 mini Opt Flex Gl",
+      "price_per_1m": 2.25,
+      "currency": "USD",
+      "meterId": "7136e36e-3c8a-5991-8e50-de726868f2db",
+      "effective": "2026-09-01"
+    },
+    {
+      "meter": "54 mini cd Inp Flex Gl",
+      "price_per_1m": 0.0375,
+      "currency": "USD",
+      "meterId": "b7f945e3-d85b-5815-94bb-6094d5ee0fb8",
+      "effective": "2026-09-01"
+    }
+  ]
+}

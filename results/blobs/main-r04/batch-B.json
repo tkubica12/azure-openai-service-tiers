@@ -1,0 +1,218 @@
+{
+  "run_id": "main-r04",
+  "mode": "batch",
+  "pair": "B",
+  "deployment": "gpt-54-mini-batch",
+  "message": {
+    "enqueued_at": "2026-09-29T09:37:25.876000+00:00",
+    "scheduled_enqueue_at": "2026-09-29T09:37:25.850000+00:00",
+    "received_at": "2026-09-29T09:37:25.910526+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 0.060526,
+    "cold_start": false
+  },
+  "worker": {
+    "mode": "batch",
+    "replica": "worker-batch--0000003-74585f5fb5-5qfn5",
+    "revision": "worker-batch--0000003",
+    "process_started_at": "2026-09-29T09:45:26.929737+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T09:47:29.504733+00:00",
+  "batch": {
+    "status": "completed",
+    "created_at": "2026-09-29T09:37:29+00:00",
+    "in_progress_at": "2026-09-29T09:40:32+00:00",
+    "finalizing_at": "2026-09-29T09:45:53+00:00",
+    "completed_at": "2026-09-29T09:46:34+00:00",
+    "failed_at": null,
+    "expired_at": null,
+    "request_counts": {
+      "completed": 5,
+      "failed": 0,
+      "total": 5
+    },
+    "errors": null,
+    "output_file_id": "file-8b69b1ac-10cb-457c-9ee6-a935264b417f",
+    "error_file_id": null
+  },
+  "timeline": [
+    {
+      "observed_at": "2026-09-29T09:37:29.576420+00:00",
+      "status": "validating"
+    },
+    {
+      "observed_at": "2026-09-29T09:40:50.070334+00:00",
+      "status": "in_progress",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 5
+      }
+    },
+    {
+      "observed_at": "2026-09-29T09:46:28.934236+00:00",
+      "status": "finalizing",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 5
+      }
+    },
+    {
+      "observed_at": "2026-09-29T09:47:29.332248+00:00",
+      "status": "completed",
+      "counts": {
+        "completed": 5,
+        "failed": 0,
+        "total": 5
+      }
+    }
+  ],
+  "polls": 9,
+  "records": [
+    {
+      "run_id": "main-r04",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r04-reason",
+      "success": true,
+      "batch_id": "batch_7f75a381-9925-4495-b132-0ef4e88f34e9",
+      "batch_status": "completed",
+      "latency_s": 545,
+      "total_s": 599.755828,
+      "end_to_end_s": 603.482248,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 456,
+      "output_preview": "About **72 cold starts per day**.\n\n### Why\n- There are **1,440 minutes/day**\n- A message arrives every **20 minutes**\n- So that\u2019s **1,440 / 20 = 72 messages per day**\n- Since the app scales back to **",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 51,
+        "completion_tokens": 240,
+        "reasoning_tokens": 115,
+        "cached_tokens": 0
+      }
+    },
+    {
+      "run_id": "main-r04",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r04-write",
+      "success": true,
+      "batch_id": "batch_7f75a381-9925-4495-b132-0ef4e88f34e9",
+      "batch_status": "completed",
+      "latency_s": 545,
+      "total_s": 599.755828,
+      "end_to_end_s": 603.482248,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 529,
+      "output_preview": "Stay hydrated on every trail with this reusable stainless-steel water bottle, built for hikers who need durable, reliable gear. Its double-wall insulation helps keep water cold for hours, while the ru",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 26,
+        "completion_tokens": 117,
+        "reasoning_tokens": 7,
+        "cached_tokens": 0
+      }
+    },
+    {
+      "run_id": "main-r04",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r04-code",
+      "success": true,
+      "batch_id": "batch_7f75a381-9925-4495-b132-0ef4e88f34e9",
+      "batch_status": "completed",
+      "latency_s": 545,
+      "total_s": 599.755828,
+      "end_to_end_s": 603.482248,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 339,
+      "output_preview": "```python\ndef p95(values):\n    if not values:\n        raise ValueError(\"empty list\")\n    s = sorted(values)\n    k = (len(s) - 1) * 0.95\n    i = int(k)\n    frac = k - i\n    return s[i] * (1 - frac) + s",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 24,
+        "completion_tokens": 128,
+        "reasoning_tokens": 14,
+        "cached_tokens": 0
+      }
+    },
+    {
+      "run_id": "main-r04",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r04-summarize",
+      "success": true,
+      "batch_id": "batch_7f75a381-9925-4495-b132-0ef4e88f34e9",
+      "batch_status": "completed",
+      "latency_s": 545,
+      "total_s": 599.755828,
+      "end_to_end_s": 603.482248,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 538,
+      "output_preview": "- **Decouple services:** Producers and consumers don\u2019t need to be available at the same time, so temporary outages or slowdowns in one component don\u2019t immediately break the whole application.  \n- **Ab",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 120,
+        "reasoning_tokens": 8,
+        "cached_tokens": 0
+      }
+    },
+    {
+      "run_id": "main-r04",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r04-classify",
+      "success": true,
+      "batch_id": "batch_7f75a381-9925-4495-b132-0ef4e88f34e9",
+      "batch_status": "completed",
+      "latency_s": 545,
+      "total_s": 599.755828,
+      "end_to_end_s": 603.482248,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 138,
+      "output_preview": "**Positive** \u2014 \u05dc\u05de\u05e8\u05d5\u05ea \u05e9\u05d4\u05de\u05e9\u05dc\u05d5\u05d7 \u05d0\u05d9\u05d7\u05e8 \u05d1\u05d9\u05d5\u05de\u05d9\u05d9\u05dd, \u05e9\u05d9\u05e8\u05d5\u05ea \u05d4\u05dc\u05e7\u05d5\u05d7\u05d5\u05ea \u05d8\u05d9\u05e4\u05dc \u05d1\u05d6\u05d4 \u05de\u05d9\u05d3 \u05d5\u05d4\u05dc\u05e7\u05d5\u05d7 \u05de\u05e6\u05d9\u05d9\u05df \u05e9\u05d4\u05de\u05d5\u05e6\u05e8 \u201cworks great,\u201d \u05de\u05d4 \u05e9\u05de\u05d8\u05d4 \u05d0\u05ea \u05d4\u05e1\u05e0\u05d8\u05d9\u05de\u05e0\u05d8 \u05d4\u05db\u05d5\u05dc\u05dc \u05dc\u05d7\u05d9\u05d5\u05d1\u05d9.",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 48,
+        "completion_tokens": 76,
+        "reasoning_tokens": 18,
+        "cached_tokens": 0
+      }
+    }
+  ]
+}

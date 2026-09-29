@@ -1,0 +1,209 @@
+{
+  "run_id": "main-r05",
+  "mode": "batch",
+  "pair": "B",
+  "deployment": "gpt-54-mini-batch",
+  "message": {
+    "enqueued_at": "2026-09-29T09:52:25.866000+00:00",
+    "scheduled_enqueue_at": "2026-09-29T09:52:25.850000+00:00",
+    "received_at": "2026-09-29T09:52:25.885270+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 0.03527,
+    "cold_start": false
+  },
+  "worker": {
+    "mode": "batch",
+    "replica": "worker-batch--0000003-74585f5fb5-5jlbg",
+    "revision": "worker-batch--0000003",
+    "process_started_at": "2026-09-29T09:58:59.477185+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T09:59:01.281603+00:00",
+  "batch": {
+    "status": "completed",
+    "created_at": "2026-09-29T09:52:28+00:00",
+    "in_progress_at": "2026-09-29T09:53:33+00:00",
+    "finalizing_at": "2026-09-29T09:58:11+00:00",
+    "completed_at": "2026-09-29T09:58:49+00:00",
+    "failed_at": null,
+    "expired_at": null,
+    "request_counts": {
+      "completed": 5,
+      "failed": 0,
+      "total": 5
+    },
+    "errors": null,
+    "output_file_id": "file-b6358653-ac71-4421-a6f5-476eab6af493",
+    "error_file_id": null
+  },
+  "timeline": [
+    {
+      "observed_at": "2026-09-29T09:52:29.201948+00:00",
+      "status": "validating"
+    },
+    {
+      "observed_at": "2026-09-29T09:53:29.575189+00:00",
+      "status": "in_progress",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 5
+      }
+    },
+    {
+      "observed_at": "2026-09-29T09:59:01.146952+00:00",
+      "status": "completed",
+      "counts": {
+        "completed": 5,
+        "failed": 0,
+        "total": 5
+      }
+    }
+  ],
+  "polls": 6,
+  "records": [
+    {
+      "run_id": "main-r05",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r05-code",
+      "success": true,
+      "batch_id": "batch_c489608b-aafb-44fd-87a1-df16a255822a",
+      "batch_status": "completed",
+      "latency_s": 381,
+      "total_s": 391.945004,
+      "end_to_end_s": 395.296952,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 261,
+      "output_preview": "```python\ndef p95(values):\n    if not values:\n        raise ValueError(\"empty list\")\n    xs = sorted(values)\n    k = int(0.95 * (len(xs) - 1))\n    return xs[k]\n```\n\nIf you want linear interpolation in",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 24,
+        "completion_tokens": 95,
+        "reasoning_tokens": 17,
+        "cached_tokens": 0
+      }
+    },
+    {
+      "run_id": "main-r05",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r05-classify",
+      "success": true,
+      "batch_id": "batch_c489608b-aafb-44fd-87a1-df16a255822a",
+      "batch_status": "completed",
+      "latency_s": 381,
+      "total_s": 391.945004,
+      "end_to_end_s": 395.296952,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 145,
+      "output_preview": "**Positive** \u2014 although the delivery was late, the prompt refund and the fact that the product works great make the overall experience favorable.",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 48,
+        "completion_tokens": 50,
+        "reasoning_tokens": 14,
+        "cached_tokens": 0
+      }
+    },
+    {
+      "run_id": "main-r05",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r05-reason",
+      "success": true,
+      "batch_id": "batch_c489608b-aafb-44fd-87a1-df16a255822a",
+      "batch_status": "completed",
+      "latency_s": 381,
+      "total_s": 391.945004,
+      "end_to_end_s": 395.296952,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 413,
+      "output_preview": "About **72 cold starts per day**.\n\n### Why\n- There are **1440 minutes in a day**.\n- A message arrives every **20 minutes** \u2192 **1440 / 20 = 72 messages per day**.\n- The app scales back to **0 replicas ",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 51,
+        "completion_tokens": 197,
+        "reasoning_tokens": 78,
+        "cached_tokens": 0
+      }
+    },
+    {
+      "run_id": "main-r05",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r05-write",
+      "success": true,
+      "batch_id": "batch_c489608b-aafb-44fd-87a1-df16a255822a",
+      "batch_status": "completed",
+      "latency_s": 381,
+      "total_s": 391.945004,
+      "end_to_end_s": 395.296952,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 524,
+      "output_preview": "Built for the trail, this reusable stainless-steel water bottle keeps your drinks cold or hot for hours, so you can stay refreshed through every climb and mile. Its durable, rust-resistant constructio",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 26,
+        "completion_tokens": 105,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      }
+    },
+    {
+      "run_id": "main-r05",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r05-extract",
+      "success": true,
+      "batch_id": "batch_c489608b-aafb-44fd-87a1-df16a255822a",
+      "batch_status": "completed",
+      "latency_s": 381,
+      "total_s": 391.945004,
+      "end_to_end_s": 395.296952,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 96,
+      "output_preview": "{\"name\":\"Petra Novak\",\"company\":\"Contoso Logistics\",\"city\":\"Brno\",\"requested_date\":\"14 October\"}",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 46,
+        "completion_tokens": 59,
+        "reasoning_tokens": 26,
+        "cached_tokens": 0
+      }
+    }
+  ]
+}

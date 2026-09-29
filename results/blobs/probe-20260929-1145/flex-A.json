@@ -1,0 +1,85 @@
+{
+  "run_id": "probe-20260929-1145",
+  "mode": "flex",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "flex",
+  "message": {
+    "enqueued_at": "2026-09-29T11:45:22.126000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T11:45:51.088352+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 28.962352,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "flex",
+    "replica": "worker-flex--0000003-57dcdbcfc7-n72qk",
+    "revision": "worker-flex--0000003",
+    "process_started_at": "2026-09-29T11:45:49.835415+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T11:45:53.586831+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260929-1145",
+      "mode": "flex",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "probe-20260929-1145-explain",
+      "success": true,
+      "started_at": "2026-09-29T11:45:51.174417+00:00",
+      "finished_at": "2026-09-29T11:45:53.571094+00:00",
+      "latency_s": 2.3966241419999506,
+      "total_s": 2.3966782429999967,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T11:45:51.174423+00:00",
+          "duration_s": 2.3966241419999506,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "0b8d5b70-6d73-459c-8868-fa7b223c40be",
+            "x-request-id": "72230905-6908-4268-94c2-eb150e7ad42c",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99973"
+          }
+        }
+      ],
+      "requested_service_tier": "flex",
+      "service_tier": "flex",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 278,
+      "output_preview": "The p90 latency is the response time that 90% of requests meet or beat. For example, if p90 latency is 200 milliseconds, 9 out of 10 requests finish within 200 milliseconds, while 1 out of 10 takes lo",
+      "usage": {
+        "prompt_tokens": 27,
+        "completion_tokens": 70,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "0b8d5b70-6d73-459c-8868-fa7b223c40be",
+        "x-request-id": "72230905-6908-4268-94c2-eb150e7ad42c",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99973"
+      }
+    }
+  ]
+}

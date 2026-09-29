@@ -1,0 +1,88 @@
+{
+  "run_id": "smoke1-r01",
+  "deployment": "gpt-54-mini-batch",
+  "batch_id": "batch_7e8c0506-6fe9-4b09-aec3-006c29a21b3c",
+  "input_file_id": "file-399ce931a57845369ba29a2468ef5354",
+  "input_file_status": "processed",
+  "prompts": [
+    "smoke1-r01-classify",
+    "smoke1-r01-summarize",
+    "smoke1-r01-translate"
+  ],
+  "message": {
+    "enqueued_at": "2026-09-29T08:16:21.174000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T08:16:21.192743+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 0.018743,
+    "cold_start": false
+  },
+  "worker_submit": {
+    "mode": "batch",
+    "replica": "worker-batch--ba9hnhk-577bd8f4b4-6hxz9",
+    "revision": "worker-batch--ba9hnhk",
+    "process_started_at": "2026-09-29T08:15:33.060339+00:00"
+  },
+  "upload_started_at": "2026-09-29T08:16:21.216644+00:00",
+  "file_processed_at": "2026-09-29T08:16:22.377199+00:00",
+  "submitted_at": "2026-09-29T08:16:27.552029+00:00",
+  "timeline": [
+    {
+      "observed_at": "2026-09-29T08:16:27.552029+00:00",
+      "status": "validating"
+    },
+    {
+      "observed_at": "2026-09-29T08:17:28.513760+00:00",
+      "status": "in_progress",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 3
+      }
+    },
+    {
+      "observed_at": "2026-09-29T08:23:07.770103+00:00",
+      "status": "finalizing",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 3
+      }
+    },
+    {
+      "observed_at": "2026-09-29T08:24:08.117247+00:00",
+      "status": "completed",
+      "counts": {
+        "completed": 3,
+        "failed": 0,
+        "total": 3
+      }
+    }
+  ],
+  "polls": 7,
+  "done": true,
+  "batch": {
+    "status": "completed",
+    "created_at": "2026-09-29T08:16:26+00:00",
+    "in_progress_at": "2026-09-29T08:17:32+00:00",
+    "finalizing_at": "2026-09-29T08:22:59+00:00",
+    "completed_at": "2026-09-29T08:23:37+00:00",
+    "failed_at": null,
+    "expired_at": null,
+    "request_counts": {
+      "completed": 3,
+      "failed": 0,
+      "total": 3
+    },
+    "errors": null,
+    "output_file_id": "file-e516e9d4-8a23-4ba9-af5e-de924460451d",
+    "error_file_id": null
+  },
+  "done_observed_at": "2026-09-29T08:24:08.117247+00:00",
+  "worker_poll": {
+    "mode": "batch",
+    "replica": "worker-batch--ba9hnhk-577bd8f4b4-k4qw9",
+    "revision": "worker-batch--ba9hnhk",
+    "process_started_at": "2026-09-29T08:23:05.863866+00:00"
+  }
+}

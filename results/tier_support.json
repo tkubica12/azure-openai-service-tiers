@@ -1,0 +1,77 @@
+{
+  "checked_at": "2026-09-29T11:10:10+00:00",
+  "results": [
+    {
+      "deployment": "gpt-56-sol",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "requested": "default",
+      "served": "default",
+      "status": 200,
+      "latency_s": 9.29,
+      "usage": {
+        "prompt_tokens": 12,
+        "completion_tokens": 4
+      }
+    },
+    {
+      "deployment": "gpt-56-sol",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "requested": "priority",
+      "served": "priority",
+      "status": 200,
+      "latency_s": 1.395,
+      "usage": {
+        "prompt_tokens": 12,
+        "completion_tokens": 4
+      }
+    },
+    {
+      "deployment": "gpt-56-sol",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "requested": "flex",
+      "served": "flex",
+      "status": 200,
+      "latency_s": 1.647,
+      "usage": {
+        "prompt_tokens": 12,
+        "completion_tokens": 4
+      }
+    },
+    {
+      "deployment": "gpt-54-mini",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "requested": "default",
+      "served": "default",
+      "status": 200,
+      "latency_s": 1.699,
+      "usage": {
+        "prompt_tokens": 12,
+        "completion_tokens": 4
+      }
+    },
+    {
+      "deployment": "gpt-54-mini",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "requested": "priority",
+      "served": "priority",
+      "status": 200,
+      "latency_s": 0.869,
+      "usage": {
+        "prompt_tokens": 12,
+        "completion_tokens": 4
+      }
+    },
+    {
+      "deployment": "gpt-54-mini",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "requested": "flex",
+      "served": "default",
+      "status": 200,
+      "latency_s": 1.549,
+      "usage": {
+        "prompt_tokens": 12,
+        "completion_tokens": 4
+      }
+    }
+  ]
+}

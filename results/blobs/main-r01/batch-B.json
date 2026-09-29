@@ -1,0 +1,218 @@
+{
+  "run_id": "main-r01",
+  "mode": "batch",
+  "pair": "B",
+  "deployment": "gpt-54-mini-batch",
+  "message": {
+    "enqueued_at": "2026-09-29T08:52:25.868000+00:00",
+    "scheduled_enqueue_at": "2026-09-29T08:52:25.850000+00:00",
+    "received_at": "2026-09-29T08:52:25.886943+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 0.036943,
+    "cold_start": false
+  },
+  "worker": {
+    "mode": "batch",
+    "replica": "worker-batch--0000002-786b8cdf86-bqchs",
+    "revision": "worker-batch--0000002",
+    "process_started_at": "2026-09-29T09:01:33.778305+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T09:01:35.889411+00:00",
+  "batch": {
+    "status": "completed",
+    "created_at": "2026-09-29T08:52:29+00:00",
+    "in_progress_at": "2026-09-29T08:54:09+00:00",
+    "finalizing_at": "2026-09-29T08:59:28+00:00",
+    "completed_at": "2026-09-29T09:00:08+00:00",
+    "failed_at": null,
+    "expired_at": null,
+    "request_counts": {
+      "completed": 5,
+      "failed": 0,
+      "total": 5
+    },
+    "errors": null,
+    "output_file_id": "file-a2de0e5a-8107-4a6f-b774-54d569267d14",
+    "error_file_id": null
+  },
+  "timeline": [
+    {
+      "observed_at": "2026-09-29T08:52:30.053034+00:00",
+      "status": "validating"
+    },
+    {
+      "observed_at": "2026-09-29T08:54:58.728743+00:00",
+      "status": "in_progress",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 5
+      }
+    },
+    {
+      "observed_at": "2026-09-29T09:00:00.608438+00:00",
+      "status": "finalizing",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 5
+      }
+    },
+    {
+      "observed_at": "2026-09-29T09:01:35.692655+00:00",
+      "status": "completed",
+      "counts": {
+        "completed": 5,
+        "failed": 0,
+        "total": 5
+      }
+    }
+  ],
+  "polls": 8,
+  "records": [
+    {
+      "run_id": "main-r01",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r01-classify",
+      "success": true,
+      "batch_id": "batch_623c9c90-c3d8-45ae-b584-e6f6e0de73f0",
+      "batch_status": "completed",
+      "latency_s": 459,
+      "total_s": 545.639621,
+      "end_to_end_s": 549.842655,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 155,
+      "output_preview": "**Positive** \u2014 although the delivery was late, the quick shipping refund and the fact that the product \u201cworks great\u201d make the overall experience favorable.",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 48,
+        "completion_tokens": 59,
+        "reasoning_tokens": 20,
+        "cached_tokens": 0
+      }
+    },
+    {
+      "run_id": "main-r01",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r01-summarize",
+      "success": true,
+      "batch_id": "batch_623c9c90-c3d8-45ae-b584-e6f6e0de73f0",
+      "batch_status": "completed",
+      "latency_s": 459,
+      "total_s": 545.639621,
+      "end_to_end_s": 549.842655,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 598,
+      "output_preview": "- **They decouple services:** Producers can send messages without waiting for consumers to process them, so if one service is slow or temporarily unavailable, the rest of the application can keep work",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 113,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      }
+    },
+    {
+      "run_id": "main-r01",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r01-translate",
+      "success": true,
+      "batch_id": "batch_623c9c90-c3d8-45ae-b584-e6f6e0de73f0",
+      "batch_status": "completed",
+      "latency_s": 459,
+      "total_s": 545.639621,
+      "end_to_end_s": 549.842655,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 164,
+      "output_preview": "Czech: **D\u00e1vkov\u00e9 zpracov\u00e1n\u00ed je levn\u011bj\u0161\u00ed, ale v\u00fdsledky p\u0159ich\u00e1zej\u00ed pozd\u011bji.**\n\nGerman: **Die Stapelverarbeitung ist g\u00fcnstiger, aber die Ergebnisse kommen sp\u00e4ter an.**",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 22,
+        "completion_tokens": 60,
+        "reasoning_tokens": 4,
+        "cached_tokens": 0
+      }
+    },
+    {
+      "run_id": "main-r01",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r01-extract",
+      "success": true,
+      "batch_id": "batch_623c9c90-c3d8-45ae-b584-e6f6e0de73f0",
+      "batch_status": "completed",
+      "latency_s": 459,
+      "total_s": 545.639621,
+      "end_to_end_s": 549.842655,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 96,
+      "output_preview": "{\"name\":\"Petra Novak\",\"company\":\"Contoso Logistics\",\"city\":\"Brno\",\"requested_date\":\"14 October\"}",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 46,
+        "completion_tokens": 62,
+        "reasoning_tokens": 29,
+        "cached_tokens": 0
+      }
+    },
+    {
+      "run_id": "main-r01",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "main-r01-explain",
+      "success": true,
+      "batch_id": "batch_623c9c90-c3d8-45ae-b584-e6f6e0de73f0",
+      "batch_status": "completed",
+      "latency_s": 459,
+      "total_s": 545.639621,
+      "end_to_end_s": 549.842655,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 327,
+      "output_preview": "\u201cLatency percentile p90\u201d means that 90% of requests finish at or below that response time, and only the slowest 10% take longer. For example, if the p90 latency is 200 ms, then 9 out of 10 requests ar",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 27,
+        "completion_tokens": 101,
+        "reasoning_tokens": 13,
+        "cached_tokens": 0
+      }
+    }
+  ]
+}

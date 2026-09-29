@@ -1,0 +1,152 @@
+{
+  "run_id": "smoke1-r01",
+  "mode": "batch",
+  "pair": "B",
+  "deployment": "gpt-54-mini-batch",
+  "message": {
+    "enqueued_at": "2026-09-29T08:16:21.174000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T08:16:21.192743+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 0.018743,
+    "cold_start": false
+  },
+  "worker": {
+    "mode": "batch",
+    "replica": "worker-batch--ba9hnhk-577bd8f4b4-k4qw9",
+    "revision": "worker-batch--ba9hnhk",
+    "process_started_at": "2026-09-29T08:23:05.863866+00:00"
+  },
+  "completed_at": "2026-09-29T08:24:08.351601+00:00",
+  "batch": {
+    "status": "completed",
+    "created_at": "2026-09-29T08:16:26+00:00",
+    "in_progress_at": "2026-09-29T08:17:32+00:00",
+    "finalizing_at": "2026-09-29T08:22:59+00:00",
+    "completed_at": "2026-09-29T08:23:37+00:00",
+    "failed_at": null,
+    "expired_at": null,
+    "request_counts": {
+      "completed": 3,
+      "failed": 0,
+      "total": 3
+    },
+    "errors": null,
+    "output_file_id": "file-e516e9d4-8a23-4ba9-af5e-de924460451d",
+    "error_file_id": null
+  },
+  "timeline": [
+    {
+      "observed_at": "2026-09-29T08:16:27.552029+00:00",
+      "status": "validating"
+    },
+    {
+      "observed_at": "2026-09-29T08:17:28.513760+00:00",
+      "status": "in_progress",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 3
+      }
+    },
+    {
+      "observed_at": "2026-09-29T08:23:07.770103+00:00",
+      "status": "finalizing",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 3
+      }
+    },
+    {
+      "observed_at": "2026-09-29T08:24:08.117247+00:00",
+      "status": "completed",
+      "counts": {
+        "completed": 3,
+        "failed": 0,
+        "total": 3
+      }
+    }
+  ],
+  "polls": 7,
+  "records": [
+    {
+      "run_id": "smoke1-r01",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "smoke1-r01-classify",
+      "success": true,
+      "batch_id": "batch_7e8c0506-6fe9-4b09-aec3-006c29a21b3c",
+      "batch_status": "completed",
+      "latency_s": 431,
+      "total_s": 460.565218,
+      "end_to_end_s": 466.943247,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 156,
+      "output_preview": "**Positive** \u2014 although the delivery was late, the fast refund from support and the fact that the product works great make the overall experience favorable.",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 48,
+        "completion_tokens": 58,
+        "reasoning_tokens": 20,
+        "cached_tokens": 0
+      }
+    },
+    {
+      "run_id": "smoke1-r01",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "smoke1-r01-summarize",
+      "success": true,
+      "batch_id": "batch_7e8c0506-6fe9-4b09-aec3-006c29a21b3c",
+      "batch_status": "completed",
+      "latency_s": 431,
+      "total_s": 460.565218,
+      "end_to_end_s": 466.943247,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 595,
+      "output_preview": "- **They decouple services:** Producers don\u2019t need the consumer to be available right away, so temporary outages or slowdowns in one part of the system don\u2019t immediately break the whole application.  ",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 132,
+        "reasoning_tokens": 8,
+        "cached_tokens": 0
+      }
+    },
+    {
+      "run_id": "smoke1-r01",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "smoke1-r01-translate",
+      "success": true,
+      "batch_id": "batch_7e8c0506-6fe9-4b09-aec3-006c29a21b3c",
+      "batch_status": "completed",
+      "latency_s": 431,
+      "total_s": 460.565218,
+      "end_to_end_s": 466.943247,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 157,
+      "output_preview": "Czech: \u201eD\u00e1vkov\u00e9 zpracov\u00e1n\u00ed je levn\u011bj\u0161\u00ed, ale v\u00fdsledky p\u0159ich\u00e1zej\u00ed pozd\u011bji.\u201c\n\nGerman: \u201eDie Stapelverarbeitung ist g\u00fcnstiger, aber die Ergebnisse kommen sp\u00e4ter.\u201c",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 22,
+        "completion_tokens": 64,
+        "reasoning_tokens": 11,
+        "cached_tokens": 0
+      }
+    }
+  ]
+}

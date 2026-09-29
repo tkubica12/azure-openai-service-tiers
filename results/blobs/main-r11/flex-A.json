@@ -1,0 +1,281 @@
+{
+  "run_id": "main-r11",
+  "mode": "flex",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "flex",
+  "message": {
+    "enqueued_at": "2026-09-29T11:22:25.976000+00:00",
+    "scheduled_enqueue_at": "2026-09-29T11:22:25.850000+00:00",
+    "received_at": "2026-09-29T11:23:08.275745+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 42.425745,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "flex",
+    "replica": "worker-flex--0000003-57dcdbcfc7-c6nf2",
+    "revision": "worker-flex--0000003",
+    "process_started_at": "2026-09-29T11:23:07.039109+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T11:23:57.088594+00:00",
+  "records": [
+    {
+      "run_id": "main-r11",
+      "mode": "flex",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r11-reason",
+      "success": true,
+      "started_at": "2026-09-29T11:23:08.342872+00:00",
+      "finished_at": "2026-09-29T11:23:35.472137+00:00",
+      "latency_s": 6.072178994072601,
+      "total_s": 27.129265778930858,
+      "attempt_count": 2,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T11:23:08.342879+00:00",
+          "duration_s": 18.072422933997586,
+          "status": 500,
+          "error": {
+            "type": "InternalServerError",
+            "code": null,
+            "message": "Error code: 500 - {'error': {'message': 'The server is overloaded or not ready yet. Please try again later.', 'type': 'service_unavailable_error', 'param': None, 'code': None}}"
+          },
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "cc3ad0f5-5467-4a8c-9f6f-37e1ed65f339",
+            "x-request-id": "25cd24d0-329f-4769-acf2-1f41a56b3b52"
+          }
+        },
+        {
+          "attempt": 2,
+          "started_at": "2026-09-29T11:23:29.399907+00:00",
+          "duration_s": 6.072178994072601,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "bd56cdbf-43ac-4dab-bce2-bcb9ee4627a6",
+            "x-request-id": "db08c41c-3c27-4316-8cf3-7db8d3e0fc97"
+          }
+        }
+      ],
+      "requested_service_tier": "flex",
+      "service_tier": "flex",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 224,
+      "output_preview": "Messages per day: \\(24 \\times 60 / 20 = 72\\).\n\nBecause the app scales to zero after 5 idle minutes\u2014well before the next message 20 minutes later\u2014each message triggers a new cold start.\n\n**Estimated co",
+      "usage": {
+        "prompt_tokens": 51,
+        "completion_tokens": 102,
+        "reasoning_tokens": 34,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "bd56cdbf-43ac-4dab-bce2-bcb9ee4627a6",
+        "x-request-id": "db08c41c-3c27-4316-8cf3-7db8d3e0fc97"
+      }
+    },
+    {
+      "run_id": "main-r11",
+      "mode": "flex",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r11-translate",
+      "success": true,
+      "started_at": "2026-09-29T11:23:35.472279+00:00",
+      "finished_at": "2026-09-29T11:23:38.084568+00:00",
+      "latency_s": 2.61223766207695,
+      "total_s": 2.612292462028563,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T11:23:35.472282+00:00",
+          "duration_s": 2.61223766207695,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "424f2364-bc2f-4e2c-b216-3d7c4ebd69ac",
+            "x-request-id": "cc4c2732-a8d8-4377-9545-bfcd63e1b404"
+          }
+        }
+      ],
+      "requested_service_tier": "flex",
+      "service_tier": "flex",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 157,
+      "output_preview": "**Czech:** D\u00e1vkov\u00e9 zpracov\u00e1n\u00ed je levn\u011bj\u0161\u00ed, ale v\u00fdsledky doraz\u00ed pozd\u011bji.\n\n**German:** Die Stapelverarbeitung ist g\u00fcnstiger, aber die Ergebnisse kommen sp\u00e4ter.",
+      "usage": {
+        "prompt_tokens": 22,
+        "completion_tokens": 45,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "424f2364-bc2f-4e2c-b216-3d7c4ebd69ac",
+        "x-request-id": "cc4c2732-a8d8-4377-9545-bfcd63e1b404"
+      }
+    },
+    {
+      "run_id": "main-r11",
+      "mode": "flex",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r11-summarize",
+      "success": true,
+      "started_at": "2026-09-29T11:23:38.084681+00:00",
+      "finished_at": "2026-09-29T11:23:40.377187+00:00",
+      "latency_s": 2.292448906926438,
+      "total_s": 2.2925103059969842,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T11:23:38.084683+00:00",
+          "duration_s": 2.292448906926438,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "fbb4bc7d-41e9-469d-9461-d5b445980a2f",
+            "x-request-id": "ac699676-3c07-45c4-ad9a-75174b9ca9b0",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99975"
+          }
+        }
+      ],
+      "requested_service_tier": "flex",
+      "service_tier": "flex",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 484,
+      "output_preview": "- **Decouples services:** Producers and consumers operate independently, so one service\u2019s slowdown or outage doesn\u2019t immediately break the entire application.\n- **Buffers traffic spikes:** Queues abso",
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 86,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "fbb4bc7d-41e9-469d-9461-d5b445980a2f",
+        "x-request-id": "ac699676-3c07-45c4-ad9a-75174b9ca9b0",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99975"
+      }
+    },
+    {
+      "run_id": "main-r11",
+      "mode": "flex",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r11-code",
+      "success": true,
+      "started_at": "2026-09-29T11:23:40.377310+00:00",
+      "finished_at": "2026-09-29T11:23:55.307213+00:00",
+      "latency_s": 14.92986048408784,
+      "total_s": 14.929906582925469,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T11:23:40.377312+00:00",
+          "duration_s": 14.92986048408784,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "f8480d8e-bed4-4a92-a44e-e64a2871cfca",
+            "x-request-id": "9799a1e3-6317-43ec-96ab-b81b08c6d652",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99976"
+          }
+        }
+      ],
+      "requested_service_tier": "flex",
+      "service_tier": "flex",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 323,
+      "output_preview": "def p95(values):\n    if not values:\n        raise ValueError(\"values must not be empty\")\n    xs = sorted(values)\n    k = 0.95 * (len(xs) - 1)\n    lo, hi = int(k), min(int(k) + 1, len(xs) - 1)\n    retu",
+      "usage": {
+        "prompt_tokens": 24,
+        "completion_tokens": 133,
+        "reasoning_tokens": 20,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "f8480d8e-bed4-4a92-a44e-e64a2871cfca",
+        "x-request-id": "9799a1e3-6317-43ec-96ab-b81b08c6d652",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99976"
+      }
+    },
+    {
+      "run_id": "main-r11",
+      "mode": "flex",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r11-classify",
+      "success": true,
+      "started_at": "2026-09-29T11:23:55.307329+00:00",
+      "finished_at": "2026-09-29T11:23:57.052391+00:00",
+      "latency_s": 1.7450192039832473,
+      "total_s": 1.7450660029426217,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T11:23:55.307331+00:00",
+          "duration_s": 1.7450192039832473,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "85d3839d-294e-4d8e-a254-cd18850245d6",
+            "x-request-id": "eca9a97a-4383-4050-8eed-5374720c21b8",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99952"
+          }
+        }
+      ],
+      "requested_service_tier": "flex",
+      "service_tier": "flex",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 110,
+      "output_preview": "Positive \u2014 despite the late delivery, the customer praises the prompt refund and says the product works great.",
+      "usage": {
+        "prompt_tokens": 48,
+        "completion_tokens": 23,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "85d3839d-294e-4d8e-a254-cd18850245d6",
+        "x-request-id": "eca9a97a-4383-4050-8eed-5374720c21b8",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99952"
+      }
+    }
+  ]
+}

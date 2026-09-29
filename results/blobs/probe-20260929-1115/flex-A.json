@@ -1,0 +1,101 @@
+{
+  "run_id": "probe-20260929-1115",
+  "mode": "flex",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "flex",
+  "message": {
+    "enqueued_at": "2026-09-29T11:15:26.486000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T11:15:51.830711+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 25.344711,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "flex",
+    "replica": "worker-flex--0000003-57dcdbcfc7-x9tgt",
+    "revision": "worker-flex--0000003",
+    "process_started_at": "2026-09-29T11:15:50.521895+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T11:16:43.997089+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260929-1115",
+      "mode": "flex",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "probe-20260929-1115-translate",
+      "success": true,
+      "started_at": "2026-09-29T11:15:51.897617+00:00",
+      "finished_at": "2026-09-29T11:16:43.963128+00:00",
+      "latency_s": 1.6397275500930846,
+      "total_s": 52.06550957704894,
+      "attempt_count": 2,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T11:15:51.897625+00:00",
+          "duration_s": 48.156766564934514,
+          "status": 500,
+          "error": {
+            "type": "InternalServerError",
+            "code": null,
+            "message": "Error code: 500 - {'error': {'message': 'The server is overloaded or not ready yet. Please try again later.', 'type': 'service_unavailable_error', 'param': None, 'code': None}}"
+          },
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "d0ace6e8-cf52-41b3-b580-605dc8ab56ae",
+            "x-request-id": "bd08298d-2b34-4b0f-b63b-2272565c3f3c"
+          }
+        },
+        {
+          "attempt": 2,
+          "started_at": "2026-09-29T11:16:42.323344+00:00",
+          "duration_s": 1.6397275500930846,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "09266fd8-c24b-4bff-8728-098c6bb8201e",
+            "x-request-id": "dc4061e5-3251-4dc6-8d43-1d79b086fff5",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99978"
+          }
+        }
+      ],
+      "requested_service_tier": "flex",
+      "service_tier": "flex",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 157,
+      "output_preview": "**Czech:** D\u00e1vkov\u00e9 zpracov\u00e1n\u00ed je levn\u011bj\u0161\u00ed, ale v\u00fdsledky doraz\u00ed pozd\u011bji.\n\n**German:** Die Stapelverarbeitung ist g\u00fcnstiger, aber die Ergebnisse kommen sp\u00e4ter.",
+      "usage": {
+        "prompt_tokens": 22,
+        "completion_tokens": 45,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "09266fd8-c24b-4bff-8728-098c6bb8201e",
+        "x-request-id": "dc4061e5-3251-4dc6-8d43-1d79b086fff5",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99978"
+      }
+    }
+  ]
+}

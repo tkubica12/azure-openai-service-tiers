@@ -1,0 +1,165 @@
+{
+  "run_id": "smoke1-r01",
+  "mode": "standard",
+  "pair": "B",
+  "deployment": "gpt-54-mini",
+  "service_tier_requested": "default",
+  "message": {
+    "enqueued_at": "2026-09-29T08:16:21.174000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T08:16:21.195688+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 0.021688,
+    "cold_start": false
+  },
+  "worker": {
+    "mode": "standard",
+    "replica": "worker-standard--kx9dr4s-5584c57fb4-kqhzr",
+    "revision": "worker-standard--kx9dr4s",
+    "process_started_at": "2026-09-29T08:15:31.705954+00:00"
+  },
+  "completed_at": "2026-09-29T08:16:27.093413+00:00",
+  "records": [
+    {
+      "run_id": "smoke1-r01",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "smoke1-r01-classify",
+      "success": true,
+      "started_at": "2026-09-29T08:16:21.222883+00:00",
+      "finished_at": "2026-09-29T08:16:23.154754+00:00",
+      "latency_s": 1.9318175290245563,
+      "total_s": 1.9318729290098418,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T08:16:21.222888+00:00",
+          "duration_s": 1.9318175290245563,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "0006fd93-cbce-42cc-ab56-ecdd98652d41",
+            "x-request-id": "6f75b8d6-3559-4351-9560-c5a65c1b2a3a",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99952"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 155,
+      "output_preview": "**Positive** \u2014 although the delivery was late, the quick shipping refund and the fact that the product \u201cworks great\u201d make the overall experience favorable.",
+      "usage": {
+        "prompt_tokens": 48,
+        "completion_tokens": 69,
+        "reasoning_tokens": 30,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "0006fd93-cbce-42cc-ab56-ecdd98652d41",
+        "x-request-id": "6f75b8d6-3559-4351-9560-c5a65c1b2a3a",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99952"
+      }
+    },
+    {
+      "run_id": "smoke1-r01",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "smoke1-r01-summarize",
+      "success": true,
+      "started_at": "2026-09-29T08:16:23.154900+00:00",
+      "finished_at": "2026-09-29T08:16:25.053952+00:00",
+      "latency_s": 1.8990043220110238,
+      "total_s": 1.8990553219919093,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T08:16:23.154902+00:00",
+          "duration_s": 1.8990043220110238,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "df914a49-4e0b-4f08-b5ee-151f4442cc06",
+            "x-request-id": "b6c9ae1c-fe52-415b-9557-d1113c7f9ae0",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99975"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 516,
+      "output_preview": "- **Decouples services:** Producers and consumers don\u2019t need to be available at the same time, so a failure or slowdown in one component doesn\u2019t immediately break the whole application.  \n- **Buffers ",
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 116,
+        "reasoning_tokens": 7,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "df914a49-4e0b-4f08-b5ee-151f4442cc06",
+        "x-request-id": "b6c9ae1c-fe52-415b-9557-d1113c7f9ae0",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99975"
+      }
+    },
+    {
+      "run_id": "smoke1-r01",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "smoke1-r01-translate",
+      "success": true,
+      "started_at": "2026-09-29T08:16:25.054081+00:00",
+      "finished_at": "2026-09-29T08:16:27.093261+00:00",
+      "latency_s": 2.0391328809782863,
+      "total_s": 2.0391832810128108,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T08:16:25.054083+00:00",
+          "duration_s": 2.0391328809782863,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "778e043f-9647-463b-b030-e9f2bc7c44a9",
+            "x-request-id": "2c7abb95-a9e9-4603-b0b0-100327563bb8",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99978"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 164,
+      "output_preview": "Czech: **D\u00e1vkov\u00e9 zpracov\u00e1n\u00ed je levn\u011bj\u0161\u00ed, ale v\u00fdsledky p\u0159ich\u00e1zej\u00ed pozd\u011bji.**\n\nGerman: **Die Stapelverarbeitung ist g\u00fcnstiger, aber die Ergebnisse kommen sp\u00e4ter an.**",
+      "usage": {
+        "prompt_tokens": 22,
+        "completion_tokens": 60,
+        "reasoning_tokens": 4,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "778e043f-9647-463b-b030-e9f2bc7c44a9",
+        "x-request-id": "2c7abb95-a9e9-4603-b0b0-100327563bb8",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99978"
+      }
+    }
+  ]
+}

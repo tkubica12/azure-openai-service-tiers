@@ -1,0 +1,273 @@
+{
+  "run_id": "main-r02",
+  "mode": "standard",
+  "pair": "B",
+  "deployment": "gpt-54-mini",
+  "service_tier_requested": "default",
+  "message": {
+    "enqueued_at": "2026-09-29T09:07:25.886000+00:00",
+    "scheduled_enqueue_at": "2026-09-29T09:07:25.850000+00:00",
+    "received_at": "2026-09-29T09:07:55.105960+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 29.25596,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "standard",
+    "replica": "worker-standard--0000002-649855fb56-vm5j8",
+    "revision": "worker-standard--0000002",
+    "process_started_at": "2026-09-29T09:07:53.774678+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T09:08:08.081353+00:00",
+  "records": [
+    {
+      "run_id": "main-r02",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "main-r02-reason",
+      "success": true,
+      "started_at": "2026-09-29T09:07:55.209351+00:00",
+      "finished_at": "2026-09-29T09:07:59.811228+00:00",
+      "latency_s": 4.6018202440000096,
+      "total_s": 4.601876645000061,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T09:07:55.209360+00:00",
+          "duration_s": 4.6018202440000096,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "6ddf4ac3-442f-4a10-998f-87bd7b4289a8",
+            "x-request-id": "ba7fbc26-a79f-4a8f-bdbc-9987d17dee7b",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99949"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 537,
+      "output_preview": "About **72 cold starts per day**.\n\n### Why\n- Messages arrive every **20 minutes**.\n- The app scales back to **0 after 5 minutes idle**.\n- Since **20 > 5**, the app will have already scaled down before",
+      "usage": {
+        "prompt_tokens": 51,
+        "completion_tokens": 233,
+        "reasoning_tokens": 82,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "6ddf4ac3-442f-4a10-998f-87bd7b4289a8",
+        "x-request-id": "ba7fbc26-a79f-4a8f-bdbc-9987d17dee7b",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99949"
+      }
+    },
+    {
+      "run_id": "main-r02",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "main-r02-classify",
+      "success": true,
+      "started_at": "2026-09-29T09:07:59.811370+00:00",
+      "finished_at": "2026-09-29T09:08:01.656952+00:00",
+      "latency_s": 1.8455315779999637,
+      "total_s": 1.8455865790000416,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T09:07:59.811373+00:00",
+          "duration_s": 1.8455315779999637,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "2b1b8885-04c0-4b69-96ce-346e6cca3fbf",
+            "x-request-id": "e07687b6-19ad-4f35-966a-a0bc641a8ef2",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99952"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 155,
+      "output_preview": "**Sentiment: Positive** \u2014 Although the delivery was late, the quick refund and the fact that the product works great make the overall experience favorable.",
+      "usage": {
+        "prompt_tokens": 48,
+        "completion_tokens": 52,
+        "reasoning_tokens": 13,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "2b1b8885-04c0-4b69-96ce-346e6cca3fbf",
+        "x-request-id": "e07687b6-19ad-4f35-966a-a0bc641a8ef2",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99952"
+      }
+    },
+    {
+      "run_id": "main-r02",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "main-r02-translate",
+      "success": true,
+      "started_at": "2026-09-29T09:08:01.657120+00:00",
+      "finished_at": "2026-09-29T09:08:03.532018+00:00",
+      "latency_s": 1.8748485150000533,
+      "total_s": 1.8749022160000095,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T09:08:01.657123+00:00",
+          "duration_s": 1.8748485150000533,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "396d2bd8-b6b0-409b-b9d8-5dc7069cf523",
+            "x-request-id": "93f65d6b-c981-47c7-83c3-50dd779d5189",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99978"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 164,
+      "output_preview": "Czech: **D\u00e1vkov\u00e9 zpracov\u00e1n\u00ed je levn\u011bj\u0161\u00ed, ale v\u00fdsledky p\u0159ich\u00e1zej\u00ed pozd\u011bji.**\n\nGerman: **Die Stapelverarbeitung ist g\u00fcnstiger, aber die Ergebnisse kommen sp\u00e4ter an.**",
+      "usage": {
+        "prompt_tokens": 22,
+        "completion_tokens": 60,
+        "reasoning_tokens": 4,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "396d2bd8-b6b0-409b-b9d8-5dc7069cf523",
+        "x-request-id": "93f65d6b-c981-47c7-83c3-50dd779d5189",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99978"
+      }
+    },
+    {
+      "run_id": "main-r02",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "main-r02-summarize",
+      "success": true,
+      "started_at": "2026-09-29T09:08:03.532168+00:00",
+      "finished_at": "2026-09-29T09:08:06.008675+00:00",
+      "latency_s": 2.476457332999985,
+      "total_s": 2.476512133999904,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T09:08:03.532170+00:00",
+          "duration_s": 2.476457332999985,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "7e3c677a-6acc-413a-890f-e30cababf8d4",
+            "x-request-id": "251212f0-7ad7-449a-8f74-8b303f74cfb2",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99975"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 543,
+      "output_preview": "- **Decouple services:** Producers and consumers don\u2019t have to run at the same time, so if one service is slow or temporarily unavailable, messages can still be stored and processed later.  \n- **Absor",
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 118,
+        "reasoning_tokens": 7,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "7e3c677a-6acc-413a-890f-e30cababf8d4",
+        "x-request-id": "251212f0-7ad7-449a-8f74-8b303f74cfb2",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99975"
+      }
+    },
+    {
+      "run_id": "main-r02",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "main-r02-write",
+      "success": true,
+      "started_at": "2026-09-29T09:08:06.008850+00:00",
+      "finished_at": "2026-09-29T09:08:08.080071+00:00",
+      "latency_s": 2.071160948000056,
+      "total_s": 2.0712264499999264,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T09:08:06.008853+00:00",
+          "duration_s": 2.071160948000056,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "10cf97b1-1014-43a6-b844-db86ebaba881",
+            "x-request-id": "f5fd0dd7-7df5-4ae1-8704-af4f09fb2de9",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99974"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 547,
+      "output_preview": "Stay hydrated on every trail with this durable reusable stainless-steel water bottle, designed to keep up with your toughest hikes. Its insulated construction helps maintain your drink\u2019s temperature f",
+      "usage": {
+        "prompt_tokens": 26,
+        "completion_tokens": 103,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "10cf97b1-1014-43a6-b844-db86ebaba881",
+        "x-request-id": "f5fd0dd7-7df5-4ae1-8704-af4f09fb2de9",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99974"
+      }
+    }
+  ]
+}

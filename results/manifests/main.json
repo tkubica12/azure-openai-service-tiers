@@ -1,0 +1,784 @@
+{
+  "campaign": "main",
+  "sent_at": "2026-09-29T08:50:25.850469+00:00",
+  "args": {
+    "campaign": "main",
+    "runs": 24,
+    "interval_min": 15.0,
+    "start_delay_min": 2.0,
+    "prompts": 5,
+    "max_completion_tokens": 1000,
+    "reasoning_effort": "low",
+    "seed": 42
+  },
+  "runs": [
+    {
+      "run_id": "main-r01",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T08:52:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r01-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        },
+        {
+          "id": "main-r01-summarize",
+          "text": "Summarize in 3 bullet points why asynchronous message queues improve the resilience of cloud applications."
+        },
+        {
+          "id": "main-r01-translate",
+          "text": "Translate to Czech and German: 'Batch processing is cheaper but results arrive later.'"
+        },
+        {
+          "id": "main-r01-extract",
+          "text": "Extract the fields name, company, city and requested_date as JSON from this text: 'Hi, this is Petra Novak from Contoso Logistics in Brno. Could we meet on 14 October?'"
+        },
+        {
+          "id": "main-r01-explain",
+          "text": "Explain to a non-technical manager in 3 sentences what 'latency percentile p90' means."
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r02",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T09:07:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r02-reason",
+          "text": "A container app scales from 0 to 1 replica when a message arrives and back to 0 after 5 idle minutes. Messages arrive every 20 minutes. Estimate how many cold starts happen per day and explain briefly."
+        },
+        {
+          "id": "main-r02-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        },
+        {
+          "id": "main-r02-translate",
+          "text": "Translate to Czech and German: 'Batch processing is cheaper but results arrive later.'"
+        },
+        {
+          "id": "main-r02-summarize",
+          "text": "Summarize in 3 bullet points why asynchronous message queues improve the resilience of cloud applications."
+        },
+        {
+          "id": "main-r02-write",
+          "text": "Write a 4-sentence product description for a reusable stainless-steel water bottle aimed at hikers."
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r03",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T09:22:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r03-code",
+          "text": "Write a short Python function that returns the p95 of a list of floats without numpy."
+        },
+        {
+          "id": "main-r03-summarize",
+          "text": "Summarize in 3 bullet points why asynchronous message queues improve the resilience of cloud applications."
+        },
+        {
+          "id": "main-r03-explain",
+          "text": "Explain to a non-technical manager in 3 sentences what 'latency percentile p90' means."
+        },
+        {
+          "id": "main-r03-translate",
+          "text": "Translate to Czech and German: 'Batch processing is cheaper but results arrive later.'"
+        },
+        {
+          "id": "main-r03-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r04",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T09:37:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r04-reason",
+          "text": "A container app scales from 0 to 1 replica when a message arrives and back to 0 after 5 idle minutes. Messages arrive every 20 minutes. Estimate how many cold starts happen per day and explain briefly."
+        },
+        {
+          "id": "main-r04-write",
+          "text": "Write a 4-sentence product description for a reusable stainless-steel water bottle aimed at hikers."
+        },
+        {
+          "id": "main-r04-code",
+          "text": "Write a short Python function that returns the p95 of a list of floats without numpy."
+        },
+        {
+          "id": "main-r04-summarize",
+          "text": "Summarize in 3 bullet points why asynchronous message queues improve the resilience of cloud applications."
+        },
+        {
+          "id": "main-r04-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r05",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T09:52:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r05-code",
+          "text": "Write a short Python function that returns the p95 of a list of floats without numpy."
+        },
+        {
+          "id": "main-r05-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        },
+        {
+          "id": "main-r05-reason",
+          "text": "A container app scales from 0 to 1 replica when a message arrives and back to 0 after 5 idle minutes. Messages arrive every 20 minutes. Estimate how many cold starts happen per day and explain briefly."
+        },
+        {
+          "id": "main-r05-write",
+          "text": "Write a 4-sentence product description for a reusable stainless-steel water bottle aimed at hikers."
+        },
+        {
+          "id": "main-r05-extract",
+          "text": "Extract the fields name, company, city and requested_date as JSON from this text: 'Hi, this is Petra Novak from Contoso Logistics in Brno. Could we meet on 14 October?'"
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r06",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T10:07:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r06-summarize",
+          "text": "Summarize in 3 bullet points why asynchronous message queues improve the resilience of cloud applications."
+        },
+        {
+          "id": "main-r06-code",
+          "text": "Write a short Python function that returns the p95 of a list of floats without numpy."
+        },
+        {
+          "id": "main-r06-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        },
+        {
+          "id": "main-r06-reason",
+          "text": "A container app scales from 0 to 1 replica when a message arrives and back to 0 after 5 idle minutes. Messages arrive every 20 minutes. Estimate how many cold starts happen per day and explain briefly."
+        },
+        {
+          "id": "main-r06-extract",
+          "text": "Extract the fields name, company, city and requested_date as JSON from this text: 'Hi, this is Petra Novak from Contoso Logistics in Brno. Could we meet on 14 October?'"
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r07",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T10:22:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r07-write",
+          "text": "Write a 4-sentence product description for a reusable stainless-steel water bottle aimed at hikers."
+        },
+        {
+          "id": "main-r07-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        },
+        {
+          "id": "main-r07-code",
+          "text": "Write a short Python function that returns the p95 of a list of floats without numpy."
+        },
+        {
+          "id": "main-r07-extract",
+          "text": "Extract the fields name, company, city and requested_date as JSON from this text: 'Hi, this is Petra Novak from Contoso Logistics in Brno. Could we meet on 14 October?'"
+        },
+        {
+          "id": "main-r07-summarize",
+          "text": "Summarize in 3 bullet points why asynchronous message queues improve the resilience of cloud applications."
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r08",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T10:37:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r08-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        },
+        {
+          "id": "main-r08-reason",
+          "text": "A container app scales from 0 to 1 replica when a message arrives and back to 0 after 5 idle minutes. Messages arrive every 20 minutes. Estimate how many cold starts happen per day and explain briefly."
+        },
+        {
+          "id": "main-r08-summarize",
+          "text": "Summarize in 3 bullet points why asynchronous message queues improve the resilience of cloud applications."
+        },
+        {
+          "id": "main-r08-extract",
+          "text": "Extract the fields name, company, city and requested_date as JSON from this text: 'Hi, this is Petra Novak from Contoso Logistics in Brno. Could we meet on 14 October?'"
+        },
+        {
+          "id": "main-r08-write",
+          "text": "Write a 4-sentence product description for a reusable stainless-steel water bottle aimed at hikers."
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r09",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T10:52:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r09-write",
+          "text": "Write a 4-sentence product description for a reusable stainless-steel water bottle aimed at hikers."
+        },
+        {
+          "id": "main-r09-code",
+          "text": "Write a short Python function that returns the p95 of a list of floats without numpy."
+        },
+        {
+          "id": "main-r09-summarize",
+          "text": "Summarize in 3 bullet points why asynchronous message queues improve the resilience of cloud applications."
+        },
+        {
+          "id": "main-r09-reason",
+          "text": "A container app scales from 0 to 1 replica when a message arrives and back to 0 after 5 idle minutes. Messages arrive every 20 minutes. Estimate how many cold starts happen per day and explain briefly."
+        },
+        {
+          "id": "main-r09-translate",
+          "text": "Translate to Czech and German: 'Batch processing is cheaper but results arrive later.'"
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r10",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T11:07:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r10-code",
+          "text": "Write a short Python function that returns the p95 of a list of floats without numpy."
+        },
+        {
+          "id": "main-r10-summarize",
+          "text": "Summarize in 3 bullet points why asynchronous message queues improve the resilience of cloud applications."
+        },
+        {
+          "id": "main-r10-write",
+          "text": "Write a 4-sentence product description for a reusable stainless-steel water bottle aimed at hikers."
+        },
+        {
+          "id": "main-r10-extract",
+          "text": "Extract the fields name, company, city and requested_date as JSON from this text: 'Hi, this is Petra Novak from Contoso Logistics in Brno. Could we meet on 14 October?'"
+        },
+        {
+          "id": "main-r10-translate",
+          "text": "Translate to Czech and German: 'Batch processing is cheaper but results arrive later.'"
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r11",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T11:22:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r11-reason",
+          "text": "A container app scales from 0 to 1 replica when a message arrives and back to 0 after 5 idle minutes. Messages arrive every 20 minutes. Estimate how many cold starts happen per day and explain briefly."
+        },
+        {
+          "id": "main-r11-translate",
+          "text": "Translate to Czech and German: 'Batch processing is cheaper but results arrive later.'"
+        },
+        {
+          "id": "main-r11-summarize",
+          "text": "Summarize in 3 bullet points why asynchronous message queues improve the resilience of cloud applications."
+        },
+        {
+          "id": "main-r11-code",
+          "text": "Write a short Python function that returns the p95 of a list of floats without numpy."
+        },
+        {
+          "id": "main-r11-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r12",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T11:37:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r12-write",
+          "text": "Write a 4-sentence product description for a reusable stainless-steel water bottle aimed at hikers."
+        },
+        {
+          "id": "main-r12-summarize",
+          "text": "Summarize in 3 bullet points why asynchronous message queues improve the resilience of cloud applications."
+        },
+        {
+          "id": "main-r12-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        },
+        {
+          "id": "main-r12-code",
+          "text": "Write a short Python function that returns the p95 of a list of floats without numpy."
+        },
+        {
+          "id": "main-r12-reason",
+          "text": "A container app scales from 0 to 1 replica when a message arrives and back to 0 after 5 idle minutes. Messages arrive every 20 minutes. Estimate how many cold starts happen per day and explain briefly."
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r13",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T11:52:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r13-write",
+          "text": "Write a 4-sentence product description for a reusable stainless-steel water bottle aimed at hikers."
+        },
+        {
+          "id": "main-r13-reason",
+          "text": "A container app scales from 0 to 1 replica when a message arrives and back to 0 after 5 idle minutes. Messages arrive every 20 minutes. Estimate how many cold starts happen per day and explain briefly."
+        },
+        {
+          "id": "main-r13-translate",
+          "text": "Translate to Czech and German: 'Batch processing is cheaper but results arrive later.'"
+        },
+        {
+          "id": "main-r13-extract",
+          "text": "Extract the fields name, company, city and requested_date as JSON from this text: 'Hi, this is Petra Novak from Contoso Logistics in Brno. Could we meet on 14 October?'"
+        },
+        {
+          "id": "main-r13-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r14",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T12:07:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r14-translate",
+          "text": "Translate to Czech and German: 'Batch processing is cheaper but results arrive later.'"
+        },
+        {
+          "id": "main-r14-extract",
+          "text": "Extract the fields name, company, city and requested_date as JSON from this text: 'Hi, this is Petra Novak from Contoso Logistics in Brno. Could we meet on 14 October?'"
+        },
+        {
+          "id": "main-r14-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        },
+        {
+          "id": "main-r14-code",
+          "text": "Write a short Python function that returns the p95 of a list of floats without numpy."
+        },
+        {
+          "id": "main-r14-summarize",
+          "text": "Summarize in 3 bullet points why asynchronous message queues improve the resilience of cloud applications."
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r15",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T12:22:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r15-extract",
+          "text": "Extract the fields name, company, city and requested_date as JSON from this text: 'Hi, this is Petra Novak from Contoso Logistics in Brno. Could we meet on 14 October?'"
+        },
+        {
+          "id": "main-r15-write",
+          "text": "Write a 4-sentence product description for a reusable stainless-steel water bottle aimed at hikers."
+        },
+        {
+          "id": "main-r15-translate",
+          "text": "Translate to Czech and German: 'Batch processing is cheaper but results arrive later.'"
+        },
+        {
+          "id": "main-r15-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        },
+        {
+          "id": "main-r15-code",
+          "text": "Write a short Python function that returns the p95 of a list of floats without numpy."
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r16",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T12:37:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r16-explain",
+          "text": "Explain to a non-technical manager in 3 sentences what 'latency percentile p90' means."
+        },
+        {
+          "id": "main-r16-reason",
+          "text": "A container app scales from 0 to 1 replica when a message arrives and back to 0 after 5 idle minutes. Messages arrive every 20 minutes. Estimate how many cold starts happen per day and explain briefly."
+        },
+        {
+          "id": "main-r16-extract",
+          "text": "Extract the fields name, company, city and requested_date as JSON from this text: 'Hi, this is Petra Novak from Contoso Logistics in Brno. Could we meet on 14 October?'"
+        },
+        {
+          "id": "main-r16-write",
+          "text": "Write a 4-sentence product description for a reusable stainless-steel water bottle aimed at hikers."
+        },
+        {
+          "id": "main-r16-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r17",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T12:52:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r17-translate",
+          "text": "Translate to Czech and German: 'Batch processing is cheaper but results arrive later.'"
+        },
+        {
+          "id": "main-r17-code",
+          "text": "Write a short Python function that returns the p95 of a list of floats without numpy."
+        },
+        {
+          "id": "main-r17-summarize",
+          "text": "Summarize in 3 bullet points why asynchronous message queues improve the resilience of cloud applications."
+        },
+        {
+          "id": "main-r17-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        },
+        {
+          "id": "main-r17-explain",
+          "text": "Explain to a non-technical manager in 3 sentences what 'latency percentile p90' means."
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r18",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T13:07:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r18-translate",
+          "text": "Translate to Czech and German: 'Batch processing is cheaper but results arrive later.'"
+        },
+        {
+          "id": "main-r18-reason",
+          "text": "A container app scales from 0 to 1 replica when a message arrives and back to 0 after 5 idle minutes. Messages arrive every 20 minutes. Estimate how many cold starts happen per day and explain briefly."
+        },
+        {
+          "id": "main-r18-extract",
+          "text": "Extract the fields name, company, city and requested_date as JSON from this text: 'Hi, this is Petra Novak from Contoso Logistics in Brno. Could we meet on 14 October?'"
+        },
+        {
+          "id": "main-r18-summarize",
+          "text": "Summarize in 3 bullet points why asynchronous message queues improve the resilience of cloud applications."
+        },
+        {
+          "id": "main-r18-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r19",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T13:22:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r19-translate",
+          "text": "Translate to Czech and German: 'Batch processing is cheaper but results arrive later.'"
+        },
+        {
+          "id": "main-r19-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        },
+        {
+          "id": "main-r19-explain",
+          "text": "Explain to a non-technical manager in 3 sentences what 'latency percentile p90' means."
+        },
+        {
+          "id": "main-r19-reason",
+          "text": "A container app scales from 0 to 1 replica when a message arrives and back to 0 after 5 idle minutes. Messages arrive every 20 minutes. Estimate how many cold starts happen per day and explain briefly."
+        },
+        {
+          "id": "main-r19-write",
+          "text": "Write a 4-sentence product description for a reusable stainless-steel water bottle aimed at hikers."
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r20",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T13:37:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r20-explain",
+          "text": "Explain to a non-technical manager in 3 sentences what 'latency percentile p90' means."
+        },
+        {
+          "id": "main-r20-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        },
+        {
+          "id": "main-r20-extract",
+          "text": "Extract the fields name, company, city and requested_date as JSON from this text: 'Hi, this is Petra Novak from Contoso Logistics in Brno. Could we meet on 14 October?'"
+        },
+        {
+          "id": "main-r20-code",
+          "text": "Write a short Python function that returns the p95 of a list of floats without numpy."
+        },
+        {
+          "id": "main-r20-write",
+          "text": "Write a 4-sentence product description for a reusable stainless-steel water bottle aimed at hikers."
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r21",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T13:52:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r21-write",
+          "text": "Write a 4-sentence product description for a reusable stainless-steel water bottle aimed at hikers."
+        },
+        {
+          "id": "main-r21-translate",
+          "text": "Translate to Czech and German: 'Batch processing is cheaper but results arrive later.'"
+        },
+        {
+          "id": "main-r21-explain",
+          "text": "Explain to a non-technical manager in 3 sentences what 'latency percentile p90' means."
+        },
+        {
+          "id": "main-r21-reason",
+          "text": "A container app scales from 0 to 1 replica when a message arrives and back to 0 after 5 idle minutes. Messages arrive every 20 minutes. Estimate how many cold starts happen per day and explain briefly."
+        },
+        {
+          "id": "main-r21-code",
+          "text": "Write a short Python function that returns the p95 of a list of floats without numpy."
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r22",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T14:07:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r22-translate",
+          "text": "Translate to Czech and German: 'Batch processing is cheaper but results arrive later.'"
+        },
+        {
+          "id": "main-r22-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        },
+        {
+          "id": "main-r22-code",
+          "text": "Write a short Python function that returns the p95 of a list of floats without numpy."
+        },
+        {
+          "id": "main-r22-write",
+          "text": "Write a 4-sentence product description for a reusable stainless-steel water bottle aimed at hikers."
+        },
+        {
+          "id": "main-r22-reason",
+          "text": "A container app scales from 0 to 1 replica when a message arrives and back to 0 after 5 idle minutes. Messages arrive every 20 minutes. Estimate how many cold starts happen per day and explain briefly."
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r23",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T14:22:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r23-classify",
+          "text": "Classify the sentiment (positive/negative/neutral) of this customer review and justify it in one sentence: 'The delivery was two days late, but support refunded shipping right away and the product works great.'"
+        },
+        {
+          "id": "main-r23-code",
+          "text": "Write a short Python function that returns the p95 of a list of floats without numpy."
+        },
+        {
+          "id": "main-r23-summarize",
+          "text": "Summarize in 3 bullet points why asynchronous message queues improve the resilience of cloud applications."
+        },
+        {
+          "id": "main-r23-translate",
+          "text": "Translate to Czech and German: 'Batch processing is cheaper but results arrive later.'"
+        },
+        {
+          "id": "main-r23-explain",
+          "text": "Explain to a non-technical manager in 3 sentences what 'latency percentile p90' means."
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    },
+    {
+      "run_id": "main-r24",
+      "campaign": "main",
+      "created_at": "2026-09-29T08:50:25.850469+00:00",
+      "scheduled_for": "2026-09-29T14:37:25.850469+00:00",
+      "prompts": [
+        {
+          "id": "main-r24-extract",
+          "text": "Extract the fields name, company, city and requested_date as JSON from this text: 'Hi, this is Petra Novak from Contoso Logistics in Brno. Could we meet on 14 October?'"
+        },
+        {
+          "id": "main-r24-code",
+          "text": "Write a short Python function that returns the p95 of a list of floats without numpy."
+        },
+        {
+          "id": "main-r24-translate",
+          "text": "Translate to Czech and German: 'Batch processing is cheaper but results arrive later.'"
+        },
+        {
+          "id": "main-r24-reason",
+          "text": "A container app scales from 0 to 1 replica when a message arrives and back to 0 after 5 idle minutes. Messages arrive every 20 minutes. Estimate how many cold starts happen per day and explain briefly."
+        },
+        {
+          "id": "main-r24-summarize",
+          "text": "Summarize in 3 bullet points why asynchronous message queues improve the resilience of cloud applications."
+        }
+      ],
+      "params": {
+        "reasoning_effort": "low",
+        "max_completion_tokens": 1000
+      }
+    }
+  ]
+}
