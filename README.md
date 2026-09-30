@@ -217,16 +217,16 @@ Clean-up: `az group delete -n rg-openai-flex-demo --yes` (and purge the soft-del
 <!-- RESULTS -->
 ### Phase 2 – heavy streaming test, 50k in / 5k out (TTFT / TTLT / tokens per second)
 
-> **Collection in progress** – counting restarted on 2026-09-30 12:00 UTC. The first clean run is
-> `heavy50k-20260930-1230`; the table is one sample, not a statistic. The probe runs every 30 minutes until
+> **Collection in progress** – counting restarted on 2026-09-30 12:00 UTC. Clean runs so far:
+> `heavy50k-20260930-1230` and `-1300` (n=2, median shown – not yet a statistic). The probe runs every 30 minutes until
 > 2026-10-04 13:00 UTC and this section is then regenerated with p50/p90/p99. Report section 3 in
 > [`results/report.html`](results/report.html).
 
-| Tier | TTFT | TTLT | Output tok/s | Output tokens | Cost / request |
+| Tier (n=2, median) | TTFT | TTLT | Output tok/s | Output tokens | Cost / request |
 |---|---:|---:|---:|---:|---:|
-| Standard | 5.79 s | 50.89 s | 110.4 | 4979 | $0.294 |
-| Priority | 5.34 s | 43.04 s | 134.3 | 5063 | $0.591 |
-| Flex | 6.59 s | 47.34 s | 122.4 | 4990 | $0.147 |
+| Standard | 8.29 s | 53.25 s | 110.9 | 4986 | $0.294 |
+| Priority | 8.30 s | 46.03 s | 132.7 | 5008 | $0.589 |
+| Flex | 6.38 s | 45.62 s | 126.7 | 4966 | $0.147 |
 
 Pilot at 4.6k in / 1.1k out (2 runs, p50): TTFT 1.60 / 0.94 / 2.12 s, TTLT 12.99 / 10.65 / 12.23 s,
 93.5 / 117.4 / 107.0 tok/s (Standard / Priority / Flex).
