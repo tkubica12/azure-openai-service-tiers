@@ -11,8 +11,8 @@ param(
     [string]$ImageTag = (Get-Date -Format 'yyyyMMddHHmmss'),
     [switch]$SkipImage,
     [switch]$InfraOnly,
-    [string]$ProbeCron = '*/15 * * * *',  # '' removes nothing but skips deploying the probe job
-    [string]$ProbeCampaign = 'heavy'      # 'heavy' = streaming TTFT/TTLT on Standard/Priority/Flex; 'probe' = legacy small prompts
+    [string]$ProbeCron = '*/30 * * * *',  # '' removes nothing but skips deploying the probe job
+    [string]$ProbeCampaign = 'heavy50k'   # 'heavy*' = ~50k in / ~5k out streaming TTFT/TTLT on Standard/Priority/Flex; 'probe' = legacy small prompts
 )
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent

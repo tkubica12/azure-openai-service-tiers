@@ -110,31 +110,32 @@ existing batch by `metadata.run_id` before creating one and after a failed creat
 The main campaign covers a few hours of one working day. Because Flex runs on spare, preemptible capacity, its latency and
 429 rate depend on regional load, and the docs recommend off-peak hours (nights, weekends); Priority, on the other hand,
 may be downgraded at peak times. A **scheduled Container Apps
-Job** `probe-job` ([`worker/app/probe.py`](worker/app/probe.py), cron `*/15 * * * *`, same image, `WORKER_MODE=probe`) therefore
-sends one prompt to the same topic every 15 minutes, 24/7. It started with a short prompt (`PROBE_CAMPAIGN=short`, run IDs
+Job** `probe-job` ([`worker/app/probe.py`](worker/app/probe.py), cron `*/15 * * * *` in phase 1, `*/30` in phase 2, same image, `WORKER_MODE=probe`) therefore
+sends one prompt to the same topic on a fixed schedule, 24/7. It started with a short prompt (`PROBE_CAMPAIGN=short`, run IDs
 `probe-YYYYMMDD-HHMM`, prompt rotates deterministically, phase 1) and has been switched to the heavy streaming campaign
 described below (phase 2). Each probe hits a cold worker (the gap is longer than the 300 s cool-down). The report groups
 results by 3-hour UTC buckets and by weekday vs weekend. Deploy with `-ProbeCron ''` to skip the job, or stop it with
 `az containerapp job delete -n probe-job -g rg-openai-flex-demo`.
 
-### Heavy streaming campaign (phase 2, from 2026-09-30 11:00 UTC)
+### Heavy streaming campaign (phase 2, from 2026-09-30 12:00 UTC)
 
-Short answers (~85 tokens) mostly measure time-to-first-token, so the probe was switched to a heavier, **streamed**
-test (`PROBE_CAMPAIGN=heavy`, run IDs `heavy-YYYYMMDD-HHMM`) and counting restarted from zero:
+Short answers mostly measure time-to-first-token, so the probe now runs a large, **streamed** request
+(`PROBE_CAMPAIGN=heavy50k`, run IDs `heavy50k-YYYYMMDD-HHMM`, cron `*/30`) and counting restarted from zero:
 
-* **Prompt:** ~4.6k input tokens (a synthetic support-ticket backlog, see `heavy_prompt()` in
-  [`worker/app/prompts.py`](worker/app/prompts.py)) asking for a fixed-structure triage report. Output is ~1.1k tokens
-  and very stable (±3 %) because of the fixed structure, `reasoning_effort="none"` and `max_completion_tokens=2500`. The
-  run ID is embedded as a nonce so prompt caching never kicks in.
-* **Metrics** ([`worker/app/llm.py`](worker/app/llm.py), `stream=True` with `stream_options.include_usage`):
-  **TTFT** (time to first content token), **TTLT** (time to last token = full response), **output tokens/s** during
-  generation `(completion_tokens − 1) / (TTLT − TTFT)`, and end-to-end tokens/s `completion_tokens / TTLT`.
-* **Tiers:** pair A only (Standard, Priority, Flex on the same `gpt-56-sol` deployment); Batch is not part of phase 2.
-* **Why not 100k in / 10k out:** the deployment is capped at 100k TPM (capacity 100) and all three tiers share it.
-  Azure counts prompt tokens **plus `max_completion_tokens`** against TPM, so one 100k/10k request (~110k) cannot be
-  admitted at all, and three per slot would need >300k TPM. It would also cost roughly $200/day at 96 slots/day
-  (3 tiers × ~$0.7 each), above the $100 total budget. The heavy probe costs ~$0.15 per slot (~$14/day).
-* **Schedule:** every 15 minutes until **2026-10-04 13:00 UTC**, when the job is deleted and the final report is built.
+* **Prompt:** ~48.6k input tokens (540 synthetic support tickets, `heavy_prompt()` in
+  [`worker/app/prompts.py`](worker/app/prompts.py)) asking for 70 fixed-structure answers. Output is ~5k tokens and
+  stable (±2 %) thanks to the fixed structure, `reasoning_effort="none"` and `max_completion_tokens=8000`.
+* **No prompt caching:** a per-run, per-tier nonce is the *first* line of the prompt, so no prefix can be served from
+  cache. Every result stores `cached_tokens`; the report drops any run with a cache hit (run `heavy50k-20260930-1200`
+  was hit by duplicate Service Bus deliveries after a probe bug – fixed, and workers now skip a message whose result
+  blob already exists).
+* **Metrics** ([`worker/app/llm.py`](worker/app/llm.py), `stream=True` + `include_usage`): **TTFT**, **TTLT**, output
+  tokens/s during generation `(completion_tokens − 1) / (TTLT − TTFT)`.
+* **Tiers:** Standard, Priority, Flex on the same `gpt-56-sol` deployment (capacity raised to 300k TPM, because TPM
+  counts prompt + `max_completion_tokens` and all three tiers share it). Batch is not part of phase 2.
+* **Why 50k/5k, not 100k/10k:** 100k/10k would need >330k TPM per slot and cost ~$2 per slot (~$100/day). 50k/5k costs
+  ~$1.03 per slot (Standard $0.29, Priority $0.59, Flex $0.15), ~$50/day at 48 slots/day.
+* **Schedule:** every 30 minutes until **2026-10-04 13:00 UTC**, then the job is deleted and the final report is built.
 
 ## Metering and billing
 
@@ -214,22 +215,21 @@ Clean-up: `az group delete -n rg-openai-flex-demo --yes` (and purge the soft-del
 ## Results
 
 <!-- RESULTS -->
-### Phase 2 – heavy streaming test (TTFT / TTLT / tokens per second)
+### Phase 2 – heavy streaming test, 50k in / 5k out (TTFT / TTLT / tokens per second)
 
-> **Collection in progress** – counting was reset on 2026-09-30 11:00 UTC. So far only
-> the first heavy run (heavy-20260930-1100) is complete with all three tiers; the table below is an illustration of
-> the format, not a statistic. The probe runs every 15 minutes until 2026-10-04 13:00 UTC and this section is then
-> regenerated from all runs. Each request: ~4.6k input tokens → ~1.1k output tokens, streamed. Report section 3 in
+> **Collection in progress** – counting restarted on 2026-09-30 12:00 UTC. The first clean run is
+> `heavy50k-20260930-1230`; the table is one sample, not a statistic. The probe runs every 30 minutes until
+> 2026-10-04 13:00 UTC and this section is then regenerated with p50/p90/p99. Report section 3 in
 > [`results/report.html`](results/report.html).
 
-| Tier | n | TTFT p50 | TTLT p50 | Output tok/s p50 | Output tokens | Served as |
-|---|---:|---:|---:|---:|---:|---|
-| Standard | 2 | 1.38 s | 13.32 s | 92.9 | 1092–1128 | `default` |
-| Priority | 1 | 0.86 s | 10.31 s | 118.6 | 1122 | `priority` |
-| Flex | 2 | 2.21 s | 12.83 s | 106.6 | 1124–1144 | `flex` |
+| Tier | TTFT | TTLT | Output tok/s | Output tokens | Cost / request |
+|---|---:|---:|---:|---:|---:|
+| Standard | 5.79 s | 50.89 s | 110.4 | 4979 | $0.294 |
+| Priority | 5.34 s | 43.04 s | 134.3 | 5063 | $0.591 |
+| Flex | 6.59 s | 47.34 s | 122.4 | 4990 | $0.147 |
 
-First impression: on a longer answer the difference shows in both TTFT and generation speed. The final report will
-include p50/p90/p99, paired ratios, day/night buckets, Priority downgrades and Flex 429s.
+Pilot at 4.6k in / 1.1k out (2 runs, p50): TTFT 1.60 / 0.94 / 2.12 s, TTLT 12.99 / 10.65 / 12.23 s,
+93.5 / 117.4 / 107.0 tok/s (Standard / Priority / Flex).
 
 ### Phase 1 – short prompts (end-to-end latency)
 

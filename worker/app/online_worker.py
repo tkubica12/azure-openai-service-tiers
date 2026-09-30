@@ -9,8 +9,9 @@ from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor
 
-from .common import env, log, openai_client, utcnow, iso, worker_info, write_json
+from .common import blob_exists, env, log, openai_client, utcnow, iso, worker_info, write_json
 from .llm import complete
+from .prompts import heavy_prompt
 
 SERVICE_TIER = {"standard": "default", "priority": "priority", "flex": "flex"}
 
@@ -25,15 +26,27 @@ def targets(mode: str, job: dict | None = None) -> list[tuple[str, str]]:
 
 
 def run_pair(mode: str, pair: str, deployment: str, job: dict, timing: dict) -> None:
+    blob_name = f"{job['run_id']}/{mode}-{pair}.json"
+    if blob_exists(blob_name):
+        # A re-sent message for the same run would repeat the same nonce and be served from the prompt cache.
+        log.warning("run=%s mode=%s pair=%s already has a result – duplicate message skipped", job["run_id"], mode, pair)
+        return
     client = openai_client()
     tier = SERVICE_TIER[mode]
     params = job.get("params", {})
     records = []
     for prompt in job["prompts"]:
+        if "heavy" in prompt:
+            # Built here, not in the message: ~200 KB of text would exceed the Service Bus message size limit.
+            # Tier-specific nonce at the start of the prompt => no prompt-cache sharing between tiers.
+            spec = prompt["heavy"]
+            text = heavy_prompt(f"{prompt['id']}-{mode}", spec["tickets"], spec["answers"])
+        else:
+            text = prompt["text"]
         result = complete(
             client,
             deployment,
-            prompt["text"],
+            text,
             tier,
             reasoning_effort=params.get("reasoning_effort", "low"),
             max_completion_tokens=params.get("max_completion_tokens", 2000),
@@ -42,7 +55,7 @@ def run_pair(mode: str, pair: str, deployment: str, job: dict, timing: dict) -> 
                  prompt["id"], result["success"], result.get("latency_s"), result.get("service_tier"))
         records.append({"run_id": job["run_id"], "mode": mode, "pair": pair, "deployment": deployment,
                         "prompt_id": prompt["id"], **result})
-    write_json(f"{job['run_id']}/{mode}-{pair}.json", {
+    write_json(blob_name, {
         "run_id": job["run_id"],
         "mode": mode,
         "pair": pair,

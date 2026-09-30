@@ -21,10 +21,10 @@ param deployApps bool = false
 param imageTag string = 'latest'
 
 @description('Cron schedule (UTC) of the probe job that sends a 1-prompt test run to the topic. Empty = no probe job.')
-param probeCron string = '*/15 * * * *'
+param probeCron string = '*/30 * * * *'
 
-@description('Probe campaign name. "heavy*" = large fixed context (~4.6k in / ~1.15k out, streaming TTFT/TTLT) on Standard/Priority/Flex only; "probe" = legacy small prompts on all tiers incl. Batch.')
-param probeCampaign string = 'heavy'
+@description('Probe campaign name. "heavy*" = large fixed context (~50k in / ~5k out, streaming TTFT/TTLT) on Standard/Priority/Flex only; "probe" = legacy small prompts on all tiers incl. Batch.')
+param probeCampaign string = 'heavy50k'
 
 var suffix = take(uniqueString(resourceGroup().id), 6)
 var tags = {
@@ -260,7 +260,8 @@ resource project 'Microsoft.CognitiveServices/accounts/projects@2025-06-01' = {
 resource depFlexModel 'Microsoft.CognitiveServices/accounts/deployments@2025-06-01' = {
   parent: foundry
   name: flexModel.deployment
-  sku: { name: 'GlobalStandard', capacity: 100 }
+  // 300k TPM: one heavy50k run reserves ~3 x (50k in + 8k max out) tokens within the same minute.
+  sku: { name: 'GlobalStandard', capacity: 300 }
   properties: {
     model: { format: 'OpenAI', name: flexModel.name, version: flexModel.version }
     versionUpgradeOption: 'NoAutoUpgrade'
@@ -608,6 +609,7 @@ resource probeJob 'Microsoft.App/jobs@2025-07-01' = if (deployApps && !empty(pro
           env: concat(commonEnv, [
             { name: 'WORKER_MODE', value: 'probe' }
             { name: 'PROBE_CAMPAIGN', value: probeCampaign }
+            { name: 'PROBE_SLOT_MINUTES', value: '30' }
           ])
         }
       ]

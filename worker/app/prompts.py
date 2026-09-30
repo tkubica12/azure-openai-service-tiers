@@ -1,5 +1,6 @@
 """Small, realistic prompts. The demo measures latency and availability, not token throughput,
 so prompts are short and outputs are capped."""
+from functools import lru_cache
 
 PROMPTS = [
     ("summarize", "Summarize in 3 bullet points why asynchronous message queues improve the resilience "
@@ -24,8 +25,10 @@ PROMPTS = [
 # defeats prompt caching (caching matches on the prefix). The task asks for a fixed number of fixed-shape blocks
 # so the output token count stays as stable as possible between runs and tiers.
 
-HEAVY_TICKETS = 50  # ~4.6k input tokens (measured)
-HEAVY_ANSWERS = 16  # ~1.15k output tokens (measured ~72 tokens per answer)
+# Pilot (2026-09-30): 50 tickets / 16 answers = ~4.6k in / ~1.15k out (~92 input tokens per ticket, ~72 output
+# tokens per answer). Campaign "heavy50k": 540 tickets / 70 answers = ~50k in / ~5k out.
+HEAVY_TICKETS = 540
+HEAVY_ANSWERS = 70
 
 _PRODUCTS = ["Contoso Router X2", "Fabrikam Sensor Hub", "Northwind POS Terminal", "Tailspin Drone Kit",
              "Litware Smart Lock", "Adatum Cloud Backup", "Proseware Payroll", "Wingtip Toys App",
@@ -47,12 +50,13 @@ _CITIES = ["Brno", "Prague", "Ostrava", "Plzen", "Olomouc", "Liberec", "Vienna",
 _NAMES = ["Petra", "Jan", "Eva", "Martin", "Lucie", "Tomas", "Jana", "Pavel", "Klara", "David"]
 
 
-def _heavy_context() -> str:
+@lru_cache(maxsize=4)
+def _heavy_context(tickets: int) -> str:
     import random
 
     rnd = random.Random(20260930)
     lines = []
-    for i in range(1, HEAVY_TICKETS + 1):
+    for i in range(1, tickets + 1):
         lines.append(
             f"Ticket T{i:03d} | from {rnd.choice(_NAMES)} in {rnd.choice(_CITIES)} | product: {rnd.choice(_PRODUCTS)}\n"
             f"Description: Our {rnd.choice(_PRODUCTS)} {rnd.choice(_ISSUES)}. {rnd.choice(_CONTEXTS)} "
@@ -63,15 +67,14 @@ def _heavy_context() -> str:
     return "\n\n".join(lines)
 
 
-HEAVY_CONTEXT = _heavy_context()
-
-
-def heavy_prompt(nonce: str) -> str:
+def heavy_prompt(nonce: str, tickets: int = HEAVY_TICKETS, answers: int = HEAVY_ANSWERS) -> str:
+    """The prompt is built by the worker (a ~50k-token text would not fit a Service Bus message).
+    The nonce must be unique per request (run + tier) so no request can hit another one's prompt cache."""
     return (
         f"Request nonce: {nonce}\n\n"
         "You are a senior support triage engineer. Below is a list of customer support tickets.\n\n"
-        f"=== TICKETS ===\n{HEAVY_CONTEXT}\n=== END OF TICKETS ===\n\n"
-        f"Task: triage ONLY tickets T001 to T{HEAVY_ANSWERS:03d} (exactly {HEAVY_ANSWERS} tickets, in order). "
+        f"=== TICKETS ===\n{_heavy_context(tickets)}\n=== END OF TICKETS ===\n\n"
+        f"Task: triage ONLY tickets T001 to T{answers:03d} (exactly {answers} tickets, in order). "
         "For each ticket output exactly this block and nothing else:\n"
         "### T<number>\n"
         "Category: <one of Connectivity, Billing, Stability, Sync, Authentication, Hardware, Data, Performance, "

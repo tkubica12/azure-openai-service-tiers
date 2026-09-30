@@ -601,17 +601,21 @@ def stats_table(rows: list[tuple[str, dict, dict]]) -> str:
 
 
 # ------------------------------------------------------------------ heavy streaming campaign
-HEAVY_PREFIX = "heavy-"
+HEAVY_MAIN = "heavy50k-"   # ~50k input / ~5k output tokens, every 30 minutes (current campaign)
+HEAVY_PILOT = "heavy-"     # pilot 2026-09-30/10-01: ~4.6k input / ~1.1k output tokens, every 15 minutes
 HEAVY_METRICS = [
     ("ttft_s", "Time to first token", "s"),
     ("ttlt_s", "Time to last token", "s"),
     ("output_tps", "Output tokens/s (after first token)", "tok/s"),
     ("e2e_tps", "Output tokens/s (whole request)", "tok/s"),
 ]
+TIERS = ("standard", "priority", "flex")
+# gpt-5.6-sol retail price, USD per 1M tokens (input, output), by the service_tier actually returned by the API
+PRICE = {"default": (4.0, 20.0), "priority": (8.0, 40.0), "flex": (2.0, 10.0)}
 
 
 def is_heavy(run_id: str) -> bool:
-    return run_id.startswith(HEAVY_PREFIX)
+    return run_id.startswith("heavy")
 
 
 HEAVY_IMAGE_LIVE = datetime(2026, 9, 30, 10, 52, tzinfo=timezone.utc)  # streaming image serving all workers
@@ -626,29 +630,50 @@ def heavy_valid(r: dict) -> bool:
     return bool(started and started >= HEAVY_IMAGE_LIVE)
 
 
-def heavy_data(records: list[dict]) -> dict:
-    rs = [r for r in records if is_heavy(r["run_id"]) and r.get("pair") == "A"
-          and r["mode"] in ("standard", "priority", "flex") and heavy_valid(r)]
+def cache_hit(r: dict) -> bool:
+    # A redelivered message repeats the same nonce, so the retry is served mostly from the prompt cache.
+    u = r.get("usage") or {}
+    return bool(u.get("prompt_tokens")) and (u.get("cached_tokens") or 0) > 0.5 * u["prompt_tokens"]
+
+
+def heavy_data(records: list[dict], prefix: str = HEAVY_MAIN) -> dict:
+    rs = [r for r in records if r["run_id"].startswith(prefix) and r.get("pair") == "A"
+          and r["mode"] in TIERS and heavy_valid(r)]
+    cached_runs = sorted({r["run_id"] for r in rs if cache_hit(r)})
+    rs = [r for r in rs if r["run_id"] not in cached_runs]
     by = defaultdict(list)
     for r in rs:
         by[r["mode"]].append(r)
     ok = {m: {r["run_id"]: r for r in by[m] if r["success"] and r.get("ttft_s") is not None} for m in by}
-    return {"records": rs, "by": by, "ok": ok}
+    return {"records": rs, "by": by, "ok": ok, "runs": sorted({r["run_id"] for r in rs}), "excluded": cached_runs}
+
+
+def request_cost(r: dict) -> float | None:
+    u = r.get("usage") or {}
+    price = PRICE.get(r.get("service_tier") or "")
+    if not price or not u.get("prompt_tokens"):
+        return None
+    return (u["prompt_tokens"] * price[0] + (u.get("completion_tokens") or 0) * price[1]) / 1e6
 
 
 def heavy_summary_rows(hd: dict) -> list[dict]:
     """One row per tier with p50/p90/p99 of the heavy metrics – used by the report and printed for the README."""
     rows = []
-    for m in ("standard", "priority", "flex"):
+    for m in TIERS:
         good = list(hd["ok"].get(m, {}).values())
         row = {"mode": m, "requests": len(hd["by"].get(m, [])), "ok": len(good)}
         for key, _, _ in HEAVY_METRICS:
             v = [r[key] for r in good if r.get(key) is not None]
             row[key] = {p: pct(v, p) for p in (50, 90, 99)}
-        comp = [r["usage"]["completion_tokens"] for r in good if (r.get("usage") or {}).get("completion_tokens")]
-        prm = [r["usage"]["prompt_tokens"] for r in good if (r.get("usage") or {}).get("prompt_tokens")]
+        usage = [r.get("usage") or {} for r in good]
+        comp = [u["completion_tokens"] for u in usage if u.get("completion_tokens")]
+        prm = [u["prompt_tokens"] for u in usage if u.get("prompt_tokens")]
+        cached = [u.get("cached_tokens") or 0 for u in usage if u.get("prompt_tokens")]
+        costs = [c for c in (request_cost(r) for r in good) if c is not None]
         row["out_tok"] = (statistics.fmean(comp), min(comp), max(comp)) if comp else None
         row["in_tok"] = statistics.fmean(prm) if prm else None
+        row["cached"] = statistics.fmean(cached) if cached else None
+        row["cost"] = statistics.fmean(costs) if costs else None
         row["tiers"] = Counter(r.get("service_tier") for r in good)
         row["codes"] = Counter(a.get("status") for r in hd["by"].get(m, []) for a in r.get("attempts", [])
                                if a.get("status") != 200)
@@ -656,77 +681,175 @@ def heavy_summary_rows(hd: dict) -> list[dict]:
     return rows
 
 
-def heavy_section(records: list[dict]) -> str:
-    hd = heavy_data(records)
-    if not hd["records"]:
-        return "<p>No heavy-campaign runs downloaded yet.</p>"
-    runs = sorted({r["run_id"] for r in hd["records"]})
-    rows = heavy_summary_rows(hd)
-    first = min(dt(r["started_at"]) for r in hd["records"] if r.get("started_at"))
-    last = max(dt(r["finished_at"]) for r in hd["records"] if r.get("finished_at"))
+def paired_ratios(hd: dict, m: str, key: str) -> list[float]:
+    ok = hd["ok"]
+    common = set(ok.get("standard", {})) & set(ok.get(m, {}))
+    return [ok[m][k][key] / ok["standard"][k][key] for k in sorted(common)
+            if ok["standard"][k].get(key) and ok[m][k].get(key) is not None]
 
-    head = ("<tr><th rowspan='2'>tier (gpt-5.6-sol)</th><th rowspan='2'>ok / requests</th>"
-            + "".join(f"<th colspan='3'>{esc(label)}</th>" for _, label, _ in HEAVY_METRICS)
-            + "<th rowspan='2'>output tokens avg (min–max)</th><th rowspan='2'>returned service_tier</th>"
-              "<th rowspan='2'>non-200 attempts</th></tr><tr>"
-            + "<th>p50</th><th>p90</th><th>p99</th>" * len(HEAVY_METRICS) + "</tr>")
+
+def pct_table(rows: list[dict]) -> str:
+    """Compact p50/p90/p99 table: one row per tier, three metrics."""
+    mets = HEAVY_METRICS[:3]
+    head = ("<tr><th rowspan='2'>tier</th><th rowspan='2'>ok</th>"
+            + "".join(f"<th colspan='3' class='g'>{esc(label.replace(' (after first token)', ''))}</th>"
+                      for _, label, _ in mets)
+            + "</tr><tr>" + "<th class='g'>p50</th><th>p90</th><th>p99</th>" * len(mets) + "</tr>")
     body = []
     for row in rows:
-        cells = [f"<td class='l'>{LABEL[row['mode']]}</td><td>{row['ok']}/{row['requests']}</td>"]
-        for key, _, unit in HEAVY_METRICS:
-            cells += [f"<td>{fmt(row[key][p], unit, 2 if unit == 's' else 0)}</td>" for p in (50, 90, 99)]
-        ot = row["out_tok"]
-        cells.append(f"<td>{f'{ot[0]:.0f} ({ot[1]}–{ot[2]})' if ot else '–'}</td>")
-        cells.append(f"<td>{esc(', '.join(f'{k}×{v}' for k, v in row['tiers'].items()) or '–')}</td>")
-        cells.append(f"<td>{esc(', '.join(f'{k}×{v}' for k, v in row['codes'].items()) or 'none')}</td>")
+        cells = [f"<td class='l'><span class='dot {row['mode']}'></span>{LABEL[row['mode']]}</td>"
+                 f"<td>{row['ok']}/{row['requests']}</td>"]
+        for key, _, unit in mets:
+            d = 2 if unit == "s" else 0
+            cells += [f"<td class='{'g b' if p == 50 else ''}'>{fmt(row[key][p], '', d)}</td>" for p in (50, 90, 99)]
         body.append("<tr>" + "".join(cells) + "</tr>")
-    table = f"<table><thead>{head}</thead><tbody>{''.join(body)}</tbody></table>"
+    return (f"<div class='tw'><table class='pt'><thead>{head}</thead><tbody>{''.join(body)}</tbody></table></div>"
+            "<p class='cap'>TTFT / TTLT in seconds, speed in output tokens/s after the first token.</p>")
 
-    # paired per-run ratios to Standard (same message, same moment)
+
+def delta(ratio: float | None, lower_is_better: bool = True) -> str:
+    if ratio is None:
+        return "<span class='d'>–</span>"
+    change = (ratio - 1) * 100
+    good = change < 0 if lower_is_better else change > 0
+    return f"<span class='d {'up' if good else 'down'}'>{change:+.0f} %</span>"
+
+
+def heavy_body(hd: dict, rows: list[dict]) -> str:
+    by_mode = {row["mode"]: row for row in rows}
+    runs = hd["runs"]
+    excl = hd.get("excluded") or []
+    excl_note = (f"<p class='cap'>Excluded {len(excl)} run(s) served from the prompt cache after a duplicate "
+                 f"Service Bus delivery: {esc(', '.join(r.split('-', 1)[1] for r in excl))}.</p>") if excl else ""
+    if not runs:
+        return "<p class='note'>No clean runs of this campaign downloaded yet.</p>" + excl_note
     ok = hd["ok"]
+    all3 = set(ok.get("standard", {})) & set(ok.get("priority", {})) & set(ok.get("flex", {}))
+    ts = [dt(r["started_at"]) for r in hd["records"] if r.get("started_at")]
+    span = f"{min(ts):%d.%m. %H:%M} – {max(ts):%d.%m. %H:%M} UTC" if ts else ""
+
+    def med(m, key):
+        v = paired_ratios(hd, m, key)
+        return statistics.median(v) if v else None
+
+    def tier_card(m: str) -> str:
+        row = by_mode.get(m) or {}
+        mult = {"standard": "1× price", "priority": "2× price", "flex": "0.5× price"}[m]
+        if not row.get("ok"):
+            return f"<div class='kpi {m}'><div class='k'>{LABEL[m]} · {mult}</div><div class='v'>–</div></div>"
+        cmp = ""
+        if m != "standard":
+            cmp = (f"<div class='s'>vs Standard (paired median): TTFT {delta(med(m, 'ttft_s'))} · "
+                   f"TTLT {delta(med(m, 'ttlt_s'))}</div>")
+        return (f"<div class='kpi {m}'><div class='k'>{LABEL[m]} · {mult}</div>"
+                f"<div class='v'>{fmt(row['ttlt_s'][50])}</div><div class='s'>p50 time to last token</div>"
+                f"<div class='row'><span>TTFT <b>{fmt(row['ttft_s'][50])}</b></span>"
+                f"<span><b>{fmt(row['output_tps'][50], '', 0)}</b> tok/s</span>"
+                f"<span><b>${row['cost']:.3f}</b>/req</span></div>{cmp}"
+                f"<div class='s'>{row['ok']}/{row['requests']} ok</div></div>")
+
     ratio_rows = []
-    for m in ("priority", "flex"):
-        common = sorted(set(ok.get("standard", {})) & set(ok.get(m, {})))
-        for key, label, _ in HEAVY_METRICS[:3]:
-            v = [ok[m][k][key] / ok["standard"][k][key] for k in common
-                 if ok["standard"][k].get(key) and ok[m][k].get(key) is not None]
-            ratio_rows.append(
-                f"<tr><td class='l'>{LABEL[m]} ÷ Standard – {esc(label)}</td><td>{len(v)}</td>"
-                + "".join(f"<td>{f'{pct(v, p):.2f}×' if v else '–'}</td>" for p in (10, 50, 90)) + "</tr>")
-    ratio_table = ("<table><thead><tr><th>paired ratio (same run)</th><th>n</th><th>p10</th><th>p50</th><th>p90</th></tr>"
-                   f"</thead><tbody>{''.join(ratio_rows)}</tbody></table>")
+    for key, label, _ in HEAVY_METRICS[:3]:
+        cells = []
+        for m in ("priority", "flex"):
+            v = paired_ratios(hd, m, key)
+            cells += [f"<td class='{'b' if p == 50 else ''}'>{f'{pct(v, p):.2f}×' if v else '–'}</td>" for p in (10, 50, 90)]
+        short = label.replace(" (after first token)", "")
+        ratio_rows.append(f"<tr><td class='l'>{esc(short)}</td>{''.join(cells)}</tr>")
+    ratio_table = ("<div class='tw'><table><thead><tr><th rowspan='2'>metric ÷ Standard</th>"
+                   "<th colspan='3'>Priority</th><th colspan='3'>Flex</th></tr><tr>"
+                   + "<th>p10</th><th>p50</th><th>p90</th>" * 2 + f"</tr></thead><tbody>{''.join(ratio_rows)}</tbody></table></div>"
+                   "<p class='cap'>Per run: tier value ÷ Standard value from the same message (same moment). "
+                   "&lt; 1 = faster for TTFT/TTLT, &gt; 1 = faster for tok/s.</p>")
 
-    series = {key: {f"{LABEL[m]}": [(dt(r["started_at"]), r[key]) for r in ok.get(m, {}).values()]
-                    for m in ("standard", "priority", "flex")} for key, _, _ in HEAVY_METRICS}
-    first_in = next((row["in_tok"] for row in rows if row["in_tok"]), None)
+    cons_rows = []
+    for row in rows:
+        ot = row["out_tok"]
+        cons_rows.append(
+            f"<tr><td class='l'><span class='dot {row['mode']}'></span>{LABEL[row['mode']]}</td>"
+            f"<td>{f'{row['in_tok']:,.0f}' if row['in_tok'] else '–'}</td>"
+            f"<td>{f'{row['cached']:,.0f}' if row['cached'] is not None else '–'}</td>"
+            f"<td>{f'{ot[0]:,.0f} ({ot[1]:,}–{ot[2]:,})' if ot else '–'}</td>"
+            f"<td>{esc(', '.join(f'{k}×{v}' for k, v in row['tiers'].items()) or '–')}</td>"
+            f"<td>{esc(', '.join(f'{k}×{v}' for k, v in row['codes'].items()) or 'none')}</td>"
+            f"<td>{f'${row['cost']:.3f}' if row['cost'] is not None else '–'}</td></tr>")
+    cons_table = ("<div class='tw'><table><thead><tr><th>tier</th><th>input tok</th><th>cached</th>"
+                  "<th>output tok avg (min–max)</th><th>returned service_tier</th><th>errors</th><th>$ / request</th>"
+                  f"</tr></thead><tbody>{''.join(cons_rows)}</tbody></table></div>")
 
+    strips = {key: {LABEL[m]: [r[key] for r in ok.get(m, {}).values() if r.get(key) is not None] for m in TIERS}
+              for key in ("ttft_s", "ttlt_s", "output_tps")}
+    series = {LABEL[m]: [(dt(r["started_at"]), r["ttlt_s"]) for r in ok.get(m, {}).values()] for m in TIERS}
     return f"""
-<p>Since 2026-09-30 the scheduled probe (<code>probe-job</code>, every 15 minutes) runs the <b>heavy streaming test</b>: one
-request per tier with a deterministic prompt of ≈{f'{first_in:,.0f}' if first_in else '4,600'} input tokens (50 support tickets,
-with a nonce at the start so prompt caching cannot help) that asks for exactly 16 structured answers, ≈1,150 output tokens.
-<code>reasoning_effort="none"</code> keeps the output length stable (no hidden reasoning tokens). The response is <b>streamed</b>,
-so the worker records the time to the first content token (TTFT) and to the last token (TTLT) separately.
-Counting was reset for this campaign: the earlier short-prompt runs are shown in the sections below as history.</p>
-<p class="sub">{len(runs)} runs · {first:%Y-%m-%d %H:%M} – {last:%Y-%m-%d %H:%M} UTC. Output tokens/s after first token =
-completion tokens ÷ (TTLT − TTFT); whole request = completion tokens ÷ TTLT.
-Why not 100k input / 10k output: the tokens-per-minute quota counts input + <code>max_tokens</code>, so one such request
-(≈110k) exceeds the whole 100k TPM of a capacity-100 deployment shared by all three tiers, and 96 runs a day would cost
-≈$200/day.</p>
-{table}
-<h3>Paired ratio to Standard (same message, same moment)</h3>
+<div class="kpis">{tier_card('standard')}{tier_card('priority')}{tier_card('flex')}</div>
+<p class="sub">{len(runs)} runs ({len(all3)} with all three tiers ok) · {span}</p>
+{excl_note}
+<h3>Latency percentiles</h3>
+{pct_table(rows)}
+<h3>Paired comparison with Standard</h3>
 {ratio_table}
-{svg_strip({LABEL[m]: [r["ttft_s"] for r in ok.get(m, {}).values()] for m in ("standard", "priority", "flex")},
-           "Time to first token", log=True)}
-{svg_strip({LABEL[m]: [r["ttlt_s"] for r in ok.get(m, {}).values()] for m in ("standard", "priority", "flex")},
-           "Time to last token")}
-{svg_strip({LABEL[m]: [r["output_tps"] for r in ok.get(m, {}).values() if r.get("output_tps")]
-            for m in ("standard", "priority", "flex")}, "Output tokens per second (after first token)", unit="tok/s")}
-{svg_timeseries(series["ttlt_s"], "Time to last token over time")}
-{svg_timeseries(series["ttft_s"], "Time to first token over time", log=True)}
-"""
+<h3>Distribution</h3>
+{svg_strip(strips['ttft_s'], "Time to first token (log scale)", log=True)}
+{svg_strip(strips['ttlt_s'], "Time to last token")}
+{svg_strip(strips['output_tps'], "Output tokens/s after first token", unit="tok/s")}
+{svg_timeseries(series, "Time to last token over time") if len(runs) > 1 else ""}
+<h3>Same work in every tier?</h3>
+{cons_table}
+<p class="cap">Cost uses the retail price of the tier the API actually served (returned <code>service_tier</code>).</p>"""
+
+
+def pilot_table(hd: dict) -> str:
+    rows = heavy_summary_rows(hd)
+    body = "".join(
+        f"<tr><td class='l'><span class='dot {r['mode']}'></span>{LABEL[r['mode']]}</td><td>{r['ok']}/{r['requests']}</td>"
+        f"<td>{fmt(r['ttft_s'][50], '', 2)}</td><td>{fmt(r['ttlt_s'][50], '', 2)}</td>"
+        f"<td>{fmt(r['output_tps'][50], '', 0)}</td><td>{f'{r['in_tok']:,.0f}' if r['in_tok'] else '–'}</td>"
+        f"<td>{f'{r['out_tok'][0]:,.0f}' if r['out_tok'] else '–'}</td></tr>" for r in rows)
+    return ("<div class='tw'><table><thead><tr><th>tier</th><th>ok</th><th>TTFT p50</th><th>TTLT p50</th>"
+            "<th>tok/s p50</th><th>input tok</th><th>output tok</th></tr></thead>"
+            f"<tbody>{body}</tbody></table></div>")
 
 
 # ------------------------------------------------------------------ report
+CSS = """
+body{font-family:Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;color:#1f2937;background:#f8fafc}
+main{max-width:1000px;margin:0 auto;padding:24px 28px 60px;background:#fff}
+h1{font-size:28px;margin:8px 0 4px} h2{margin-top:40px;border-bottom:2px solid #e5e7eb;padding-bottom:6px}
+h3{margin-top:26px} .sub{color:#6b7280;margin-top:0}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}
+.kpi{border:1px solid #e5e7eb;border-left:5px solid #2563eb;border-radius:8px;padding:12px}
+.kpi.flex{border-left-color:#f59e0b}.kpi.batch{border-left-color:#10b981}.kpi.priority{border-left-color:#7c3aed}
+.kpi .k{font-size:12px;color:#6b7280;text-transform:uppercase;letter-spacing:.03em}.kpi .v{font-size:26px;font-weight:700}
+.kpi .s{font-size:12px;color:#4b5563}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0 18px}
+th,td{border-bottom:1px solid #e5e7eb;padding:5px 7px;text-align:right;white-space:nowrap} th{background:#f3f4f6}
+td.l,th:first-child{text-align:left} .wrap td{white-space:normal;text-align:left}
+.chart{width:100%;height:auto;margin:6px 0} .ct{font-weight:600;font-size:13px}
+.tick{font-size:11px;fill:#6b7280;text-anchor:middle}.ytick{font-size:11px;fill:#6b7280;text-anchor:end}
+.lbl{font-size:12px;text-anchor:end}.lg{font-size:12px}.grid{stroke:#eef0f3}.axis{stroke:#9ca3af}
+.legend{font-size:12px;color:#6b7280;margin-top:-4px}
+pre{background:#0f172a;color:#e2e8f0;padding:12px 14px;border-radius:8px;overflow:auto;font-size:12.5px;line-height:1.45}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px} .hl{background:#854d0e;color:#fff;padding:0 3px;border-radius:3px}
+.note{background:#fffbeb;border:1px solid #fde68a;padding:10px 14px;border-radius:8px;font-size:14px}
+.arch{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;font-size:13px;margin:12px 0}
+.box{border:1px solid #cbd5e1;border-radius:8px;padding:8px 10px;background:#f8fafc;flex:1;min-width:140px}
+.box b{display:block;margin-bottom:3px} .arrow{align-self:center;font-size:20px;color:#94a3b8}
+details{margin:10px 0} summary{cursor:pointer;font-weight:600}
+.tw{overflow-x:auto;max-width:100%} .tw table{margin:8px 0 6px}
+.kpis{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.kpi .row{display:flex;gap:4px 12px;flex-wrap:wrap;font-size:13px;margin:6px 0 2px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;background:#2563eb}
+.dot.priority{background:#7c3aed}.dot.flex{background:#f59e0b}
+.d{font-weight:700}.d.up{color:#16a34a}.d.down{color:#dc2626}
+.cap{font-size:12.5px;color:#6b7280;margin:2px 0 14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 6px}
+.chip{background:#eef2ff;color:#3730a3;border-radius:999px;padding:3px 10px;font-size:12.5px}
+td.g,th.g{border-left:2px solid #e5e7eb} .b{font-weight:700}
+ul.tight li{margin:4px 0} h3{font-size:16px}
+@media (max-width:640px){main{padding:16px 12px 40px} h1{font-size:22px} .arch .arrow{display:none}}
+@media print{body{background:#fff} main{padding:0}}
+"""
+
 def code_snippets() -> dict[str, str]:
     llm = (ROOT / "worker" / "app" / "llm.py").read_text(encoding="utf-8")
     batch = (ROOT / "worker" / "app" / "batch_worker.py").read_text(encoding="utf-8")
@@ -742,8 +865,6 @@ def build(campaigns: list[str] | None, out_path: Path) -> None:
     all_records, files, batches = load(campaigns)
     if not all_records:
         raise SystemExit("no results found in results/blobs – run download_results.py first")
-    heavy_html = heavy_section(all_records)
-    heavy_rows = heavy_summary_rows(heavy_data(all_records))
     # Sections 3–7 describe the original short-prompt, non-streaming campaigns (history); heavy runs have their own section.
     records = [r for r in all_records if not is_heavy(r["run_id"])]
     files = [f for f in files if not is_heavy(f["run_id"])]
@@ -887,32 +1008,7 @@ def build(campaigns: list[str] | None, out_path: Path) -> None:
    <div class="s">vs {fmt(statistics.median(b_std_run) if b_std_run else None)} for the same prompts on Standard · jobs: {', '.join(f'{k}×{v}' for k, v in batch_states.items())}</div></div>
 </div>"""
 
-    css = """
-body{font-family:Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;color:#1f2937;background:#f8fafc}
-main{max-width:1000px;margin:0 auto;padding:24px 28px 60px;background:#fff}
-h1{font-size:28px;margin:8px 0 4px} h2{margin-top:40px;border-bottom:2px solid #e5e7eb;padding-bottom:6px}
-h3{margin-top:26px} .sub{color:#6b7280;margin-top:0}
-.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}
-.kpi{border:1px solid #e5e7eb;border-left:5px solid #2563eb;border-radius:8px;padding:12px}
-.kpi.flex{border-left-color:#f59e0b}.kpi.batch{border-left-color:#10b981}.kpi.priority{border-left-color:#7c3aed}
-.kpi .k{font-size:12px;color:#6b7280;text-transform:uppercase;letter-spacing:.03em}.kpi .v{font-size:26px;font-weight:700}
-.kpi .s{font-size:12px;color:#4b5563}
-table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0 18px}
-th,td{border-bottom:1px solid #e5e7eb;padding:5px 7px;text-align:right;white-space:nowrap} th{background:#f3f4f6}
-td.l,th:first-child{text-align:left} .wrap td{white-space:normal;text-align:left}
-.chart{width:100%;height:auto;margin:6px 0} .ct{font-weight:600;font-size:13px}
-.tick{font-size:11px;fill:#6b7280;text-anchor:middle}.ytick{font-size:11px;fill:#6b7280;text-anchor:end}
-.lbl{font-size:12px;text-anchor:end}.lg{font-size:12px}.grid{stroke:#eef0f3}.axis{stroke:#9ca3af}
-.legend{font-size:12px;color:#6b7280;margin-top:-4px}
-pre{background:#0f172a;color:#e2e8f0;padding:12px 14px;border-radius:8px;overflow:auto;font-size:12.5px;line-height:1.45}
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px} .hl{background:#854d0e;color:#fff;padding:0 3px;border-radius:3px}
-.note{background:#fffbeb;border:1px solid #fde68a;padding:10px 14px;border-radius:8px;font-size:14px}
-.arch{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;font-size:13px;margin:12px 0}
-.box{border:1px solid #cbd5e1;border-radius:8px;padding:8px 10px;background:#f8fafc;flex:1;min-width:140px}
-.box b{display:block;margin-bottom:3px} .arrow{align-self:center;font-size:20px;color:#94a3b8}
-details{margin:10px 0} summary{cursor:pointer;font-weight:600}
-@media print{body{background:#fff} main{padding:0}}
-"""
+    css = CSS
 
     dep_rows = "".join(f"<tr><td class='l'>{esc(p)}</td><td class='l'>{esc(LABEL[m])}</td><td class='l'>{esc(d)}</td>"
                        f"<td class='l'>{esc(mo)}</td></tr>" for p, m, d, mo in deployments)
@@ -1026,9 +1122,12 @@ details{margin:10px 0} summary{cursor:pointer;font-weight:600}
 
     body = f"""
 <main>
-<h1>Azure OpenAI service tiers: Standard vs Priority vs Flex</h1>
+<h1>Azure OpenAI service tiers: Standard vs Priority vs Flex – Phase 1 (history)</h1>
 <p class="sub">Real measurements from a scale-to-zero Azure Container Apps application (Batch API as a historical reference)
  · generated {datetime.now():%Y-%m-%d %H:%M} · {len(records)} measured requests across {len(runs)} runs</p>
+<p class="note"><b>Historical report.</b> Short-prompt, non-streaming campaigns up to 2026-09-30. Measurement was reset on
+2026-09-30 with a heavier streaming test (TTFT, TTLT, tokens/s) – the current results are in
+<a href="report.html">report.html</a>.</p>
 {kpis}
 
 <h2>1. What was tested</h2>
@@ -1094,8 +1193,9 @@ queue-driven processing handles naturally.</p></div>
 and result correlation. Results come back as a file, not as a response.</p></div>
 </div>
 
-<h2>3. Heavy streaming test – TTFT, TTLT, tokens/s (current campaign)</h2>
-{heavy_html}
+<h2>3. Heavy streaming test (current campaign)</h2>
+<p>Since 2026-09-30 the scheduled probe runs a heavier streaming test (≈4.6k input / ≈1.15k output tokens, TTFT and TTLT
+measured separately). Its results are reported separately in <a href="report.html">report.html</a>.</p>
 
 <h2>4. Short-prompt history – Standard vs Priority vs Flex (gpt-5.6-sol)</h2>
 <p class="note">History: the original campaigns up to 2026-09-30 (short prompts, ~85 output tokens, non-streaming). Kept for
@@ -1192,9 +1292,72 @@ Foundry and Service Bus, and every call is authenticated with the user-assigned 
                         f"<meta name='viewport' content='width=device-width,initial-scale=1'>"
                         f"<title>Azure OpenAI service tiers: Standard vs Priority vs Flex</title><style>{css}</style></head>"
                         f"<body>{body}</body></html>", encoding="utf-8")
-    print(f"report written to {out_path} ({len(records)} history records, {len(runs)} history runs)")
-    print("heavy campaign (pair A, gpt-5.6-sol):")
-    for row in heavy_rows:
+    print(f"history report written to {out_path} ({len(records)} history records, {len(runs)} history runs)")
+
+
+def build_heavy(campaigns: list[str] | None, out_path: Path) -> None:
+    """Current report: the heavy streaming campaign (≈50k in / ≈5k out, every 30 min); pilot shown as reference."""
+    all_records, _, _ = load(campaigns)
+    hd = heavy_data(all_records, HEAVY_MAIN)
+    pilot = heavy_data(all_records, HEAVY_PILOT)
+    rows = heavy_summary_rows(hd)
+    in_tok = next((r["in_tok"] for r in rows if r["in_tok"]), None)
+    out_tok = next((r["out_tok"][0] for r in rows if r["out_tok"]), None)
+    in_txt = f"{in_tok / 1000:.0f}k" if in_tok else "≈50k"
+    out_txt = f"{out_tok / 1000:.1f}k" if out_tok else "≈5k"
+    chips = "".join(f"<span class='chip'>{c}</span>" for c in (
+        "gpt-5.6-sol · one deployment", f"{in_txt} input tokens", f"{out_txt} output tokens",
+        "streaming · reasoning none", "every 30 min", "3 tiers in parallel, same moment"))
+
+    body = f"""
+<main>
+<h1>Azure OpenAI: Standard vs Priority vs Flex</h1>
+<p class="sub">Real measurements from an Azure Container Apps demo · generated {datetime.now():%Y-%m-%d %H:%M}</p>
+<div class="chips">{chips}</div>
+
+<h2>1. Results</h2>
+{heavy_body(hd, rows)}
+
+<h2>2. How it is measured</h2>
+<div class="arch">
+ <div class="box"><b>probe-job</b>cron */30</div><div class="arrow">→</div>
+ <div class="box"><b>Service Bus</b>topic llm-tests</div><div class="arrow">→</div>
+ <div class="box"><b>Container Apps</b>3 workers, scale 0→1</div><div class="arrow">→</div>
+ <div class="box"><b>Foundry</b>gpt-5.6-sol<br>private endpoint</div><div class="arrow">→</div>
+ <div class="box"><b>Blob Storage</b>JSON results<br>private endpoint</div>
+</div>
+<ul class="tight">
+ <li>Every run each worker sends the <b>same</b> prompt (540 support tickets, answer 70 of them in a fixed format) to the same
+ deployment; only <code>service_tier</code> differs. A per-request nonce at the start of the prompt prevents prompt caching.</li>
+ <li><b>TTFT</b> = first content token, <b>TTLT</b> = end of stream, <b>tok/s</b> = output tokens ÷ (TTLT − TTFT).</li>
+ <li>VNet-integrated Container Apps, private endpoints, one managed identity (Entra ID), no keys.</li>
+</ul>
+<pre>stream = client.chat.completions.create(
+    model=deployment, messages=messages,    # ≈50k input tokens
+    <span class="hl">service_tier="priority"</span>,          # "flex" | "default" (Standard)
+    reasoning_effort="none", max_completion_tokens=8000,
+    stream=True, stream_options={{"include_usage": True}})</pre>
+<p class="cap">Same code for all tiers. Flex: long timeout + retry on 429. Priority: check the returned
+<code>service_tier</code> ("default" = downgraded, billed as Standard).</p>
+
+<h2>3. Billing</h2>
+<p>One deployment and quota for all tiers; Cost Management charges them on separate meters: Standard on regular meters,
+Priority on <b>PP</b> meters (2×), Flex on <b>Fl</b> meters (0.5×). Rejected Flex requests (429) are not billed.
+Evidence: <a href="report-phase1.html">report-phase1.html</a>, section 9.</p>
+
+<details><summary>Earlier data: pilot (≈4.6k in / 1.1k out, {len(pilot['runs'])} runs) and Phase 1</summary>
+<p class="cap">Pilot, 30 Sep – 1 Oct, every 15 min, p50 values. Short-prompt Phase 1 incl. the Batch API reference:
+<a href="report-phase1.html">report-phase1.html</a>.</p>
+{pilot_table(pilot) if pilot['runs'] else '<p>–</p>'}
+</details>
+</main>"""
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(f"<!doctype html><html lang='en'><head><meta charset='utf-8'>"
+                        f"<meta name='viewport' content='width=device-width,initial-scale=1'>"
+                        f"<title>Azure OpenAI service tiers – Standard vs Priority vs Flex</title><style>{CSS}</style></head>"
+                        f"<body>{body}</body></html>", encoding="utf-8")
+    print(f"report written to {out_path} ({len(hd['records'])} requests, {len(hd['runs'])} runs of {HEAVY_MAIN}*)")
+    for row in rows:
         line = [f"  {LABEL[row['mode']]:<9} ok {row['ok']}/{row['requests']}"]
         for key, _, unit in HEAVY_METRICS:
             v = row[key]
@@ -1202,6 +1365,8 @@ Foundry and Service Bus, and every call is authenticated with the user-assigned 
         ot = row["out_tok"]
         line.append(f"out {ot[0]:.0f} ({ot[1]}-{ot[2]})" if ot else "out -")
         line.append(f"in {row['in_tok']:.0f}" if row["in_tok"] else "in -")
+        line.append(f"cached {row['cached']:.0f}" if row["cached"] is not None else "cached -")
+        line.append(f"${row['cost']:.3f}" if row["cost"] is not None else "$ -")
         line.append("tiers " + ",".join(f"{k}x{v}" for k, v in row["tiers"].items()))
         line.append("non200 " + (",".join(f"{k}x{v}" for k, v in row["codes"].items()) or "none"))
         print(" | ".join(line))
@@ -1279,9 +1444,11 @@ def conclusions(s_a_std, s_a_pri, s_a_flex, pr_pri, pr_flex, pri_served, pri_n, 
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--campaign", action="append", help="include only runs of this campaign (repeatable)")
-    ap.add_argument("--out", default=str(RESULTS_DIR / "report.html"))
+    ap.add_argument("--out", default=str(RESULTS_DIR / "report.html"), help="current report (heavy streaming campaign)")
+    ap.add_argument("--history-out", default=str(RESULTS_DIR / "report-phase1.html"), help="Phase 1 history report")
     args = ap.parse_args()
-    build(args.campaign, Path(args.out))
+    build_heavy(args.campaign, Path(args.out))
+    build(args.campaign, Path(args.history_out))
 
 
 if __name__ == "__main__":

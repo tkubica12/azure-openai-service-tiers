@@ -91,6 +91,10 @@ def read_json(blob_name: str):
     return json.loads(blob_container().download_blob(blob_name).readall())
 
 
+def blob_exists(blob_name: str) -> bool:
+    return blob_container().get_blob_client(blob_name).exists()
+
+
 def _resolve(url_var: str) -> dict:
     """Evidence of private networking: which IP do the Storage / Foundry hostnames resolve to?"""
     from urllib.parse import urlparse
