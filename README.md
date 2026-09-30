@@ -81,10 +81,14 @@ client.chat.completions.create(
     model=deployment,
     messages=[{"role": "user", "content": prompt}],
     service_tier=service_tier,   # "default" | "priority" | "flex" – the only difference
-    reasoning_effort="low",
-    max_completion_tokens=1000,
+    reasoning_effort=reasoning_effort,
+    max_completion_tokens=max_completion_tokens,
+    stream=True,                 # to measure time-to-first-token and time-to-last-token
+    stream_options={"include_usage": True},
 )
 ```
+
+Streaming works identically on all three tiers; the tier actually used is reported in the chunks (`service_tier`).
 
 * **Priority** needs nothing else. It can also be switched on for a whole deployment (`properties.service_tier: priority`,
   requests then use `auto`) without touching code. The application should read `response.service_tier`: a Priority request
@@ -107,10 +111,30 @@ The main campaign covers a few hours of one working day. Because Flex runs on sp
 429 rate depend on regional load, and the docs recommend off-peak hours (nights, weekends); Priority, on the other hand,
 may be downgraded at peak times. A **scheduled Container Apps
 Job** `probe-job` ([`worker/app/probe.py`](worker/app/probe.py), cron `*/15 * * * *`, same image, `WORKER_MODE=probe`) therefore
-sends one short prompt to the same topic every 15 minutes, 24/7. Run IDs are `probe-YYYYMMDD-HHMM` (UTC slot) and the prompt
-rotates deterministically. Each probe hits a cold worker (the gap is longer than the 300 s cool-down). The report groups
+sends one prompt to the same topic every 15 minutes, 24/7. It started with a short prompt (`PROBE_CAMPAIGN=short`, run IDs
+`probe-YYYYMMDD-HHMM`, prompt rotates deterministically, phase 1) and has been switched to the heavy streaming campaign
+described below (phase 2). Each probe hits a cold worker (the gap is longer than the 300 s cool-down). The report groups
 results by 3-hour UTC buckets and by weekday vs weekend. Deploy with `-ProbeCron ''` to skip the job, or stop it with
 `az containerapp job delete -n probe-job -g rg-openai-flex-demo`.
+
+### Heavy streaming campaign (phase 2, from 2026-09-30 11:00 UTC)
+
+Short answers (~85 tokens) mostly measure time-to-first-token, so the probe was switched to a heavier, **streamed**
+test (`PROBE_CAMPAIGN=heavy`, run IDs `heavy-YYYYMMDD-HHMM`) and counting restarted from zero:
+
+* **Prompt:** ~4.6k input tokens (a synthetic support-ticket backlog, see `heavy_prompt()` in
+  [`worker/app/prompts.py`](worker/app/prompts.py)) asking for a fixed-structure triage report. Output is ~1.1k tokens
+  and very stable (±3 %) because of the fixed structure, `reasoning_effort="none"` and `max_completion_tokens=2500`. The
+  run ID is embedded as a nonce so prompt caching never kicks in.
+* **Metrics** ([`worker/app/llm.py`](worker/app/llm.py), `stream=True` with `stream_options.include_usage`):
+  **TTFT** (time to first content token), **TTLT** (time to last token = full response), **output tokens/s** during
+  generation `(completion_tokens − 1) / (TTLT − TTFT)`, and end-to-end tokens/s `completion_tokens / TTLT`.
+* **Tiers:** pair A only (Standard, Priority, Flex on the same `gpt-56-sol` deployment); Batch is not part of phase 2.
+* **Why not 100k in / 10k out:** the deployment is capped at 100k TPM (capacity 100) and all three tiers share it.
+  Azure counts prompt tokens **plus `max_completion_tokens`** against TPM, so one 100k/10k request (~110k) cannot be
+  admitted at all, and three per slot would need >300k TPM. It would also cost roughly $200/day at 96 slots/day
+  (3 tiers × ~$0.7 each), above the $100 total budget. The heavy probe costs ~$0.15 per slot (~$14/day).
+* **Schedule:** every 15 minutes until **2026-10-04 13:00 UTC**, when the job is deleted and the final report is built.
 
 ## Metering and billing
 
@@ -190,9 +214,28 @@ Clean-up: `az group delete -n rg-openai-flex-demo --yes` (and purge the soft-del
 ## Results
 
 <!-- RESULTS -->
+### Phase 2 – heavy streaming test (TTFT / TTLT / tokens per second)
+
+> **Collection in progress** – counting was reset on 2026-09-30 11:00 UTC. So far only
+> the first heavy run (heavy-20260930-1100) is complete with all three tiers; the table below is an illustration of
+> the format, not a statistic. The probe runs every 15 minutes until 2026-10-04 13:00 UTC and this section is then
+> regenerated from all runs. Each request: ~4.6k input tokens → ~1.1k output tokens, streamed. Report section 3 in
+> [`results/report.html`](results/report.html).
+
+| Tier | n | TTFT p50 | TTLT p50 | Output tok/s p50 | Output tokens | Served as |
+|---|---:|---:|---:|---:|---:|---|
+| Standard | 2 | 1.38 s | 13.32 s | 92.9 | 1092–1128 | `default` |
+| Priority | 1 | 0.86 s | 10.31 s | 118.6 | 1122 | `priority` |
+| Flex | 2 | 2.21 s | 12.83 s | 106.6 | 1124–1144 | `flex` |
+
+First impression: on a longer answer the difference shows in both TTFT and generation speed. The final report will
+include p50/p90/p99, paired ratios, day/night buckets, Priority downgrades and Flex 429s.
+
+### Phase 1 – short prompts (end-to-end latency)
+
 > **Snapshot** – data from 2026-09-29 08:52 UTC to 2026-09-30 10:00 UTC (123 runs: main-campaign runs plus the 15-minute
-> probe job, including one night; smoke tests excluded). Collection continues until 2026-10-05, so weekend buckets are not
-> populated yet. Full detail, per-run tables and charts: [`results/report.html`](results/report.html).
+> probe job, including one night; smoke tests excluded). Phase 1 ended when the probe switched to the heavy test
+> (2026-09-30 10:45 UTC), so weekend buckets stay empty. Full detail, per-run tables and charts: [`results/report.html`](results/report.html).
 
 **Pair A – gpt-5.6-sol, same GlobalStandard deployment, only `service_tier` differs** (end-to-end request latency, successful requests):
 

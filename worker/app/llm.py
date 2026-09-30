@@ -67,36 +67,68 @@ def complete(
         m0 = time.monotonic()
         status, error, headers = None, None, {}
         try:
+            # Streaming lets us measure time to first token (TTFT) and time to last token (TTLT).
             raw = client.chat.completions.with_raw_response.create(
                 model=deployment,
                 messages=[{"role": "user", "content": prompt}],
                 service_tier=service_tier,  # "default" (Standard), "priority" or "flex" – the only difference
                 reasoning_effort=reasoning_effort,
                 max_completion_tokens=max_completion_tokens,
+                stream=True,
+                stream_options={"include_usage": True},
             )
-            resp = raw.parse()
-            duration = time.monotonic() - m0
+            headers_s = time.monotonic() - m0
             headers = _headers(raw.http_response)
+            status = raw.http_response.status_code
+            ttft = None
+            parts: list[str] = []
+            usage = finish_reason = model = tier = None
+            chunks = 0
+            for chunk in raw.parse():
+                chunks += 1
+                model = chunk.model or model
+                tier = getattr(chunk, "service_tier", None) or tier
+                if chunk.usage:
+                    usage = chunk.usage
+                for choice in chunk.choices or []:
+                    if choice.delta and choice.delta.content:
+                        if ttft is None:
+                            ttft = time.monotonic() - m0
+                        parts.append(choice.delta.content)
+                    if choice.finish_reason:
+                        finish_reason = choice.finish_reason
+            duration = time.monotonic() - m0
+            content = "".join(parts)
             attempts.append({"attempt": attempt, "started_at": iso(a_start), "duration_s": duration,
-                             "status": raw.http_response.status_code, "headers": headers})
-            usage = resp.usage
+                             "status": status, "headers": headers})
+            completion_tokens = usage.completion_tokens if usage else None
+            gen_s = duration - ttft if ttft is not None else None
             return {
                 "success": True,
                 "started_at": iso(started_at),
                 "finished_at": iso(utcnow()),
-                "latency_s": duration,  # latency of the successful call
+                "latency_s": duration,  # latency of the successful call (= time to last token)
+                "ttft_s": ttft,  # request sent -> first content token
+                "ttlt_s": duration,  # request sent -> stream finished
+                "headers_s": headers_s,  # request sent -> HTTP response headers
+                "generation_s": gen_s,  # first -> last token
+                # Decode speed: tokens generated after the first one / time spent streaming them.
+                "output_tps": (completion_tokens - 1) / gen_s if completion_tokens and gen_s else None,
+                # End-to-end throughput including queueing/prefill.
+                "e2e_tps": completion_tokens / duration if completion_tokens and duration else None,
+                "stream_chunks": chunks,
                 "total_s": time.monotonic() - t0,  # what the application experienced incl. retries/backoff
                 "attempt_count": attempt,
                 "attempts": attempts,
                 "requested_service_tier": service_tier,
-                "service_tier": resp.service_tier,
-                "model": resp.model,
-                "finish_reason": resp.choices[0].finish_reason if resp.choices else None,
-                "output_chars": len(resp.choices[0].message.content or "") if resp.choices else 0,
-                "output_preview": (resp.choices[0].message.content or "")[:200] if resp.choices else "",
+                "service_tier": tier,
+                "model": model,
+                "finish_reason": finish_reason,
+                "output_chars": len(content),
+                "output_preview": content[:200],
                 "usage": {
                     "prompt_tokens": usage.prompt_tokens if usage else None,
-                    "completion_tokens": usage.completion_tokens if usage else None,
+                    "completion_tokens": completion_tokens,
                     "reasoning_tokens": getattr(getattr(usage, "completion_tokens_details", None), "reasoning_tokens", None),
                     "cached_tokens": getattr(getattr(usage, "prompt_tokens_details", None), "cached_tokens", None),
                 },

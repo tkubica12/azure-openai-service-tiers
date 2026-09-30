@@ -1,0 +1,114 @@
+{
+  "run_id": "probe-20260930-1015",
+  "mode": "batch",
+  "pair": "B",
+  "deployment": "gpt-54-mini-batch",
+  "message": {
+    "enqueued_at": "2026-09-30T10:15:30.876000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-30T10:15:57.064518+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 26.188518,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "batch",
+    "replica": "worker-batch--0000004-6f6959fff6-lhzdc",
+    "revision": "worker-batch--0000004",
+    "process_started_at": "2026-09-30T10:22:44.971230+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-30T10:23:47.457898+00:00",
+  "batch": {
+    "status": "completed",
+    "created_at": "2026-09-30T10:16:14+00:00",
+    "in_progress_at": "2026-09-30T10:17:15+00:00",
+    "finalizing_at": "2026-09-30T10:22:43+00:00",
+    "completed_at": "2026-09-30T10:23:24+00:00",
+    "failed_at": null,
+    "expired_at": null,
+    "request_counts": {
+      "completed": 1,
+      "failed": 0,
+      "total": 1
+    },
+    "errors": null,
+    "output_file_id": "file-dfd8465b-1082-4c5f-aff5-bd56c1d7588c",
+    "error_file_id": null
+  },
+  "timeline": [
+    {
+      "observed_at": "2026-09-30T10:16:18.934578+00:00",
+      "status": "validating"
+    },
+    {
+      "observed_at": "2026-09-30T10:17:19.358803+00:00",
+      "status": "in_progress",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-30T10:22:46.947424+00:00",
+      "status": "finalizing",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-30T10:23:47.230276+00:00",
+      "status": "completed",
+      "counts": {
+        "completed": 1,
+        "failed": 0,
+        "total": 1
+      }
+    }
+  ],
+  "polls": 7,
+  "records": [
+    {
+      "run_id": "probe-20260930-1015",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "probe-20260930-1015-classify",
+      "success": true,
+      "batch_id": "batch_d923b212-0ca0-4cf1-b87b-d3df8b25b1b7",
+      "batch_status": "completed",
+      "latency_s": 430,
+      "total_s": 448.295698,
+      "end_to_end_s": 496.354276,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 139,
+      "output_preview": "**Positive** \u2014 \u05dc\u05de\u05e8\u05d5\u05ea \u05e9\u05d4\u05de\u05e9\u05dc\u05d5\u05d7 \u05d0\u05d9\u05d7\u05e8 \u05d1\u05d9\u05d5\u05de\u05d9\u05d9\u05dd, \u05d4\u05e9\u05d9\u05e8\u05d5\u05ea \u05e4\u05d9\u05e6\u05d4 \u05de\u05d9\u05d3 \u05e2\u05dc \u05d3\u05de\u05d9 \u05d4\u05de\u05e9\u05dc\u05d5\u05d7 \u05d5\u05d4\u05dc\u05e7\u05d5\u05d7 \u05de\u05e6\u05d9\u05d9\u05df \u05e9\u05d4\u05de\u05d5\u05e6\u05e8 \u201cworks great,\u201d \u05de\u05d4 \u05e9\u05de\u05e7\u05e0\u05d4 \u05dc\u05e8\u05d5\u05e9\u05dd \u05d4\u05db\u05dc\u05dc\u05d9 \u05d8\u05d5\u05df \u05d7\u05d9\u05d5\u05d1\u05d9.",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 48,
+        "completion_tokens": 82,
+        "reasoning_tokens": 21,
+        "cached_tokens": 0
+      }
+    }
+  ]
+}

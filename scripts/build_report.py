@@ -33,6 +33,7 @@ def load(campaigns: list[str] | None) -> tuple[list[dict], list[dict], list[dict
             continue
         doc = json.loads(path.read_text(encoding="utf-8"))
         doc["_file"] = str(path.relative_to(RESULTS_DIR))
+        doc.setdefault("run_id", run_id)
         files.append(doc)
         if doc["mode"] == "batch":
             batches.append(doc)
@@ -599,6 +600,132 @@ def stats_table(rows: list[tuple[str, dict, dict]]) -> str:
     return f"<table><thead><tr>{head}</tr></thead><tbody>{''.join(body)}</tbody></table>"
 
 
+# ------------------------------------------------------------------ heavy streaming campaign
+HEAVY_PREFIX = "heavy-"
+HEAVY_METRICS = [
+    ("ttft_s", "Time to first token", "s"),
+    ("ttlt_s", "Time to last token", "s"),
+    ("output_tps", "Output tokens/s (after first token)", "tok/s"),
+    ("e2e_tps", "Output tokens/s (whole request)", "tok/s"),
+]
+
+
+def is_heavy(run_id: str) -> bool:
+    return run_id.startswith(HEAVY_PREFIX)
+
+
+HEAVY_IMAGE_LIVE = datetime(2026, 9, 30, 10, 52, tzinfo=timezone.utc)  # streaming image serving all workers
+
+
+def heavy_valid(r: dict) -> bool:
+    # Only records produced by the streaming worker: the first heavy slot also holds leftovers from the old
+    # (non-streaming) image. Successful streaming records always carry ttft_s; failures are kept after the rollout.
+    if r.get("success"):
+        return r.get("ttft_s") is not None
+    started = dt(r.get("started_at"))
+    return bool(started and started >= HEAVY_IMAGE_LIVE)
+
+
+def heavy_data(records: list[dict]) -> dict:
+    rs = [r for r in records if is_heavy(r["run_id"]) and r.get("pair") == "A"
+          and r["mode"] in ("standard", "priority", "flex") and heavy_valid(r)]
+    by = defaultdict(list)
+    for r in rs:
+        by[r["mode"]].append(r)
+    ok = {m: {r["run_id"]: r for r in by[m] if r["success"] and r.get("ttft_s") is not None} for m in by}
+    return {"records": rs, "by": by, "ok": ok}
+
+
+def heavy_summary_rows(hd: dict) -> list[dict]:
+    """One row per tier with p50/p90/p99 of the heavy metrics – used by the report and printed for the README."""
+    rows = []
+    for m in ("standard", "priority", "flex"):
+        good = list(hd["ok"].get(m, {}).values())
+        row = {"mode": m, "requests": len(hd["by"].get(m, [])), "ok": len(good)}
+        for key, _, _ in HEAVY_METRICS:
+            v = [r[key] for r in good if r.get(key) is not None]
+            row[key] = {p: pct(v, p) for p in (50, 90, 99)}
+        comp = [r["usage"]["completion_tokens"] for r in good if (r.get("usage") or {}).get("completion_tokens")]
+        prm = [r["usage"]["prompt_tokens"] for r in good if (r.get("usage") or {}).get("prompt_tokens")]
+        row["out_tok"] = (statistics.fmean(comp), min(comp), max(comp)) if comp else None
+        row["in_tok"] = statistics.fmean(prm) if prm else None
+        row["tiers"] = Counter(r.get("service_tier") for r in good)
+        row["codes"] = Counter(a.get("status") for r in hd["by"].get(m, []) for a in r.get("attempts", [])
+                               if a.get("status") != 200)
+        rows.append(row)
+    return rows
+
+
+def heavy_section(records: list[dict]) -> str:
+    hd = heavy_data(records)
+    if not hd["records"]:
+        return "<p>No heavy-campaign runs downloaded yet.</p>"
+    runs = sorted({r["run_id"] for r in hd["records"]})
+    rows = heavy_summary_rows(hd)
+    first = min(dt(r["started_at"]) for r in hd["records"] if r.get("started_at"))
+    last = max(dt(r["finished_at"]) for r in hd["records"] if r.get("finished_at"))
+
+    head = ("<tr><th rowspan='2'>tier (gpt-5.6-sol)</th><th rowspan='2'>ok / requests</th>"
+            + "".join(f"<th colspan='3'>{esc(label)}</th>" for _, label, _ in HEAVY_METRICS)
+            + "<th rowspan='2'>output tokens avg (min–max)</th><th rowspan='2'>returned service_tier</th>"
+              "<th rowspan='2'>non-200 attempts</th></tr><tr>"
+            + "<th>p50</th><th>p90</th><th>p99</th>" * len(HEAVY_METRICS) + "</tr>")
+    body = []
+    for row in rows:
+        cells = [f"<td class='l'>{LABEL[row['mode']]}</td><td>{row['ok']}/{row['requests']}</td>"]
+        for key, _, unit in HEAVY_METRICS:
+            cells += [f"<td>{fmt(row[key][p], unit, 2 if unit == 's' else 0)}</td>" for p in (50, 90, 99)]
+        ot = row["out_tok"]
+        cells.append(f"<td>{f'{ot[0]:.0f} ({ot[1]}–{ot[2]})' if ot else '–'}</td>")
+        cells.append(f"<td>{esc(', '.join(f'{k}×{v}' for k, v in row['tiers'].items()) or '–')}</td>")
+        cells.append(f"<td>{esc(', '.join(f'{k}×{v}' for k, v in row['codes'].items()) or 'none')}</td>")
+        body.append("<tr>" + "".join(cells) + "</tr>")
+    table = f"<table><thead>{head}</thead><tbody>{''.join(body)}</tbody></table>"
+
+    # paired per-run ratios to Standard (same message, same moment)
+    ok = hd["ok"]
+    ratio_rows = []
+    for m in ("priority", "flex"):
+        common = sorted(set(ok.get("standard", {})) & set(ok.get(m, {})))
+        for key, label, _ in HEAVY_METRICS[:3]:
+            v = [ok[m][k][key] / ok["standard"][k][key] for k in common
+                 if ok["standard"][k].get(key) and ok[m][k].get(key) is not None]
+            ratio_rows.append(
+                f"<tr><td class='l'>{LABEL[m]} ÷ Standard – {esc(label)}</td><td>{len(v)}</td>"
+                + "".join(f"<td>{f'{pct(v, p):.2f}×' if v else '–'}</td>" for p in (10, 50, 90)) + "</tr>")
+    ratio_table = ("<table><thead><tr><th>paired ratio (same run)</th><th>n</th><th>p10</th><th>p50</th><th>p90</th></tr>"
+                   f"</thead><tbody>{''.join(ratio_rows)}</tbody></table>")
+
+    series = {key: {f"{LABEL[m]}": [(dt(r["started_at"]), r[key]) for r in ok.get(m, {}).values()]
+                    for m in ("standard", "priority", "flex")} for key, _, _ in HEAVY_METRICS}
+    first_in = next((row["in_tok"] for row in rows if row["in_tok"]), None)
+
+    return f"""
+<p>Since 2026-09-30 the scheduled probe (<code>probe-job</code>, every 15 minutes) runs the <b>heavy streaming test</b>: one
+request per tier with a deterministic prompt of ≈{f'{first_in:,.0f}' if first_in else '4,600'} input tokens (50 support tickets,
+with a nonce at the start so prompt caching cannot help) that asks for exactly 16 structured answers, ≈1,150 output tokens.
+<code>reasoning_effort="none"</code> keeps the output length stable (no hidden reasoning tokens). The response is <b>streamed</b>,
+so the worker records the time to the first content token (TTFT) and to the last token (TTLT) separately.
+Counting was reset for this campaign: the earlier short-prompt runs are shown in the sections below as history.</p>
+<p class="sub">{len(runs)} runs · {first:%Y-%m-%d %H:%M} – {last:%Y-%m-%d %H:%M} UTC. Output tokens/s after first token =
+completion tokens ÷ (TTLT − TTFT); whole request = completion tokens ÷ TTLT.
+Why not 100k input / 10k output: the tokens-per-minute quota counts input + <code>max_tokens</code>, so one such request
+(≈110k) exceeds the whole 100k TPM of a capacity-100 deployment shared by all three tiers, and 96 runs a day would cost
+≈$200/day.</p>
+{table}
+<h3>Paired ratio to Standard (same message, same moment)</h3>
+{ratio_table}
+{svg_strip({LABEL[m]: [r["ttft_s"] for r in ok.get(m, {}).values()] for m in ("standard", "priority", "flex")},
+           "Time to first token", log=True)}
+{svg_strip({LABEL[m]: [r["ttlt_s"] for r in ok.get(m, {}).values()] for m in ("standard", "priority", "flex")},
+           "Time to last token")}
+{svg_strip({LABEL[m]: [r["output_tps"] for r in ok.get(m, {}).values() if r.get("output_tps")]
+            for m in ("standard", "priority", "flex")}, "Output tokens per second (after first token)", unit="tok/s")}
+{svg_timeseries(series["ttlt_s"], "Time to last token over time")}
+{svg_timeseries(series["ttft_s"], "Time to first token over time", log=True)}
+"""
+
+
 # ------------------------------------------------------------------ report
 def code_snippets() -> dict[str, str]:
     llm = (ROOT / "worker" / "app" / "llm.py").read_text(encoding="utf-8")
@@ -612,9 +739,17 @@ def code_snippets() -> dict[str, str]:
 
 
 def build(campaigns: list[str] | None, out_path: Path) -> None:
-    records, files, batches = load(campaigns)
-    if not records:
+    all_records, files, batches = load(campaigns)
+    if not all_records:
         raise SystemExit("no results found in results/blobs – run download_results.py first")
+    heavy_html = heavy_section(all_records)
+    heavy_rows = heavy_summary_rows(heavy_data(all_records))
+    # Sections 3–7 describe the original short-prompt, non-streaming campaigns (history); heavy runs have their own section.
+    records = [r for r in all_records if not is_heavy(r["run_id"])]
+    files = [f for f in files if not is_heavy(f["run_id"])]
+    batches = [b for b in batches if not is_heavy(b["run_id"])]
+    if not records:
+        raise SystemExit("only heavy runs selected – the report needs the historical campaigns as well")
     runs = sorted({r["run_id"] for r in records})
     by = defaultdict(list)
     for r in records:
@@ -899,7 +1034,8 @@ details{margin:10px 0} summary{cursor:pointer;font-weight:600}
 <h2>1. What was tested</h2>
 <p>Every test run is one Service Bus message sent to the topic <code>llm-tests</code> – either from a laptop
 (<code>send_tests.py</code>, campaign <code>main</code>: 5 prompts per run) or by the scheduled Container Apps Job <code>probe-job</code>
-(campaign <code>probe</code>: 1 prompt every 15 minutes, day and night). The topic fans it out to
+(campaign <code>probe</code>: 1 short prompt every 15 minutes until 2026-09-30; since then campaign <code>heavy</code>: one
+≈4.6k-input / ≈1.15k-output streaming request per tier every 15 minutes, see section 3). The topic fans it out to
 four subscriptions, each consumed by its own Container App that scales from zero (KEDA <code>azure-servicebus</code> scaler with the
 managed identity). All workers run the same container image; only <code>WORKER_MODE</code> differs.
 Results land in a Blob Storage account reachable from the apps only through its private endpoint.</p>
@@ -917,7 +1053,7 @@ Results land in a Blob Storage account reachable from the apps only through its 
  (<code>default</code> / <code>priority</code> / <code>flex</code>). All three workers receive the same message at the same moment.</li>
  <li><b>Historical reference – Standard vs Batch</b> on <b>gpt-5.4-mini</b> (gpt-5.6-sol has no Global Batch deployment type).</li>
 </ul>
-<p class="sub">Priority was added to the running experiment later than Standard/Flex, so section 3 also shows a comparison restricted
+<p class="sub">Priority was added to the running experiment later than Standard/Flex, so section 4 also shows a comparison restricted
 to <b>matched prompts</b> (same run, same prompt, all three tiers succeeded) and paired per-prompt ratios, which remove the
 time-of-day and prompt-mix bias.</p>
 <table class="wrap"><thead><tr><th>Pair</th><th>Mode</th><th>Deployment</th><th>Model returned by the API</th></tr></thead>
@@ -958,7 +1094,12 @@ queue-driven processing handles naturally.</p></div>
 and result correlation. Results come back as a file, not as a response.</p></div>
 </div>
 
-<h2>3. Standard vs Priority vs Flex (gpt-5.6-sol)</h2>
+<h2>3. Heavy streaming test – TTFT, TTLT, tokens/s (current campaign)</h2>
+{heavy_html}
+
+<h2>4. Short-prompt history – Standard vs Priority vs Flex (gpt-5.6-sol)</h2>
+<p class="note">History: the original campaigns up to 2026-09-30 (short prompts, ~85 output tokens, non-streaming). Kept for
+reference; the current measurements are in section 3.</p>
 <p><b>Latency</b> is the wall-clock time of the successful HTTP call (non-streaming, full response) as seen by the worker in
 Azure (same region as the model). Requests in one run are sequential per worker; all tiers start at the same moment (same
 message), so they see the same time of day.</p>
@@ -988,7 +1129,7 @@ outputs).</p>
 {f'''<p class="note"><b>Priority downgrades:</b> {len(pri_down)} of {len(pri_ok)} successful Priority requests came back with
 <code>service_tier="{esc(pri_down[0].get("service_tier"))}"</code> (processed and billed as Standard): {", ".join(esc(r["run_id"]) for r in pri_down[:10])}{" …" if len(pri_down) > 10 else ""}.</p>''' if pri_down else ""}
 
-<h2>4. Historical reference – Standard vs Batch (gpt-5.4-mini)</h2>
+<h2>5. Historical reference – Standard vs Batch (gpt-5.4-mini)</h2>
 <p>The Batch API is the older way to get a 50 % discount. For Batch there is no per-request latency – the unit is a job. The job's
 service-side duration (<code>created_at → completed_at</code>) applies to every request in it. The same prompts were sent to the
 Standard deployment of the same model for comparison.</p>
@@ -998,33 +1139,33 @@ Standard deployment of the same model for comparison.</p>
             "Batch end-to-end": b_batch_e2e}, "Standard vs Batch turnaround", log=True)}
 {svg_batch_timeline(batches)}
 
-<h2>5. Time of day, day and night</h2>
+<h2>6. Time of day, day and night</h2>
 <p>Flex runs on spare, preemptible capacity, so latency and the chance of HTTP 429 depend on overall load in the region; Priority
 should stay fast even at peak (but may be downgraded to Standard at peak).
-Besides the main campaign, a scheduled Container Apps Job (<code>probe-job</code>, cron <code>*/15 * * * *</code>) sends one short
-prompt every 15 minutes around the clock. Buckets are {BUCKET_H} hours in UTC; Prague local time (CEST, UTC+2) is in brackets.
+Besides the main campaign, a scheduled Container Apps Job (<code>probe-job</code>, cron <code>*/15 * * * *</code>) sent one short
+prompt every 15 minutes around the clock (this section covers the short-prompt history; heavy runs are in section 3). Buckets are {BUCKET_H} hours in UTC; Prague local time (CEST, UTC+2) is in brackets.
 Batch jobs are bucketed by the hour they were created.</p>
 {tod_table}
 {tod_chart}
 <h3>Weekday vs weekend</h3>
 {tod_week}
 
-<h2>6. Scale-from-zero behaviour</h2>
+<h2>7. Scale-from-zero behaviour</h2>
 <p>Pickup delay = time between the message becoming visible on Service Bus and a worker receiving it. A cold start means the
 replica process started after the message became visible (KEDA had to scale the app from 0 → 1).</p>
 {pickup_table}
 {svg_strip({f"{LABEL[m]} worker": pickup[m] for m in ("standard", "priority", "flex", "batch")}, "Message pickup delay")}
 
-<h2>7. Per-run overview</h2>
+<h2>8. Per-run overview</h2>
 <details{' open' if len(runs) <= 30 else ''}><summary>{len(runs)} runs</summary>
 <table><thead><tr><th>Run</th><th>start (UTC)</th><th>Std p50</th><th>ok</th><th>Prio p50</th><th>ok</th><th>Flex p50</th><th>ok</th>
 <th>Std B p50</th><th>ok</th><th>Batch</th><th>Batch job</th></tr></thead><tbody>{''.join(per_run_rows)}</tbody></table>
 </details>
 
-<h2>8. Metering and billing</h2>
+<h2>9. Metering and billing</h2>
 {billing_section(records)}
 
-<h2>9. Security and private networking evidence</h2>
+<h2>10. Security and private networking evidence</h2>
 <p>Every worker resolves the Storage and Foundry host names at start-up and stores the result with its output. Private
 IPs (10.60.2.x = private endpoint subnet) prove that traffic from Container Apps goes through the private endpoints and the
 private DNS zones linked to the VNet. No keys or connection strings exist anywhere – key auth is disabled on Storage,
@@ -1035,7 +1176,7 @@ Foundry and Service Bus, and every call is authenticated with the user-assigned 
 <tbody>{storage_rows}</tbody></table>''' if storage_rows else ''}
 <p class="sub">{evidence_note}</p>
 
-<h2>10. Conclusions</h2>
+<h2>11. Conclusions</h2>
 {conclusions(s_a_std, s_a_pri, s_a_flex, pr_pri, pr_flex, pri_served, len(pri_ok), tps_vals, flex_ok, len(flex_rs),
              flex_429, s_b_std, s_b_batch, b_std_run, pickup)}
 
@@ -1051,7 +1192,19 @@ Foundry and Service Bus, and every call is authenticated with the user-assigned 
                         f"<meta name='viewport' content='width=device-width,initial-scale=1'>"
                         f"<title>Azure OpenAI service tiers: Standard vs Priority vs Flex</title><style>{css}</style></head>"
                         f"<body>{body}</body></html>", encoding="utf-8")
-    print(f"report written to {out_path} ({len(records)} records, {len(runs)} runs)")
+    print(f"report written to {out_path} ({len(records)} history records, {len(runs)} history runs)")
+    print("heavy campaign (pair A, gpt-5.6-sol):")
+    for row in heavy_rows:
+        line = [f"  {LABEL[row['mode']]:<9} ok {row['ok']}/{row['requests']}"]
+        for key, _, unit in HEAVY_METRICS:
+            v = row[key]
+            line.append(key + " " + "/".join(f"{v[p]:.2f}" if v[p] is not None else "-" for p in (50, 90, 99)))
+        ot = row["out_tok"]
+        line.append(f"out {ot[0]:.0f} ({ot[1]}-{ot[2]})" if ot else "out -")
+        line.append(f"in {row['in_tok']:.0f}" if row["in_tok"] else "in -")
+        line.append("tiers " + ",".join(f"{k}x{v}" for k, v in row["tiers"].items()))
+        line.append("non200 " + (",".join(f"{k}x{v}" for k, v in row["codes"].items()) or "none"))
+        print(" | ".join(line))
 
 
 def conclusions(s_a_std, s_a_pri, s_a_flex, pr_pri, pr_flex, pri_served, pri_n, tps_vals, flex_ok, flex_n, flex_429,

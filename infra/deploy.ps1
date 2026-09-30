@@ -11,7 +11,8 @@ param(
     [string]$ImageTag = (Get-Date -Format 'yyyyMMddHHmmss'),
     [switch]$SkipImage,
     [switch]$InfraOnly,
-    [string]$ProbeCron = '*/15 * * * *'   # '' removes nothing but skips deploying the probe job
+    [string]$ProbeCron = '*/15 * * * *',  # '' removes nothing but skips deploying the probe job
+    [string]$ProbeCampaign = 'heavy'      # 'heavy' = streaming TTFT/TTLT on Standard/Priority/Flex; 'probe' = legacy small prompts
 )
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
@@ -34,6 +35,7 @@ function Deploy([bool]$apps, [string]$tag) {
         deployApps          = @{ value = $apps }
         imageTag            = @{ value = $tag }
         probeCron           = @{ value = $ProbeCron }
+        probeCampaign       = @{ value = $ProbeCampaign }
     }
     $pfile = Join-Path $env:TEMP "flexdemo-params.json"
     @{ '$schema' = 'https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#'; contentVersion = '1.0.0.0'; parameters = $params } |

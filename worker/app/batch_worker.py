@@ -47,6 +47,9 @@ def _find_batch(client, run_id: str):
 
 
 def submit(job: dict, timing: dict, status_sender) -> None:
+    if (job.get("params") or {}).get("skip_batch"):
+        log.info("run=%s skip_batch set, not submitting a Batch job", job["run_id"])
+        return
     client = openai_client()
     existing = _find_batch(client, job["run_id"])
     if existing:

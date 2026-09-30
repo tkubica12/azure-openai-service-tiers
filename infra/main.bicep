@@ -23,6 +23,9 @@ param imageTag string = 'latest'
 @description('Cron schedule (UTC) of the probe job that sends a 1-prompt test run to the topic. Empty = no probe job.')
 param probeCron string = '*/15 * * * *'
 
+@description('Probe campaign name. "heavy*" = large fixed context (~4.6k in / ~1.15k out, streaming TTFT/TTLT) on Standard/Priority/Flex only; "probe" = legacy small prompts on all tiers incl. Batch.')
+param probeCampaign string = 'heavy'
+
 var suffix = take(uniqueString(resourceGroup().id), 6)
 var tags = {
   project: 'openai-flex-processing'
@@ -604,7 +607,7 @@ resource probeJob 'Microsoft.App/jobs@2025-07-01' = if (deployApps && !empty(pro
           resources: { cpu: json('0.25'), memory: '0.5Gi' }
           env: concat(commonEnv, [
             { name: 'WORKER_MODE', value: 'probe' }
-            { name: 'PROBE_CAMPAIGN', value: 'probe' }
+            { name: 'PROBE_CAMPAIGN', value: probeCampaign }
           ])
         }
       ]

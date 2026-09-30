@@ -15,10 +15,13 @@ from .llm import complete
 SERVICE_TIER = {"standard": "default", "priority": "priority", "flex": "flex"}
 
 
-def targets(mode: str) -> list[tuple[str, str]]:
+def targets(mode: str, job: dict | None = None) -> list[tuple[str, str]]:
     if mode == "standard":
-        return [("A", env("FLEX_PAIR_DEPLOYMENT")), ("B", env("BATCH_PAIR_DEPLOYMENT"))]
-    return [("A", env("FLEX_PAIR_DEPLOYMENT"))]
+        pairs = [("A", env("FLEX_PAIR_DEPLOYMENT")), ("B", env("BATCH_PAIR_DEPLOYMENT"))]
+    else:
+        pairs = [("A", env("FLEX_PAIR_DEPLOYMENT"))]
+    wanted = ((job or {}).get("params") or {}).get("pairs")
+    return [p for p in pairs if not wanted or p[0] in wanted]
 
 
 def run_pair(mode: str, pair: str, deployment: str, job: dict, timing: dict) -> None:
@@ -55,6 +58,6 @@ def run_pair(mode: str, pair: str, deployment: str, job: dict, timing: dict) -> 
 def handle(mode: str, job: dict, timing: dict) -> None:
     # Pairs run concurrently so that Standard and Flex hit the model at the same time of day.
     with ThreadPoolExecutor(max_workers=2) as pool:
-        futures = [pool.submit(run_pair, mode, pair, dep, job, timing) for pair, dep in targets(mode)]
+        futures = [pool.submit(run_pair, mode, pair, dep, job, timing) for pair, dep in targets(mode, job)]
         for f in futures:
             f.result()
