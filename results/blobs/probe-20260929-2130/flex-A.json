@@ -1,0 +1,85 @@
+{
+  "run_id": "probe-20260929-2130",
+  "mode": "flex",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "flex",
+  "message": {
+    "enqueued_at": "2026-09-29T21:30:29.694000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T21:30:54.177151+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 24.483151,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "flex",
+    "replica": "worker-flex--0000004-6568dccf5d-4q8wr",
+    "revision": "worker-flex--0000004",
+    "process_started_at": "2026-09-29T21:30:53.003728+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T21:30:56.559537+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260929-2130",
+      "mode": "flex",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "probe-20260929-2130-code",
+      "success": true,
+      "started_at": "2026-09-29T21:30:54.252187+00:00",
+      "finished_at": "2026-09-29T21:30:56.545920+00:00",
+      "latency_s": 2.2936789249999947,
+      "total_s": 2.2937350269999968,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T21:30:54.252193+00:00",
+          "duration_s": 2.2936789249999947,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "dbfa9e1f-9319-473d-b736-a9fe405944fa",
+            "x-request-id": "dc7616bc-4e4e-4d3f-a885-b3595b816856",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99976"
+          }
+        }
+      ],
+      "requested_service_tier": "flex",
+      "service_tier": "flex",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 435,
+      "output_preview": "```python\ndef p95(values: list[float]) -> float:\n    if not values:\n        raise ValueError(\"values cannot be empty\")\n\n    values = sorted(values)\n    pos = 0.95 * (len(values) - 1)\n    lower = int(p",
+      "usage": {
+        "prompt_tokens": 24,
+        "completion_tokens": 158,
+        "reasoning_tokens": 35,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "dbfa9e1f-9319-473d-b736-a9fe405944fa",
+        "x-request-id": "dc7616bc-4e4e-4d3f-a885-b3595b816856",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99976"
+      }
+    }
+  ]
+}

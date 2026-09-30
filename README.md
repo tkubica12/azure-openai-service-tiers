@@ -97,7 +97,9 @@ client.chat.completions.create(
 with the GlobalBatch deployment name in every line → upload a file → wait until it is processed → create a batch job →
 persist job state (blob), because the worker may scale to zero → schedule a poll message (Service Bus, +60 s) and repeat until
 `completed/failed/expired` → download output and error files → correlate lines by `custom_id`. It also needs a separate
-GlobalBatch deployment, a second queue + KEDA rule and durable state.
+GlobalBatch deployment, a second queue + KEDA rule and durable state. Job creation is not idempotent: in this test,
+`POST /batches` sometimes returned 504 after 60 s although the batch had been created. The worker therefore looks up an
+existing batch by `metadata.run_id` before creating one and after a failed create.
 
 ## Day-and-night probe
 
@@ -188,52 +190,76 @@ Clean-up: `az group delete -n rg-openai-flex-demo --yes` (and purge the soft-del
 ## Results
 
 <!-- RESULTS -->
-> **Interim snapshot** – data from 2026-09-29 08:52–12:08 UTC (Tuesday, 25 runs = 14 main-campaign runs every 15 min + 11 probe-job runs; smoke tests excluded).
-> Collection continues until 2026-10-05, so night and weekend buckets are not populated yet. Full detail, per-run tables
-> and charts: [`results/report.html`](results/report.html).
+> **Snapshot** – data from 2026-09-29 08:52 UTC to 2026-09-30 10:00 UTC (123 runs: main-campaign runs plus the 15-minute
+> probe job, including one night; smoke tests excluded). Collection continues until 2026-10-05, so weekend buckets are not
+> populated yet. Full detail, per-run tables and charts: [`results/report.html`](results/report.html).
 
 **Pair A – gpt-5.6-sol, same GlobalStandard deployment, only `service_tier` differs** (end-to-end request latency, successful requests):
 
 | Tier | n | p50 | p90 | p95 | p99 | max | Served as (`service_tier` in response) |
 |---|---:|---:|---:|---:|---:|---:|---|
-| Standard | 81 | 2.52 s | 13.70 s | 32.64 s | 38.72 s | 46.19 s | `default` 81/81 |
-| Priority | 24 | 2.24 s | 12.29 s | 13.79 s | 28.46 s | 32.82 s | `priority` 24/24 (0 downgrades) |
-| Flex | 81 | 2.29 s | 13.99 s | 16.71 s | 42.21 s | 86.69 s | `flex` 81/81 (0 × HTTP 429) |
+| Standard | 219 | 2.08 s | 11.59 s | 20.11 s | 36.76 s | 85.37 s | `default` 219/219 |
+| Priority | 162 | 1.96 s | 9.00 s | 13.86 s | 31.90 s | 80.27 s | `priority` 162/162 (0 downgrades) |
+| Flex | 219 | 2.28 s | 12.25 s | 17.79 s | 41.33 s | 86.69 s | `flex` 219/219 (0 × HTTP 429) |
 
-Priority was added later, so there are fewer samples. The fair comparison uses only the 24 prompts that ran on all three
+Reference pair B (gpt-5.4-mini, Standard): n=219, p50 2.24 s, p90 22.60 s, p99 79.38 s. All requests on all tiers
+succeeded (100 %).
+
+Priority was added later, so it has fewer samples. The fair comparison uses only the 162 prompts that ran on all three
 tiers in the same run:
 
-| Matched prompts (n=24) | p50 | p90 | p99 | Median ratio vs Standard |
+| Matched prompts (n=162) | p50 | p90 | p99 | Median ratio vs Standard |
 |---|---:|---:|---:|---:|
-| Standard | 2.18 s | 12.30 s | 36.09 s | 1.00× |
-| Priority | 2.24 s | 12.29 s | 28.46 s | 0.95× |
-| Flex | 2.52 s | 12.71 s | 21.32 s | 1.09× |
+| Standard | 1.97 s | 8.90 s | 36.55 s | 1.00× |
+| Priority | 1.96 s | 9.00 s | 31.90 s | 1.05× |
+| Flex | 2.30 s | 10.36 s | 40.82 s | 1.21× |
 
-Across all 81 Standard/Flex pairs, the median Flex/Standard ratio is 0.88×.
+Across all 219 Standard/Flex pairs, the median Flex/Standard ratio is 1.14×.
+
+Time of day (pair A, p50 / p90 by UTC start hour):
+
+| UTC hours | Standard | Priority | Flex |
+|---|---|---|---|
+| 00–06 (night, n=24 each) | 1.68 / 2.23 s | 1.70 / 2.23 s | 2.07 / 2.72 s |
+| 06–12 | 2.46 / 13.25 s | 1.91 / 3.82 s | 2.25 / 9.10 s |
+| 12–18 | 2.08 / 16.39 s | 2.27 / 13.72 s | 2.50 / 18.02 s |
+| 18–24 (n=24 each) | 1.76 / 2.04 s | 1.70 / 2.27 s | 2.15 / 2.55 s |
 
 What this means so far:
 
-- **Flex costs half the price, and with this light load its latency is currently indistinguishable from Standard.**
-  There were no 429 (capacity) rejections. The long tail (tens of seconds) is shared by all tiers, so it is platform
-  variance, not tier behaviour. The application code is unchanged apart from `service_tier="flex"` and a longer timeout.
-- **Priority is always honoured (24/24) but gives only a small p50 gain.** The median generation speed is 35 tok/s for
-  Priority vs 33 tok/s for Standard.
-  - The 80 tok/s target is not observable here because answers are only ~85 tokens, so time-to-first-token dominates.
-  - Priority is billed at 2× Standard (gpt-5.6-sol $8 / $0.80 / $40 per 1M input / cached / output tokens).
+- **Flex costs half the price and is modestly slower.** The median is about 14 % higher than Standard (21 % on the
+  matched set) and the p99 tail is a few seconds longer. There were no 429 (capacity) rejections and no failures.
+  - The long tail (tens of seconds) appears on all tiers during European business hours and disappears at night, so it
+    is mostly platform load, not tier behaviour.
+  - The application code is unchanged apart from `service_tier="flex"` and a longer timeout.
+- **Priority is always honoured (162/162) and gives the best tail.** The p50 gain is small, but p90 and p99 are lower
+  than both other tiers, which is most visible during busy daytime hours (06–12 UTC p90 3.8 s vs 13.3 s for Standard).
+  - Median generation speed is 40.6 tok/s for Priority, 38.0 for Standard and 35.2 for Flex. Answers are only ~85 tokens,
+    so time-to-first-token dominates.
   - A downgrade would be billed as Standard and reported as `service_tier=default`. None happened.
-- **Batch (historical reference, gpt-5.4-mini):**
-  - Before the incident below, 8 jobs completed with a turnaround of p50 7.3 min (min 6.1, max 9.1 min). The same
-    prompts on Standard took p50 12.87 s. Standard gpt-5.4-mini overall: n=81, p50 2.72 s, p90 20.78 s, p99 54.62 s.
+- **Batch (historical reference, gpt-5.4-mini):** 81 jobs, all completed.
+  - End-to-end turnaround was p50 9.0 min, p90 10.2 min, p99 26.9 min (range 6.6–28.8 min). Pair B Standard answers the
+    same prompts in seconds.
   - Batch needs a different application design: upload a file, submit a job, poll, then download the output file.
-  - From about 10:00 UTC, the Files API upload (`POST /openai/v1/files`) repeatedly returned 408/504 timeouts. Batch
-    submits were retried and then dead-lettered (17 messages), so later runs have no Batch data. This coincided with a
-    long-running Foundry account update (the account stuck in `Accepted`).
-  - Standard, Priority and Flex on the same resource were unaffected. This is another operational difference of the
-    file-based Batch flow.
-- **Scale-from-zero pickup:** the median delay from enqueue to the worker receiving the message is ~26 s (KEDA polling +
-  container start), with one Standard outlier of 5 min. Asynchronous workloads absorb this easily.
-- **Transient errors:** a few HTTP 500s (Standard 12, Flex 14 attempts) all succeeded after an SDK retry, so they were
-  not visible to the application.
-- **Billing evidence:** Azure Monitor token metrics are split by `ServiceTierRequest`/`ServiceTierResponse` (see the
-  report). The Cost Management API returned HTTP 429 during this snapshot, so actual cost rows will be refreshed later.
-  There is no public Flex meter for gpt-5.6-sol yet.
+  - On 2026-09-29, `POST /files` and `batches.create` returned 408/504 timeouts for several hours, even though the batch
+    was sometimes created. The worker now submits idempotently: before submitting, it looks up an existing batch by
+    `metadata.run_id`. The 42 messages dead-lettered during the incident were left as they are. Standard, Priority and
+    Flex were unaffected.
+- **Scale-from-zero pickup:** the median delay from enqueue to the worker receiving the message is ~28 s (KEDA polling +
+  container start). A few cold-start outliers took up to 5 min, plus one Priority message that waited behind a stuck
+  replica. Asynchronous workloads absorb this easily.
+- **Transient errors:** HTTP 500s (Standard A 25, Priority 11, Flex 23, Standard B 35 attempts) all succeeded after an
+  SDK retry, so they were not visible to the application.
+- **Billing (Cost Management, actual cost):** each tier is billed on its own meter, and the implied unit prices match
+  the documented multipliers:
+
+  | Meter (gpt-5.6-sol, Global) | Output price | Input price |
+  |---|---:|---:|
+  | `5.6 sol ShortCo … Std Gl` (Standard) | $20 / 1M | $4 / 1M |
+  | `5.6 sol ShortCo … PP Gl` (Priority) | $40 / 1M (2×) | $8 / 1M (2×) |
+  | `56sol ShCo … Fl Gl` (Flex) | $10 / 1M (0.5×) | $2 / 1M (0.5×) |
+
+  The Flex meter already appears in Cost Management, but the public Retail Prices API does not list it yet. Batch on
+  gpt-5.4-mini shows the same 50 % discount (`5.4 mini Batch …`, $2.25 vs $4.50 per 1M output tokens). The total
+  resource-group cost so far is ≈ $4.43, of which OpenAI tokens are ≈ $1.2 and the rest is ACA, private endpoint, ACR
+  and Defender.

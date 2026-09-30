@@ -1,0 +1,101 @@
+{
+  "run_id": "probe-20260929-1400",
+  "mode": "standard",
+  "pair": "B",
+  "deployment": "gpt-54-mini",
+  "service_tier_requested": "default",
+  "message": {
+    "enqueued_at": "2026-09-29T14:00:21.627000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T14:00:54.750045+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 33.123045,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "standard",
+    "replica": "worker-standard--0000003-c7cc6d4cc-npjgq",
+    "revision": "worker-standard--0000003",
+    "process_started_at": "2026-09-29T14:00:53.366754+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T14:01:51.897267+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260929-1400",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "probe-20260929-1400-summarize",
+      "success": true,
+      "started_at": "2026-09-29T14:00:54.830495+00:00",
+      "finished_at": "2026-09-29T14:01:51.856001+00:00",
+      "latency_s": 13.502713444991969,
+      "total_s": 57.02550979598891,
+      "attempt_count": 2,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T14:00:54.830499+00:00",
+          "duration_s": 40.65107945399359,
+          "status": 500,
+          "error": {
+            "type": "InternalServerError",
+            "code": null,
+            "message": "Error code: 500 - {'error': {'message': 'The server is overloaded or not ready yet. Please try again later.', 'type': 'service_unavailable_error', 'param': None, 'code': None}}"
+          },
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "4c6df49b-53d4-41e0-b5b3-dff1e8dd9c2c",
+            "x-request-id": "f4f9eb13-e54b-458b-a2e9-cf54adf2a1c7"
+          }
+        },
+        {
+          "attempt": 2,
+          "started_at": "2026-09-29T14:01:38.353224+00:00",
+          "duration_s": 13.502713444991969,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "037836ef-464b-4368-9f1e-ffe3e2b3973e",
+            "x-request-id": "4f49192a-361b-4166-a111-91a34a3be221",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99975"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 551,
+      "output_preview": "- **Decouples services:** Producers and consumers don\u2019t need to be online at the same time, so a failure or slowdown in one part of the system doesn\u2019t immediately break the whole application.  \n- **Ab",
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 126,
+        "reasoning_tokens": 8,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "037836ef-464b-4368-9f1e-ffe3e2b3973e",
+        "x-request-id": "4f49192a-361b-4166-a111-91a34a3be221",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99975"
+      }
+    }
+  ]
+}

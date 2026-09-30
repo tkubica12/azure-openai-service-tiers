@@ -1,8 +1,8 @@
 {
-  "queried_at": "2026-09-29T12:21:16+00:00",
+  "queried_at": "2026-09-30T10:10:49+00:00",
   "window": [
     "2026-09-28T00:00:00+00:00",
-    "2026-09-29T13:00:00+00:00"
+    "2026-09-30T11:00:00+00:00"
   ],
   "metrics": [
     {
@@ -11,7 +11,7 @@
       "tier_request": "default",
       "tier_response": "default",
       "status": "200",
-      "total": 36.0
+      "total": 115.0
     },
     {
       "metric": "AzureOpenAIRequests",
@@ -19,7 +19,7 @@
       "tier_request": "flex",
       "tier_response": "flex",
       "status": "200",
-      "total": 35.0
+      "total": 115.0
     },
     {
       "metric": "AzureOpenAIRequests",
@@ -27,7 +27,7 @@
       "tier_request": "default",
       "tier_response": "default",
       "status": "200",
-      "total": 22.0
+      "total": 105.0
     },
     {
       "metric": "AzureOpenAIRequests",
@@ -35,11 +35,27 @@
       "tier_request": "priority",
       "tier_response": "priority",
       "status": "200",
-      "total": 10.0
+      "total": 88.0
+    },
+    {
+      "metric": "AzureOpenAIRequests",
+      "deployment": "gpt-54-mini-batch",
+      "tier_request": "default",
+      "tier_response": "default",
+      "status": "200",
+      "total": 70.0
     },
     {
       "metric": "AzureOpenAIRequests",
       "deployment": "gpt-56-sol",
+      "tier_request": "default",
+      "tier_response": "default",
+      "status": "500",
+      "total": 15.0
+    },
+    {
+      "metric": "AzureOpenAIRequests",
+      "deployment": "gpt-54-mini",
       "tier_request": "default",
       "tier_response": "default",
       "status": "500",
@@ -50,16 +66,8 @@
       "deployment": "gpt-54-mini-batch",
       "tier_request": "default",
       "tier_response": "default",
-      "status": "200",
-      "total": 6.0
-    },
-    {
-      "metric": "AzureOpenAIRequests",
-      "deployment": "gpt-54-mini",
-      "tier_request": "default",
-      "tier_response": "default",
-      "status": "500",
-      "total": 2.0
+      "status": "429",
+      "total": 1.0
     },
     {
       "metric": "AzureOpenAIRequests",
@@ -75,15 +83,7 @@
       "tier_request": "default",
       "tier_response": "default",
       "status": null,
-      "total": 1210.0
-    },
-    {
-      "metric": "ProcessedPromptTokens",
-      "deployment": "gpt-56-sol",
-      "tier_request": "default",
-      "tier_response": "default",
-      "status": null,
-      "total": 1172.0
+      "total": 3530.0
     },
     {
       "metric": "ProcessedPromptTokens",
@@ -91,7 +91,7 @@
       "tier_request": "flex",
       "tier_response": "flex",
       "status": null,
-      "total": 1172.0
+      "total": 3460.0
     },
     {
       "metric": "ProcessedPromptTokens",
@@ -99,7 +99,31 @@
       "tier_request": "default",
       "tier_response": "default",
       "status": null,
-      "total": 1151.0
+      "total": 3449.0
+    },
+    {
+      "metric": "ProcessedPromptTokens",
+      "deployment": "gpt-56-sol",
+      "tier_request": "default",
+      "tier_response": "default",
+      "status": null,
+      "total": 3410.0
+    },
+    {
+      "metric": "ProcessedPromptTokens",
+      "deployment": "gpt-56-sol",
+      "tier_request": "priority",
+      "tier_response": "priority",
+      "status": null,
+      "total": 2363.0
+    },
+    {
+      "metric": "ProcessedPromptTokens",
+      "deployment": "gpt-54-mini",
+      "tier_request": "priority",
+      "tier_response": "priority",
+      "status": null,
+      "total": 12.0
     },
     {
       "metric": "GeneratedTokens",
@@ -107,7 +131,7 @@
       "tier_request": "default",
       "tier_response": "default",
       "status": null,
-      "total": 3855.0
+      "total": 11450.0
     },
     {
       "metric": "GeneratedTokens",
@@ -115,15 +139,7 @@
       "tier_request": "default",
       "tier_response": "default",
       "status": null,
-      "total": 3646.0
-    },
-    {
-      "metric": "GeneratedTokens",
-      "deployment": "gpt-56-sol",
-      "tier_request": "default",
-      "tier_response": "default",
-      "status": null,
-      "total": 2796.0
+      "total": 11201.0
     },
     {
       "metric": "GeneratedTokens",
@@ -131,12 +147,300 @@
       "tier_request": "flex",
       "tier_response": "flex",
       "status": null,
-      "total": 2686.0
+      "total": 8608.0
+    },
+    {
+      "metric": "GeneratedTokens",
+      "deployment": "gpt-56-sol",
+      "tier_request": "default",
+      "tier_response": "default",
+      "status": null,
+      "total": 8447.0
+    },
+    {
+      "metric": "GeneratedTokens",
+      "deployment": "gpt-56-sol",
+      "tier_request": "priority",
+      "tier_response": "priority",
+      "status": null,
+      "total": 6101.0
+    },
+    {
+      "metric": "GeneratedTokens",
+      "deployment": "gpt-54-mini",
+      "tier_request": "priority",
+      "tier_response": "priority",
+      "status": null,
+      "total": 4.0
     }
   ],
   "cost": {
-    "error": "ERROR: Too Many Requests({\"error\":{\"code\":\"429\",\"message\":\"Too many requests. Please retry.\"}})\n",
-    "rows": []
+    "rows": [
+      {
+        "Cost": 1.902432,
+        "UsageQuantity": 79268.0,
+        "MeterCategory": "Azure Container Apps",
+        "MeterSubCategory": "Azure Container Apps",
+        "Meter": "Standard vCPU Active Usage",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.476157,
+        "UsageQuantity": 158719.0,
+        "MeterCategory": "Azure Container Apps",
+        "MeterSubCategory": "Azure Container Apps",
+        "Meter": "Standard Memory Active Usage",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.46028,
+        "UsageQuantity": 0.011507,
+        "MeterCategory": "Foundry Models",
+        "MeterSubCategory": "Azure OpenAI GPT5",
+        "Meter": "5.6 sol ShortCo Opt PP Gl 1M Tokens",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.405386111111111,
+        "UsageQuantity": 40.5386111111111,
+        "MeterCategory": "Virtual Network",
+        "MeterSubCategory": "Virtual Network Private Link",
+        "Meter": "Standard Private Endpoint",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.34318,
+        "UsageQuantity": 0.017159,
+        "MeterCategory": "Foundry Models",
+        "MeterSubCategory": "Azure OpenAI GPT5",
+        "Meter": "5.6 sol ShortCo Opt Std Gl 1M Tokens",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.16729,
+        "UsageQuantity": 0.016729,
+        "MeterCategory": "Foundry Models",
+        "MeterSubCategory": "Azure OpenAI GPT5",
+        "Meter": "56sol ShCo Opt Fl Gl 1M Tokens",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.154,
+        "UsageQuantity": 22.0,
+        "MeterCategory": "Microsoft Defender for Cloud",
+        "MeterSubCategory": "Microsoft Defender CSPM",
+        "Meter": "Standard Node",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.1408439732,
+        "UsageQuantity": 0.845402,
+        "MeterCategory": "Container Registry",
+        "MeterSubCategory": "Container Registry",
+        "Meter": "Basic Registry Unit",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.101601,
+        "UsageQuantity": 0.022578,
+        "MeterCategory": "Foundry Models",
+        "MeterSubCategory": "Azure OpenAI GPT5",
+        "Meter": "5.4 mini Opt Gl 1M Tokens",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.0592,
+        "UsageQuantity": 592.0,
+        "MeterCategory": "Container Registry",
+        "MeterSubCategory": "Container Registry",
+        "Meter": "Task vCPU Duration",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.0438016,
+        "UsageQuantity": 54.752,
+        "MeterCategory": "Microsoft Defender for Cloud",
+        "MeterSubCategory": "Microsoft Defender for AI Services",
+        "Meter": "Standard Tokens",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.037168,
+        "UsageQuantity": 0.004646,
+        "MeterCategory": "Foundry Models",
+        "MeterSubCategory": "Azure OpenAI GPT5",
+        "Meter": "5.6 sol ShortCo Inp PP Gl 1M Tokens",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.02888306213,
+        "UsageQuantity": 0.009659887,
+        "MeterCategory": "Log Analytics",
+        "MeterSubCategory": "Log Analytics",
+        "Meter": "Analytics Logs Data Ingestion",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.027552,
+        "UsageQuantity": 0.006888,
+        "MeterCategory": "Foundry Models",
+        "MeterSubCategory": "Azure OpenAI GPT5",
+        "Meter": "5.6 sol ShortCo Inp Std Gl 1M Tokens",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.02061225,
+        "UsageQuantity": 0.009161,
+        "MeterCategory": "Foundry Models",
+        "MeterSubCategory": "Azure OpenAI GPT5",
+        "Meter": "5.4 mini Batch Opt Gl 1M Tokens",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.0194355,
+        "UsageQuantity": 0.038871,
+        "MeterCategory": "Service Bus",
+        "MeterSubCategory": "Service Bus",
+        "Meter": "Standard Messaging Operations",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.013652,
+        "UsageQuantity": 0.006826,
+        "MeterCategory": "Foundry Models",
+        "MeterSubCategory": "Azure OpenAI GPT5",
+        "Meter": "56sol ShCo Inp Fl Gl 1M Tokens",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.0109068473715651,
+        "UsageQuantity": 0.109068473715651,
+        "MeterCategory": "Azure DNS",
+        "MeterSubCategory": "Azure DNS",
+        "Meter": "Private Zone",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.00519375,
+        "UsageQuantity": 0.006925,
+        "MeterCategory": "Foundry Models",
+        "MeterSubCategory": "Azure OpenAI GPT5",
+        "Meter": "5.4 mini Inp Gl 1M Tokens",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.00509,
+        "UsageQuantity": 0.1018,
+        "MeterCategory": "Storage",
+        "MeterSubCategory": "Blob Storage",
+        "Meter": "Hot LRS Write Operations",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.0012704,
+        "UsageQuantity": 0.003176,
+        "MeterCategory": "Azure DNS",
+        "MeterSubCategory": "Azure DNS",
+        "Meter": "Private Queries",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.001075125,
+        "UsageQuantity": 0.002867,
+        "MeterCategory": "Foundry Models",
+        "MeterSubCategory": "Azure OpenAI GPT5",
+        "Meter": "5.4 mini Batch Inp Gl 1M Tokens",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.001017,
+        "UsageQuantity": 0.01695,
+        "MeterCategory": "Event Grid",
+        "MeterSubCategory": "Event Grid",
+        "Meter": "Standard Operations",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.0006776,
+        "UsageQuantity": 0.1694,
+        "MeterCategory": "Storage",
+        "MeterSubCategory": "Blob Storage",
+        "Meter": "All Other Operations",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.000612,
+        "UsageQuantity": 6.8e-05,
+        "MeterCategory": "Foundry Models",
+        "MeterSubCategory": "Azure OpenAI GPT5",
+        "Meter": "5.4 mini pp Opt Gl 1M Tokens",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.0005556,
+        "UsageQuantity": 0.1389,
+        "MeterCategory": "Storage",
+        "MeterSubCategory": "Blob Storage",
+        "Meter": "Hot Read Operations",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.000185,
+        "UsageQuantity": 0.0037,
+        "MeterCategory": "Storage",
+        "MeterSubCategory": "Blob Storage",
+        "Meter": "LRS List and Create Container Operations",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.000157313095405698,
+        "UsageQuantity": 0.00104875396937132,
+        "MeterCategory": "Microsoft Defender for Cloud",
+        "MeterSubCategory": "Microsoft Defender for Storage",
+        "Meter": "Malware Scanning Data Ingested",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.00011565,
+        "UsageQuantity": 0.002313,
+        "MeterCategory": "Bandwidth",
+        "MeterSubCategory": "Bandwidth Inter-Region",
+        "Meter": "Inter Continent Data Transfer Out - NAM or EU To Any",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 5.55e-05,
+        "UsageQuantity": 3.7e-05,
+        "MeterCategory": "Foundry Models",
+        "MeterSubCategory": "Azure OpenAI GPT5",
+        "Meter": "5.4 mini pp Inp Gl 1M Tokens",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 1.2324e-05,
+        "UsageQuantity": 0.000316,
+        "MeterCategory": "Storage",
+        "MeterSubCategory": "Blob Storage",
+        "Meter": "Index Tags",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 5.704e-07,
+        "UsageQuantity": 3.1e-05,
+        "MeterCategory": "Storage",
+        "MeterSubCategory": "Blob Storage",
+        "Meter": "Hot LRS Data Stored",
+        "Currency": "USD"
+      },
+      {
+        "Cost": 0.0,
+        "UsageQuantity": 0.00076,
+        "MeterCategory": "Microsoft Defender for Cloud",
+        "MeterSubCategory": "Microsoft Defender for Storage",
+        "Meter": "Free Transactions",
+        "Currency": "USD"
+      }
+    ]
   },
   "retail": [
     {

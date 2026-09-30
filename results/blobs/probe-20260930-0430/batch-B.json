@@ -1,0 +1,114 @@
+{
+  "run_id": "probe-20260930-0430",
+  "mode": "batch",
+  "pair": "B",
+  "deployment": "gpt-54-mini-batch",
+  "message": {
+    "enqueued_at": "2026-09-30T04:30:32.285000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-30T04:30:51.663467+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 19.378467,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "batch",
+    "replica": "worker-batch--0000004-6f6959fff6-nbxqh",
+    "revision": "worker-batch--0000004",
+    "process_started_at": "2026-09-30T04:37:24.338465+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-30T04:40:27.007606+00:00",
+  "batch": {
+    "status": "completed",
+    "created_at": "2026-09-30T04:30:55+00:00",
+    "in_progress_at": "2026-09-30T04:33:46+00:00",
+    "finalizing_at": "2026-09-30T04:39:02+00:00",
+    "completed_at": "2026-09-30T04:39:40+00:00",
+    "failed_at": null,
+    "expired_at": null,
+    "request_counts": {
+      "completed": 1,
+      "failed": 0,
+      "total": 1
+    },
+    "errors": null,
+    "output_file_id": "file-3ada0609-4c2b-4585-b10e-ed7642faf035",
+    "error_file_id": null
+  },
+  "timeline": [
+    {
+      "observed_at": "2026-09-30T04:30:55.607134+00:00",
+      "status": "validating"
+    },
+    {
+      "observed_at": "2026-09-30T04:33:56.586407+00:00",
+      "status": "in_progress",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-30T04:39:26.626593+00:00",
+      "status": "finalizing",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-30T04:40:26.938463+00:00",
+      "status": "completed",
+      "counts": {
+        "completed": 1,
+        "failed": 0,
+        "total": 1
+      }
+    }
+  ],
+  "polls": 9,
+  "records": [
+    {
+      "run_id": "probe-20260930-0430",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "probe-20260930-0430-extract",
+      "success": true,
+      "batch_id": "batch_8f082619-4ac7-418d-b74c-2542b104248b",
+      "batch_status": "completed",
+      "latency_s": 525,
+      "total_s": 571.331329,
+      "end_to_end_s": 594.653463,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 96,
+      "output_preview": "{\"name\":\"Petra Novak\",\"company\":\"Contoso Logistics\",\"city\":\"Brno\",\"requested_date\":\"14 October\"}",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 46,
+        "completion_tokens": 62,
+        "reasoning_tokens": 29,
+        "cached_tokens": 0
+      }
+    }
+  ]
+}

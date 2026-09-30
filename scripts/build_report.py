@@ -48,6 +48,12 @@ def dt(s: str | None) -> datetime | None:
 
 
 # ------------------------------------------------------------------ statistics
+def is_flex_meter(meter: str) -> bool:
+    """Flex meters are named '... Flex Gl' or abbreviated '... Fl Gl' (e.g. '56sol ShCo Opt Fl Gl 1M Tokens')."""
+    t = f" {str(meter).lower()} "
+    return "flex" in t or " fl " in t
+
+
 def pct(values: list[float], p: float) -> float | None:
     if not values:
         return None
@@ -411,7 +417,7 @@ def billing_section(records: list[dict]) -> str:
         if meters and all(m in retail for m in meters):
             return [retail[m] for m in meters], "retail meter"
         if key == ("flex", "A") and all(m in retail for m in PRICE_METERS[("standard", "A")]):
-            return [retail[m] * 0.5 for m in PRICE_METERS[("standard", "A")]], "50 % of Standard (no public Flex meter)"
+            return [retail[m] * 0.5 for m in PRICE_METERS[("standard", "A")]], "50 % of Standard (Fl meter not in retail API; billed in Cost Management)"
         if key == ("priority→standard", "A"):
             p, _ = prices(("standard", "A"))
             return p, "Standard meter (downgraded, billed as Standard)"
@@ -471,7 +477,7 @@ def billing_section(records: list[dict]) -> str:
     # --- Cost Management: meters actually charged
     cost = ev.get("cost", {})
     cm_rows = cost.get("rows", [])
-    hl = lambda m: any(k in f" {str(m).lower()} " for k in ("flex", " pp "))
+    hl = lambda m: is_flex_meter(str(m)) or " pp " in f" {str(m).lower()} "
     if cm_rows:
         total = sum(r.get("Cost") or 0 for r in cm_rows)
         cm_html = ("<table><thead><tr><th>meter category</th><th>meter subcategory</th><th>meter</th><th>quantity</th>"
@@ -488,8 +494,10 @@ def billing_section(records: list[dict]) -> str:
                    f"({esc(cost.get('error', 'usage data typically appears 8–24 h after consumption'))}). "
                    "Re-run <code>scripts/collect_billing_evidence.py</code> later.</p>")
 
-    flex_meters = sorted(m for m in retail if "flex" in m.lower())
-    has_56_flex = any("5.6" in m or "56 " in m for m in flex_meters)
+    flex_meters = sorted(m for m in retail if is_flex_meter(m))
+    has_56_flex = any("5.6" in m or "56 " in m or "56sol" in m for m in flex_meters)
+    cm_flex56 = sorted({r.get("Meter", "") for r in cm_rows
+                        if is_flex_meter(r.get("Meter", "")) and ("56sol" in r.get("Meter", "") or "5.6" in r.get("Meter", ""))})
     same_as_batch = ""
     fm = [retail.get(k) for k in ("54 mini Inp Flex Gl", "54 mini Opt Flex Gl", "5.4 mini Batch Inp Gl",
                                     "5.4 mini Batch Opt Gl", "5.4 mini Inp Gl", "5.4 mini Opt Gl")]
@@ -543,7 +551,7 @@ direct API checks:</p>
  <li><b>Flex = discounted meters.</b> Flex usage is charged on its own <b>Flex meters</b> (separate meter IDs from Standard),
  so in Cost analysis it can be separated by grouping/filtering on <i>Meter</i>. Flex input and output tokens cost 50 % of the
  Standard price of the same model; the cached-input discount applies on top. The public price list already contains Flex meters
- for the GPT-5.4 / 5.5 family ({esc(', '.join(flex_meters[:3]))}{' …' if len(flex_meters) > 3 else ''}){same_as_batch}.{' <b>No public Flex meter exists yet for gpt-5.6-sol</b>, so the Flex estimate below uses 50 % of the Standard meter.' if not has_56_flex else ''}</li>
+ for the GPT-5.4 / 5.5 family ({esc(', '.join(flex_meters[:3]))}{' …' if len(flex_meters) > 3 else ''}){same_as_batch}.{(' The public retail price API does not list a gpt-5.6-sol Flex meter yet, but <b>Cost Management already charges it on dedicated meters</b> (' + ', '.join('<code>' + esc(m) + '</code>' for m in cm_flex56) + ') – see the table below; the Flex estimate below uses 50 % of the Standard meter.') if not has_56_flex and cm_flex56 else (' <b>No public Flex meter exists yet for gpt-5.6-sol</b>, so the Flex estimate below uses 50 % of the Standard meter.' if not has_56_flex else '')}</li>
  <li><b>Same deployment, same quota.</b> Standard, Priority and Flex requests go to the same GlobalStandard deployment and share
  its TPM/RPM quota – there is no separate "Flex deployment" or "Priority deployment" (Priority can optionally be made the
  deployment default). <i>Batch</i> in contrast needs a separate GlobalBatch deployment with its own enqueued-token quota and has
@@ -798,6 +806,20 @@ details{margin:10px 0} summary{cursor:pointer;font-weight:600}
         ("Batch – submit → worker noticed completion", stats(b_batch_total), {}),
         ("Batch – message visible → results stored", stats(b_batch_e2e), {}),
     ])
+    std_b_runs = sorted({f["run_id"] for f in files if f["mode"] == "standard" and f.get("pair") == "B"})
+    batch_runs = {b["run_id"] for b in batches}
+    missing_batch = [r for r in std_b_runs if r not in batch_runs]
+    batch_gap_html = ""
+    if missing_batch:
+        batch_gap_html = (
+            f"<p class='note'><b>Batch results missing for {len(missing_batch)} of {len(std_b_runs)} runs</b> "
+            f"({esc(missing_batch[0])} … {esc(missing_batch[-1])}). From about 10:00 UTC on 2026-09-29 the Batch control plane "
+            "in Sweden Central degraded: the Files upload returned 408/504 and later <code>POST /batches</code> answered with "
+            "<b>504 Gateway Time-out after 60 s even though the batch was created</b> server-side. The original worker retried the "
+            "message, got the same timeout, and dead-lettered it, leaving untracked (orphaned) batch jobs. Standard, Priority and "
+            "Flex on the same resource were not affected. The worker now looks up an existing batch by "
+            "<code>metadata.run_id</code> before creating one and after a failed create. Because job creation is not "
+            "idempotent, a Batch client needs this extra care that a synchronous Flex call does not.</p>")
     pickup_rows = []
     for mode in ("standard", "priority", "flex", "batch"):
         s = stats(pickup[mode])
@@ -839,7 +861,7 @@ details{margin:10px 0} summary{cursor:pointer;font-weight:600}
             f"<tr><td class='l'>{esc(r['run_id'])}</td><td class='l'>{esc(LABEL[r['mode']])}</td><td>{esc(r['pair'])}</td>"
             f"<td class='l'>{esc(r['prompt_id'].split('-')[-1])}</td><td>{'✔' if r['success'] else '✘'}</td>"
             f"<td>{fmt(r.get('latency_s'))}</td><td>{fmt(r.get('total_s'))}</td><td>{r.get('attempt_count', '–')}</td>"
-            f"<td>{esc(r.get('service_tier'))}</td><td>{u.get('prompt_tokens', '–')}</td>"
+            f"<td>{esc(r.get('service_tier') or '–')}</td><td>{u.get('prompt_tokens', '–')}</td>"
             f"<td>{u.get('completion_tokens', '–')}</td><td>{esc((r.get('headers') or {}).get('x-ms-region', ''))}</td></tr>")
 
     tod_table, tod_chart, tod_week = time_of_day(by, batches)
@@ -971,6 +993,7 @@ outputs).</p>
 service-side duration (<code>created_at → completed_at</code>) applies to every request in it. The same prompts were sent to the
 Standard deployment of the same model for comparison.</p>
 {pair_b_table}
+{batch_gap_html}
 {svg_strip({"Standard per request": b_std, "Standard whole run": b_std_run, "Batch job": b_batch,
             "Batch end-to-end": b_batch_e2e}, "Standard vs Batch turnaround", log=True)}
 {svg_batch_timeline(batches)}
@@ -1062,10 +1085,37 @@ def conclusions(s_a_std, s_a_pri, s_a_flex, pr_pri, pr_flex, pri_served, pri_n, 
             f"max {fmt(s_b_batch['max'])}) versus {fmt(std_run)} for the same prompts on Standard. Batch requires a different "
             f"application design (files, job state, polling, separate GlobalBatch deployment); for the same 50 % discount Flex "
             f"keeps the synchronous API.</li>")
-    items.append("<li><b>Billing</b>: Priority is charged on dedicated PP meters at 2× and Flex on dedicated Flex meters at 0.5× "
-                 "the Standard token price, all on the same deployment and quota; Azure Monitor separates the traffic with the "
+    ev_path = RESULTS_DIR / "billing_evidence.json"
+    charged = []
+    if ev_path.exists():
+        charged = [r.get("Meter", "") for r in (json.loads(ev_path.read_text(encoding="utf-8")).get("cost") or {}).get("rows") or []]
+    rows_ev = (json.loads(ev_path.read_text(encoding="utf-8")).get("cost") or {}).get("rows") or [] if ev_path.exists() else []
+    pp_seen = sorted({m for m in charged if " PP " in f" {m} " and ("5.6" in m or "56" in m)})
+    flex_seen = sorted({m for m in charged if is_flex_meter(m)})
+    seen_txt = ("Meters seen in Cost Management: "
+                + (f"Priority {', '.join(pp_seen)}" if pp_seen else "no PP meter yet")
+                + "; " + (f"Flex {', '.join(flex_seen)}" if flex_seen else "no Flex meter yet (usage appears with a delay of up to a day)")
+                + ".")
+
+    def unit(pred):
+        q = sum(r.get("UsageQuantity") or 0 for r in rows_ev if pred(r.get("Meter", "")))
+        c = sum(r.get("Cost") or 0 for r in rows_ev if pred(r.get("Meter", "")))
+        return c / q if q else None
+    is56 = lambda m: "5.6 sol" in m or "56sol" in m
+    u_std = unit(lambda m: is56(m) and " Opt Std " in f" {m} ")
+    u_pp = unit(lambda m: is56(m) and " Opt PP " in f" {m} ")
+    u_fl = unit(lambda m: is56(m) and " Opt " in m and is_flex_meter(m))
+    implied = ""
+    if u_std and u_pp and u_fl:
+        implied = (f" Implied output price from the actual charges (cost ÷ quantity): Standard ${u_std:.1f}, "
+                   f"Priority ${u_pp:.1f} ({u_pp / u_std:.2f}×), Flex ${u_fl:.1f} ({u_fl / u_std:.2f}×) per 1M tokens.")
+    items.append("<li><b>Billing</b>: Priority is charged on dedicated PP meters (2× the Standard token price) and Flex on "
+                 "dedicated Flex meters (0.5×); the public retail price API does not list the gpt-5.6-sol Flex meter yet, but "
+                 "Cost Management already charges it. All tiers use the same deployment "
+                 "and quota, and Azure Monitor separates the traffic with the "
                  "<code>ServiceTierRequest/ServiceTierResponse</code> dimensions. Rejected (429) Flex requests are not billed and "
-                 "downgraded Priority requests are billed as Standard. Batch has its own deployment, quota and Batch meters.</li>")
+                 f"downgraded Priority requests are billed as Standard. Batch has its own deployment, quota and Batch meters. "
+                 f"{esc(seen_txt)}{esc(implied)}</li>")
     pk = [v for m in pickup.values() for v in m]
     if pk:
         items.append(f"<li><b>Scale to zero</b> worked for all workers: median message pickup delay {fmt(pct(pk, 50))}, "

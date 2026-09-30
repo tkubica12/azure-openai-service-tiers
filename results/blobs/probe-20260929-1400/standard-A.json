@@ -1,0 +1,117 @@
+{
+  "run_id": "probe-20260929-1400",
+  "mode": "standard",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "default",
+  "message": {
+    "enqueued_at": "2026-09-29T14:00:21.627000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T14:00:54.750045+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 33.123045,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "standard",
+    "replica": "worker-standard--0000003-c7cc6d4cc-npjgq",
+    "revision": "worker-standard--0000003",
+    "process_started_at": "2026-09-29T14:00:53.366754+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T14:02:55.396190+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260929-1400",
+      "mode": "standard",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "probe-20260929-1400-summarize",
+      "success": true,
+      "started_at": "2026-09-29T14:00:54.830244+00:00",
+      "finished_at": "2026-09-29T14:02:55.352777+00:00",
+      "latency_s": 1.590168324066326,
+      "total_s": 120.52253227098845,
+      "attempt_count": 3,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T14:00:54.830253+00:00",
+          "duration_s": 18.006281056907028,
+          "status": 500,
+          "error": {
+            "type": "InternalServerError",
+            "code": null,
+            "message": "Error code: 500 - {'error': {'message': 'The server is overloaded or not ready yet. Please try again later.', 'type': 'service_unavailable_error', 'param': None, 'code': None}}"
+          },
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "77ddb213-98c5-445e-899e-3f0c3bbf4a95",
+            "x-request-id": "847ada70-09bb-4b4b-9643-328c7b928928"
+          }
+        },
+        {
+          "attempt": 2,
+          "started_at": "2026-09-29T14:01:15.010072+00:00",
+          "duration_s": 94.33704552706331,
+          "status": 500,
+          "error": {
+            "type": "InternalServerError",
+            "code": null,
+            "message": "Error code: 500 - {'error': {'message': 'The server is overloaded or not ready yet. Please try again later.', 'type': 'service_unavailable_error', 'param': None, 'code': None}}"
+          },
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "2fca1881-db99-456a-af08-b69d23fde874",
+            "x-request-id": "97dc1b25-6b55-4988-a3fb-88f473d6ee3e"
+          }
+        },
+        {
+          "attempt": 3,
+          "started_at": "2026-09-29T14:02:53.762547+00:00",
+          "duration_s": 1.590168324066326,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "684bc067-1ce8-426e-ad42-fc1c834a56f2",
+            "x-request-id": "ef9a74af-d04e-412d-8f61-ca4cdd5fee67",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99975"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 458,
+      "output_preview": "- **Decouples services:** Producers and consumers operate independently, so a slowdown or failure in one component does not immediately disrupt others.\n- **Buffers traffic spikes:** Queues absorb burs",
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 84,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "684bc067-1ce8-426e-ad42-fc1c834a56f2",
+        "x-request-id": "ef9a74af-d04e-412d-8f61-ca4cdd5fee67",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99975"
+      }
+    }
+  ]
+}

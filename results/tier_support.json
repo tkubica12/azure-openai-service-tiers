@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-09-29T11:10:10+00:00",
+  "checked_at": "2026-09-30T10:05:40+00:00",
   "results": [
     {
       "deployment": "gpt-56-sol",
@@ -7,7 +7,7 @@
       "requested": "default",
       "served": "default",
       "status": 200,
-      "latency_s": 9.29,
+      "latency_s": 8.072,
       "usage": {
         "prompt_tokens": 12,
         "completion_tokens": 4
@@ -19,7 +19,7 @@
       "requested": "priority",
       "served": "priority",
       "status": 200,
-      "latency_s": 1.395,
+      "latency_s": 0.861,
       "usage": {
         "prompt_tokens": 12,
         "completion_tokens": 4
@@ -31,7 +31,7 @@
       "requested": "flex",
       "served": "flex",
       "status": 200,
-      "latency_s": 1.647,
+      "latency_s": 1.126,
       "usage": {
         "prompt_tokens": 12,
         "completion_tokens": 4
@@ -43,7 +43,7 @@
       "requested": "default",
       "served": "default",
       "status": 200,
-      "latency_s": 1.699,
+      "latency_s": 1.132,
       "usage": {
         "prompt_tokens": 12,
         "completion_tokens": 4
@@ -55,7 +55,7 @@
       "requested": "priority",
       "served": "priority",
       "status": 200,
-      "latency_s": 0.869,
+      "latency_s": 1.108,
       "usage": {
         "prompt_tokens": 12,
         "completion_tokens": 4
@@ -67,7 +67,7 @@
       "requested": "flex",
       "served": "default",
       "status": 200,
-      "latency_s": 1.549,
+      "latency_s": 1.451,
       "usage": {
         "prompt_tokens": 12,
         "completion_tokens": 4

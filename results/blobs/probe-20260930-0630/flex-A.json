@@ -1,0 +1,85 @@
+{
+  "run_id": "probe-20260930-0630",
+  "mode": "flex",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "flex",
+  "message": {
+    "enqueued_at": "2026-09-30T06:30:38.196000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-30T06:31:21.559372+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 43.363372,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "flex",
+    "replica": "worker-flex--0000004-6568dccf5d-d4qb4",
+    "revision": "worker-flex--0000004",
+    "process_started_at": "2026-09-30T06:31:20.349295+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-30T06:31:23.515396+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260930-0630",
+      "mode": "flex",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "probe-20260930-0630-extract",
+      "success": true,
+      "started_at": "2026-09-30T06:31:21.630144+00:00",
+      "finished_at": "2026-09-30T06:31:23.494704+00:00",
+      "latency_s": 1.8645003959536552,
+      "total_s": 1.8645594958215952,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-30T06:31:21.630152+00:00",
+          "duration_s": 1.8645003959536552,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "9057c3e2-3e66-4cb4-9e46-188eb2ba078e",
+            "x-request-id": "1924de44-8f7a-4fba-82cf-f47396f4344e",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99954"
+          }
+        }
+      ],
+      "requested_service_tier": "flex",
+      "service_tier": "flex",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 113,
+      "output_preview": "{\n  \"name\": \"Petra Novak\",\n  \"company\": \"Contoso Logistics\",\n  \"city\": \"Brno\",\n  \"requested_date\": \"14 October\"\n}",
+      "usage": {
+        "prompt_tokens": 46,
+        "completion_tokens": 72,
+        "reasoning_tokens": 26,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "9057c3e2-3e66-4cb4-9e46-188eb2ba078e",
+        "x-request-id": "1924de44-8f7a-4fba-82cf-f47396f4344e",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99954"
+      }
+    }
+  ]
+}

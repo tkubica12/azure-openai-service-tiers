@@ -1,0 +1,85 @@
+{
+  "run_id": "probe-20260930-0800",
+  "mode": "flex",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "flex",
+  "message": {
+    "enqueued_at": "2026-09-30T08:00:24.201000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-30T08:01:03.364144+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 39.163144,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "flex",
+    "replica": "worker-flex--0000004-6568dccf5d-qj4n4",
+    "revision": "worker-flex--0000004",
+    "process_started_at": "2026-09-30T08:01:02.070771+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-30T08:01:09.091217+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260930-0800",
+      "mode": "flex",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "probe-20260930-0800-summarize",
+      "success": true,
+      "started_at": "2026-09-30T08:01:03.430026+00:00",
+      "finished_at": "2026-09-30T08:01:09.076083+00:00",
+      "latency_s": 5.645997673000011,
+      "total_s": 5.646057272999997,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-30T08:01:03.430034+00:00",
+          "duration_s": 5.645997673000011,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "231041ee-564a-42f2-9308-827cd7148869",
+            "x-request-id": "b253d979-585e-4ed7-8ec6-7e541b5c83c1",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99975"
+          }
+        }
+      ],
+      "requested_service_tier": "flex",
+      "service_tier": "flex",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 474,
+      "output_preview": "- **Decouple services:** Producers and consumers operate independently, so failures or slowdowns in one service do not immediately disrupt others.\n- **Buffer traffic spikes:** Queues absorb bursts of ",
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 88,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "231041ee-564a-42f2-9308-827cd7148869",
+        "x-request-id": "b253d979-585e-4ed7-8ec6-7e541b5c83c1",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99975"
+      }
+    }
+  ]
+}

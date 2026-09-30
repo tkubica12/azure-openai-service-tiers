@@ -1,0 +1,85 @@
+{
+  "run_id": "probe-20260929-1845",
+  "mode": "priority",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "priority",
+  "message": {
+    "enqueued_at": "2026-09-29T18:45:23.322000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T18:46:02.006669+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 38.684669,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "priority",
+    "replica": "worker-priority--0000001-696cd55948-rlsf9",
+    "revision": "worker-priority--0000001",
+    "process_started_at": "2026-09-29T18:46:00.729810+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T18:46:04.112044+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260929-1845",
+      "mode": "priority",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "probe-20260929-1845-reason",
+      "success": true,
+      "started_at": "2026-09-29T18:46:02.074892+00:00",
+      "finished_at": "2026-09-29T18:46:04.095492+00:00",
+      "latency_s": 2.0205430920032086,
+      "total_s": 2.020599191993824,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T18:46:02.074901+00:00",
+          "duration_s": 2.0205430920032086,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "2e81ccb4-d6c2-4c32-8e06-ed8274f9c9ca",
+            "x-request-id": "2c4e7403-c342-48ea-92ac-a20aa78302bc",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99949"
+          }
+        }
+      ],
+      "requested_service_tier": "priority",
+      "service_tier": "priority",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 278,
+      "output_preview": "**About 72 cold starts per day.**\n\n- Messages arrive every 20 minutes: \\(24 \\times 60 / 20 = 72\\) messages/day.\n- The app scales to zero after 5 idle minutes, leaving it stopped for roughly 15 minutes",
+      "usage": {
+        "prompt_tokens": 51,
+        "completion_tokens": 123,
+        "reasoning_tokens": 43,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "2e81ccb4-d6c2-4c32-8e06-ed8274f9c9ca",
+        "x-request-id": "2c4e7403-c342-48ea-92ac-a20aa78302bc",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99949"
+      }
+    }
+  ]
+}

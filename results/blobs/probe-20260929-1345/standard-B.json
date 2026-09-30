@@ -1,0 +1,101 @@
+{
+  "run_id": "probe-20260929-1345",
+  "mode": "standard",
+  "pair": "B",
+  "deployment": "gpt-54-mini",
+  "service_tier_requested": "default",
+  "message": {
+    "enqueued_at": "2026-09-29T13:45:19.699000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T13:45:57.251109+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 37.552109,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "standard",
+    "replica": "worker-standard--0000003-c7cc6d4cc-6fl79",
+    "revision": "worker-standard--0000003",
+    "process_started_at": "2026-09-29T13:45:56.024965+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T13:46:31.591522+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260929-1345",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "probe-20260929-1345-explain",
+      "success": true,
+      "started_at": "2026-09-29T13:45:57.336467+00:00",
+      "finished_at": "2026-09-29T13:46:31.564766+00:00",
+      "latency_s": 14.077624227000115,
+      "total_s": 34.228297809000196,
+      "attempt_count": 2,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T13:45:57.336476+00:00",
+          "duration_s": 18.023697474999835,
+          "status": 500,
+          "error": {
+            "type": "InternalServerError",
+            "code": null,
+            "message": "Error code: 500 - {'error': {'message': 'The server is overloaded or not ready yet. Please try again later.', 'type': 'service_unavailable_error', 'param': None, 'code': None}}"
+          },
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "912d35bb-8107-4daf-8091-73d7405bcc6c",
+            "x-request-id": "8202ac34-7f3b-4f7b-8bee-a92880dabd87"
+          }
+        },
+        {
+          "attempt": 2,
+          "started_at": "2026-09-29T13:46:17.487089+00:00",
+          "duration_s": 14.077624227000115,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "71a2ed17-62e5-4687-9f78-4f1a4018b7fe",
+            "x-request-id": "ba098ac2-9efe-4284-9de0-a2e5955e6cd4",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99973"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 394,
+      "output_preview": "\u201cLatency percentile p90\u201d means the time it takes for a request to complete, measured so that 90% of requests are faster than that number. For example, if the p90 latency is 200 milliseconds, then 9 ou",
+      "usage": {
+        "prompt_tokens": 27,
+        "completion_tokens": 110,
+        "reasoning_tokens": 9,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "71a2ed17-62e5-4687-9f78-4f1a4018b7fe",
+        "x-request-id": "ba098ac2-9efe-4284-9de0-a2e5955e6cd4",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99973"
+      }
+    }
+  ]
+}

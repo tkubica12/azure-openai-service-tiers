@@ -1,0 +1,85 @@
+{
+  "run_id": "probe-20260930-0415",
+  "mode": "flex",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "flex",
+  "message": {
+    "enqueued_at": "2026-09-30T04:15:22.722000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-30T04:15:56.640743+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 33.918743,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "flex",
+    "replica": "worker-flex--0000004-6568dccf5d-cgn74",
+    "revision": "worker-flex--0000004",
+    "process_started_at": "2026-09-30T04:15:55.377400+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-30T04:15:58.215060+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260930-0415",
+      "mode": "flex",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "probe-20260930-0415-classify",
+      "success": true,
+      "started_at": "2026-09-30T04:15:56.705268+00:00",
+      "finished_at": "2026-09-30T04:15:58.196256+00:00",
+      "latency_s": 1.4909325409680605,
+      "total_s": 1.4909880409250036,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-30T04:15:56.705276+00:00",
+          "duration_s": 1.4909325409680605,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "d8918833-1dda-4b99-9f8d-4894feac29a6",
+            "x-request-id": "0d1a20b6-5d55-4c88-9c2b-5513e60b691c",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99952"
+          }
+        }
+      ],
+      "requested_service_tier": "flex",
+      "service_tier": "flex",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 125,
+      "output_preview": "Positive \u2014 despite the late delivery, the prompt refund and strong product performance leave an overall favorable impression.",
+      "usage": {
+        "prompt_tokens": 48,
+        "completion_tokens": 23,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "d8918833-1dda-4b99-9f8d-4894feac29a6",
+        "x-request-id": "0d1a20b6-5d55-4c88-9c2b-5513e60b691c",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99952"
+      }
+    }
+  ]
+}

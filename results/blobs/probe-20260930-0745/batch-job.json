@@ -1,0 +1,115 @@
+{
+  "run_id": "probe-20260930-0745",
+  "deployment": "gpt-54-mini-batch",
+  "batch_id": "batch_72040908-0a94-4206-b100-8dd7f8811193",
+  "input_file_id": "file-7bbabc0876f44871b388abacee14d524",
+  "input_file_status": "processed",
+  "submit_note": null,
+  "prompts": [
+    "probe-20260930-0745-explain"
+  ],
+  "message": {
+    "enqueued_at": "2026-09-30T07:45:18.618000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-30T07:45:41.318626+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 22.700626,
+    "cold_start": true
+  },
+  "worker_submit": {
+    "mode": "batch",
+    "replica": "worker-batch--0000004-6f6959fff6-pr98b",
+    "revision": "worker-batch--0000004",
+    "process_started_at": "2026-09-30T07:45:39.944933+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "upload_started_at": "2026-09-30T07:45:41.926548+00:00",
+  "file_processed_at": "2026-09-30T07:45:42.159318+00:00",
+  "submitted_at": "2026-09-30T07:45:45.506751+00:00",
+  "timeline": [
+    {
+      "observed_at": "2026-09-30T07:45:45.506751+00:00",
+      "status": "validating"
+    },
+    {
+      "observed_at": "2026-09-30T07:46:45.985097+00:00",
+      "status": "in_progress",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-30T07:52:11.258599+00:00",
+      "status": "finalizing",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-30T07:53:11.560438+00:00",
+      "status": "completed",
+      "counts": {
+        "completed": 1,
+        "failed": 0,
+        "total": 1
+      }
+    }
+  ],
+  "polls": 7,
+  "done": true,
+  "batch": {
+    "status": "completed",
+    "created_at": "2026-09-30T07:45:44+00:00",
+    "in_progress_at": "2026-09-30T07:46:49+00:00",
+    "finalizing_at": "2026-09-30T07:51:47+00:00",
+    "completed_at": "2026-09-30T07:52:27+00:00",
+    "failed_at": null,
+    "expired_at": null,
+    "request_counts": {
+      "completed": 1,
+      "failed": 0,
+      "total": 1
+    },
+    "errors": null,
+    "output_file_id": "file-cbf90b12-8142-4ba1-b94f-db9c719c9238",
+    "error_file_id": null
+  },
+  "done_observed_at": "2026-09-30T07:53:11.560438+00:00",
+  "worker_poll": {
+    "mode": "batch",
+    "replica": "worker-batch--0000004-6f6959fff6-ldjd6",
+    "revision": "worker-batch--0000004",
+    "process_started_at": "2026-09-30T07:52:09.451382+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  }
+}

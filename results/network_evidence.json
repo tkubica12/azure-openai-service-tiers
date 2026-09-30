@@ -1,46 +1,193 @@
 {
-  "queried_at": "2026-09-29T12:16:11+00:00",
+  "queried_at": "2026-09-30T10:04:32+00:00",
   "storage": [
     {
       "AuthenticationType": "TrustedAccess",
       "CallerIpAddress": "10.0.174.99",
       "StatusText": "Success",
-      "requests": "15",
+      "requests": "24",
       "source": "Azure control plane (Bicep deployment, trusted service)"
     },
     {
       "AuthenticationType": "TrustedAccess",
       "CallerIpAddress": "10.0.174.99",
       "StatusText": "ContainerAlreadyExists",
-      "requests": "5",
+      "requests": "8",
+      "source": "Azure control plane (Bicep deployment, trusted service)"
+    },
+    {
+      "AuthenticationType": "TrustedAccess",
+      "CallerIpAddress": "10.0.174.99",
+      "StatusText": "ContainerNotFound",
+      "requests": "2",
       "source": "Azure control plane (Bicep deployment, trusted service)"
     },
     {
       "AuthenticationType": "OAuth",
       "CallerIpAddress": "10.60.0.106",
       "StatusText": "Success",
-      "requests": "132",
+      "requests": "1054",
       "source": "Container Apps (VNet, private endpoint)"
     },
     {
       "AuthenticationType": "OAuth",
       "CallerIpAddress": "10.60.1.10",
       "StatusText": "Success",
-      "requests": "130",
+      "requests": "990",
       "source": "Container Apps (VNet, private endpoint)"
     },
     {
       "AuthenticationType": "OAuth",
       "CallerIpAddress": "4.194.122.144",
       "StatusText": "Success",
-      "requests": "81",
+      "requests": "373",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.0.0.5",
+      "StatusText": "Success",
+      "requests": "290",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.0.0.11",
+      "StatusText": "Success",
+      "requests": "288",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.0.0.13",
+      "StatusText": "Success",
+      "requests": "286",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.0.0.7",
+      "StatusText": "Success",
+      "requests": "286",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.0.0.6",
+      "StatusText": "Success",
+      "requests": "274",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.0.0.8",
+      "StatusText": "Success",
+      "requests": "271",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.0.0.9",
+      "StatusText": "Success",
+      "requests": "267",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.0.0.12",
+      "StatusText": "Success",
+      "requests": "259",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.0.0.10",
+      "StatusText": "Success",
+      "requests": "246",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.0.0.4",
+      "StatusText": "Success",
+      "requests": "207",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.8",
+      "StatusText": "Success",
+      "requests": "89",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.7",
+      "StatusText": "Success",
+      "requests": "86",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.4",
+      "StatusText": "Success",
+      "requests": "83",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.9",
+      "StatusText": "Success",
+      "requests": "80",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.11",
+      "StatusText": "Success",
+      "requests": "77",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.10",
+      "StatusText": "Success",
+      "requests": "75",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.12",
+      "StatusText": "Success",
+      "requests": "74",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.5",
+      "StatusText": "Success",
+      "requests": "73",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.13",
+      "StatusText": "Success",
+      "requests": "68",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.6",
+      "StatusText": "Success",
+      "requests": "67",
       "source": "Operator laptop (public, IP firewall)"
     },
     {
       "AuthenticationType": "OAuth",
       "CallerIpAddress": "4.194.122.136",
       "StatusText": "Success",
-      "requests": "53",
+      "requests": "65",
       "source": "Operator laptop (public, IP firewall)"
     },
     {
@@ -59,6 +206,90 @@
     },
     {
       "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.26",
+      "StatusText": "Success",
+      "requests": "23",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.25",
+      "StatusText": "Success",
+      "requests": "22",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.28",
+      "StatusText": "Success",
+      "requests": "15",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.27",
+      "StatusText": "Success",
+      "requests": "14",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.29",
+      "StatusText": "Success",
+      "requests": "12",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.30",
+      "StatusText": "Success",
+      "requests": "10",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.33",
+      "StatusText": "Success",
+      "requests": "9",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.31",
+      "StatusText": "Success",
+      "requests": "7",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.24",
+      "StatusText": "Success",
+      "requests": "5",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "10.40.0.32",
+      "StatusText": "Success",
+      "requests": "5",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
+      "CallerIpAddress": "52.172.102.253",
+      "StatusText": "AuthorizationFailure",
+      "requests": "2",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "SAS",
+      "CallerIpAddress": "10.0.0.5",
+      "StatusText": "Success",
+      "requests": "2",
+      "source": "Operator laptop (public, IP firewall)"
+    },
+    {
+      "AuthenticationType": "OAuth",
       "CallerIpAddress": "4.194.122.136",
       "StatusText": "AuthorizationFailure",
       "requests": "2",
@@ -67,13 +298,6 @@
     {
       "AuthenticationType": "OAuth",
       "CallerIpAddress": "4.194.122.144",
-      "StatusText": "AuthorizationFailure",
-      "requests": "1",
-      "source": "Operator laptop (public, IP firewall)"
-    },
-    {
-      "AuthenticationType": "OAuth",
-      "CallerIpAddress": "52.172.102.253",
       "StatusText": "AuthorizationFailure",
       "requests": "1",
       "source": "Operator laptop (public, IP firewall)"

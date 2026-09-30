@@ -1,0 +1,101 @@
+{
+  "run_id": "probe-20260929-1530",
+  "mode": "flex",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "flex",
+  "message": {
+    "enqueued_at": "2026-09-29T15:30:29.111000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T15:30:50.110784+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 20.999784,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "flex",
+    "replica": "worker-flex--0000003-57dcdbcfc7-hl8ng",
+    "revision": "worker-flex--0000003",
+    "process_started_at": "2026-09-29T15:30:48.937176+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T15:32:18.159064+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260929-1530",
+      "mode": "flex",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "probe-20260929-1530-code",
+      "success": true,
+      "started_at": "2026-09-29T15:30:50.185181+00:00",
+      "finished_at": "2026-09-29T15:32:18.132298+00:00",
+      "latency_s": 44.401785257970914,
+      "total_s": 87.94711720687337,
+      "attempt_count": 2,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T15:30:50.185187+00:00",
+          "duration_s": 41.93731303606182,
+          "status": 500,
+          "error": {
+            "type": "InternalServerError",
+            "code": null,
+            "message": "Error code: 500 - {'error': {'message': 'The server is overloaded or not ready yet. Please try again later.', 'type': 'service_unavailable_error', 'param': None, 'code': None}}"
+          },
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "7cd4e5b8-3740-4794-9ddf-bdc835629f6d",
+            "x-request-id": "77fafa07-9228-4dc5-8fed-51c99bf7a28d"
+          }
+        },
+        {
+          "attempt": 2,
+          "started_at": "2026-09-29T15:31:33.730458+00:00",
+          "duration_s": 44.401785257970914,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "12222e5c-ad92-453d-9e18-d42d414c874c",
+            "x-request-id": "00ff4799-0be4-91d2-828d-1cd3369f2bdb",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99976"
+          }
+        }
+      ],
+      "requested_service_tier": "flex",
+      "service_tier": "flex",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 268,
+      "output_preview": "def p95(values: list[float]) -> float:\n    if not values:\n        raise ValueError(\"values must not be empty\")\n    xs = sorted(values)\n    pos = 0.95 * (len(xs) - 1)\n    lo = int(pos)\n    hi = min(lo ",
+      "usage": {
+        "prompt_tokens": 24,
+        "completion_tokens": 142,
+        "reasoning_tokens": 38,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "12222e5c-ad92-453d-9e18-d42d414c874c",
+        "x-request-id": "00ff4799-0be4-91d2-828d-1cd3369f2bdb",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99976"
+      }
+    }
+  ]
+}

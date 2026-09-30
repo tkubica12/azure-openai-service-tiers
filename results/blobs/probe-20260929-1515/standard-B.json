@@ -1,0 +1,85 @@
+{
+  "run_id": "probe-20260929-1515",
+  "mode": "standard",
+  "pair": "B",
+  "deployment": "gpt-54-mini",
+  "service_tier_requested": "default",
+  "message": {
+    "enqueued_at": "2026-09-29T15:15:22.375000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T15:16:00.195146+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 37.820146,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "standard",
+    "replica": "worker-standard--0000003-c7cc6d4cc-58xg6",
+    "revision": "worker-standard--0000003",
+    "process_started_at": "2026-09-29T15:15:58.991720+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T15:16:25.138957+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260929-1515",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "probe-20260929-1515-translate",
+      "success": true,
+      "started_at": "2026-09-29T15:16:00.287508+00:00",
+      "finished_at": "2026-09-29T15:16:25.100766+00:00",
+      "latency_s": 24.813201059001585,
+      "total_s": 24.813257257999794,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T15:16:00.287516+00:00",
+          "duration_s": 24.813201059001585,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "a3fb377c-92ce-439d-8056-09723c03fbc8",
+            "x-request-id": "c73b2486-a4bd-4dd4-a014-cc6cb789b514",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99978"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 163,
+      "output_preview": "Czech: **D\u00e1vkov\u00e9 zpracov\u00e1n\u00ed je levn\u011bj\u0161\u00ed, ale v\u00fdsledky p\u0159ich\u00e1zej\u00ed pozd\u011bji.**\n\nGerman: **Die Batchverarbeitung ist g\u00fcnstiger, aber die Ergebnisse kommen sp\u00e4ter an.**",
+      "usage": {
+        "prompt_tokens": 22,
+        "completion_tokens": 63,
+        "reasoning_tokens": 8,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "a3fb377c-92ce-439d-8056-09723c03fbc8",
+        "x-request-id": "c73b2486-a4bd-4dd4-a014-cc6cb789b514",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99978"
+      }
+    }
+  ]
+}

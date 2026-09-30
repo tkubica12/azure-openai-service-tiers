@@ -1,0 +1,321 @@
+{
+  "run_id": "main-r16",
+  "mode": "standard",
+  "pair": "B",
+  "deployment": "gpt-54-mini",
+  "service_tier_requested": "default",
+  "message": {
+    "enqueued_at": "2026-09-29T12:37:25.880000+00:00",
+    "scheduled_enqueue_at": "2026-09-29T12:37:25.850000+00:00",
+    "received_at": "2026-09-29T12:37:56.292844+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 30.442844,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "standard",
+    "replica": "worker-standard--0000003-c7cc6d4cc-rpjpt",
+    "revision": "worker-standard--0000003",
+    "process_started_at": "2026-09-29T12:37:55.005531+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T12:39:32.830911+00:00",
+  "records": [
+    {
+      "run_id": "main-r16",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "main-r16-explain",
+      "success": true,
+      "started_at": "2026-09-29T12:37:56.359067+00:00",
+      "finished_at": "2026-09-29T12:38:16.125505+00:00",
+      "latency_s": 19.766381859008106,
+      "total_s": 19.76671375799924,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T12:37:56.359073+00:00",
+          "duration_s": 19.766381859008106,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "230c7c23-95e7-45af-a5fd-89400b787049",
+            "x-request-id": "6647d78e-2cfd-4223-afb8-58b0e36988ad",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99973"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 314,
+      "output_preview": "\u201cLatency percentile p90\u201d means that 90% of requests are completed in this amount of time or faster. The remaining 10% take longer than that, so it helps you understand the slower end of normal perform",
+      "usage": {
+        "prompt_tokens": 27,
+        "completion_tokens": 94,
+        "reasoning_tokens": 9,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "230c7c23-95e7-45af-a5fd-89400b787049",
+        "x-request-id": "6647d78e-2cfd-4223-afb8-58b0e36988ad",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99973"
+      }
+    },
+    {
+      "run_id": "main-r16",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "main-r16-reason",
+      "success": true,
+      "started_at": "2026-09-29T12:38:16.125917+00:00",
+      "finished_at": "2026-09-29T12:38:19.178734+00:00",
+      "latency_s": 3.052772486000322,
+      "total_s": 3.0528186859883135,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T12:38:16.125920+00:00",
+          "duration_s": 3.052772486000322,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "e7636083-0184-4465-a6d8-f4f80d9045b7",
+            "x-request-id": "9c106a60-2049-44f4-9916-c7409105bf99",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99949"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 387,
+      "output_preview": "About **72 cold starts per day**.\n\n**Why:**  \n- Messages arrive every **20 minutes** \u2192 **24 \u00d7 60 / 20 = 72 messages/day**.  \n- The app scales back to **0 replicas after 5 idle minutes**, which is well",
+      "usage": {
+        "prompt_tokens": 51,
+        "completion_tokens": 216,
+        "reasoning_tokens": 107,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "e7636083-0184-4465-a6d8-f4f80d9045b7",
+        "x-request-id": "9c106a60-2049-44f4-9916-c7409105bf99",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99949"
+      }
+    },
+    {
+      "run_id": "main-r16",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "main-r16-extract",
+      "success": true,
+      "started_at": "2026-09-29T12:38:19.178865+00:00",
+      "finished_at": "2026-09-29T12:38:20.550391+00:00",
+      "latency_s": 1.3714756510016741,
+      "total_s": 1.371529449999798,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T12:38:19.178868+00:00",
+          "duration_s": 1.3714756510016741,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "fd198411-e82f-4ef7-b35e-98cf7fc6c5b9",
+            "x-request-id": "dcd56cc6-1a97-45ae-9df3-541d1ed3d51c",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99954"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 96,
+      "output_preview": "{\"name\":\"Petra Novak\",\"company\":\"Contoso Logistics\",\"city\":\"Brno\",\"requested_date\":\"14 October\"}",
+      "usage": {
+        "prompt_tokens": 46,
+        "completion_tokens": 60,
+        "reasoning_tokens": 27,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "fd198411-e82f-4ef7-b35e-98cf7fc6c5b9",
+        "x-request-id": "dcd56cc6-1a97-45ae-9df3-541d1ed3d51c",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99954"
+      }
+    },
+    {
+      "run_id": "main-r16",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "main-r16-write",
+      "success": true,
+      "started_at": "2026-09-29T12:38:20.550514+00:00",
+      "finished_at": "2026-09-29T12:38:50.051719+00:00",
+      "latency_s": 9.801068308006506,
+      "total_s": 29.5012157119927,
+      "attempt_count": 2,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T12:38:20.550516+00:00",
+          "duration_s": 17.809989857007167,
+          "status": 500,
+          "error": {
+            "type": "InternalServerError",
+            "code": null,
+            "message": "Error code: 500 - {'error': {'message': 'The server is overloaded or not ready yet. Please try again later.', 'type': 'service_unavailable_error', 'param': None, 'code': None}}"
+          },
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "7d0e4536-7436-4d33-a57b-c4a258f7a295",
+            "x-request-id": "679859c9-716f-4ae2-8d64-aa2410951b93"
+          }
+        },
+        {
+          "attempt": 2,
+          "started_at": "2026-09-29T12:38:40.250407+00:00",
+          "duration_s": 9.801068308006506,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "ab8c4951-57e7-48d5-a6c0-24062161c00f",
+            "x-request-id": "d6b8b114-f665-4c7f-a0b8-569ac98a22e9",
+            "x-ratelimit-remaining-requests": "98",
+            "x-ratelimit-remaining-tokens": "99974"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 568,
+      "output_preview": "Stay hydrated on every trail with this durable reusable stainless-steel water bottle, built for hikers who need reliable performance in any terrain. Its double-wall insulation helps keep drinks cold f",
+      "usage": {
+        "prompt_tokens": 26,
+        "completion_tokens": 124,
+        "reasoning_tokens": 8,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "ab8c4951-57e7-48d5-a6c0-24062161c00f",
+        "x-request-id": "d6b8b114-f665-4c7f-a0b8-569ac98a22e9",
+        "x-ratelimit-remaining-requests": "98",
+        "x-ratelimit-remaining-tokens": "99974"
+      }
+    },
+    {
+      "run_id": "main-r16",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "main-r16-classify",
+      "success": true,
+      "started_at": "2026-09-29T12:38:50.051882+00:00",
+      "finished_at": "2026-09-29T12:39:32.786297+00:00",
+      "latency_s": 1.9185697790089762,
+      "total_s": 42.734418610998546,
+      "attempt_count": 3,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T12:38:50.051886+00:00",
+          "duration_s": 17.760230150001007,
+          "status": 500,
+          "error": {
+            "type": "InternalServerError",
+            "code": null,
+            "message": "Error code: 500 - {'error': {'message': 'The server is overloaded or not ready yet. Please try again later.', 'type': 'service_unavailable_error', 'param': None, 'code': None}}"
+          },
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "41608310-9c5e-412d-93dd-6f05a023a0cc",
+            "x-request-id": "1fe5f560-d62b-4ec0-aac4-8a72686487a4"
+          }
+        },
+        {
+          "attempt": 2,
+          "started_at": "2026-09-29T12:39:09.377666+00:00",
+          "duration_s": 17.101479479999398,
+          "status": 500,
+          "error": {
+            "type": "InternalServerError",
+            "code": null,
+            "message": "Error code: 500 - {'error': {'message': 'The server is overloaded or not ready yet. Please try again later.', 'type': 'service_unavailable_error', 'param': None, 'code': None}}"
+          },
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "080882fc-9a4f-43de-b4ac-fe4425a87ada",
+            "x-request-id": "990d897e-50df-4c1b-af5a-05adc04dab10"
+          }
+        },
+        {
+          "attempt": 3,
+          "started_at": "2026-09-29T12:39:30.867672+00:00",
+          "duration_s": 1.9185697790089762,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "5f9a9315-660d-4bc7-b3e3-7c15c461b6db",
+            "x-request-id": "e7364827-285c-4f91-9bb4-5426e2641b69",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99952"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 146,
+      "output_preview": "**Positive** \u2014 although the delivery was late, the quick refund and the fact that the product \u201cworks great\u201d make the overall experience favorable.",
+      "usage": {
+        "prompt_tokens": 48,
+        "completion_tokens": 65,
+        "reasoning_tokens": 27,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "5f9a9315-660d-4bc7-b3e3-7c15c461b6db",
+        "x-request-id": "e7364827-285c-4f91-9bb4-5426e2641b69",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99952"
+      }
+    }
+  ]
+}

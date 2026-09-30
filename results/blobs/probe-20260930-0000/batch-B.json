@@ -1,0 +1,114 @@
+{
+  "run_id": "probe-20260930-0000",
+  "mode": "batch",
+  "pair": "B",
+  "deployment": "gpt-54-mini-batch",
+  "message": {
+    "enqueued_at": "2026-09-30T00:00:23.457000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-30T00:00:55.399726+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 31.942726,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "batch",
+    "replica": "worker-batch--0000004-6f6959fff6-v2pnx",
+    "revision": "worker-batch--0000004",
+    "process_started_at": "2026-09-30T00:07:52.441616+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-30T00:08:54.783178+00:00",
+  "batch": {
+    "status": "completed",
+    "created_at": "2026-09-30T00:01:28+00:00",
+    "in_progress_at": "2026-09-30T00:02:42+00:00",
+    "finalizing_at": "2026-09-30T00:07:53+00:00",
+    "completed_at": "2026-09-30T00:08:33+00:00",
+    "failed_at": null,
+    "expired_at": null,
+    "request_counts": {
+      "completed": 1,
+      "failed": 0,
+      "total": 1
+    },
+    "errors": null,
+    "output_file_id": "file-d457ac4e-027a-4d7b-bef7-9659d15e3fbd",
+    "error_file_id": null
+  },
+  "timeline": [
+    {
+      "observed_at": "2026-09-30T00:01:29.499795+00:00",
+      "status": "validating"
+    },
+    {
+      "observed_at": "2026-09-30T00:02:29.975435+00:00",
+      "status": "in_progress",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-30T00:07:54.387150+00:00",
+      "status": "finalizing",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-30T00:08:54.650315+00:00",
+      "status": "completed",
+      "counts": {
+        "completed": 1,
+        "failed": 0,
+        "total": 1
+      }
+    }
+  ],
+  "polls": 7,
+  "records": [
+    {
+      "run_id": "probe-20260930-0000",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "probe-20260930-0000-summarize",
+      "success": true,
+      "batch_id": "batch_07249306-4737-42cc-bda6-9d3b86218c53",
+      "batch_status": "completed",
+      "latency_s": 425,
+      "total_s": 445.15052,
+      "end_to_end_s": 511.193315,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 623,
+      "output_preview": "- **They decouple services:** Producers can send work to a queue without waiting for the downstream service to be available, so temporary outages or slowdowns don\u2019t immediately break the whole applica",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 133,
+        "reasoning_tokens": 7,
+        "cached_tokens": 0
+      }
+    }
+  ]
+}

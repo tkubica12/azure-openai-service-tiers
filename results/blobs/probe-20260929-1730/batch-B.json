@@ -1,0 +1,114 @@
+{
+  "run_id": "probe-20260929-1730",
+  "mode": "batch",
+  "pair": "B",
+  "deployment": "gpt-54-mini-batch",
+  "message": {
+    "enqueued_at": "2026-09-29T17:30:19.684000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T17:30:19.706709+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 0.022709,
+    "cold_start": false
+  },
+  "worker": {
+    "mode": "batch",
+    "replica": "worker-batch--0000004-6f6959fff6-5bsvb",
+    "revision": "worker-batch--0000004",
+    "process_started_at": "2026-09-29T17:37:13.572428+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T17:39:16.078024+00:00",
+  "batch": {
+    "status": "completed",
+    "created_at": "2026-09-29T17:30:42+00:00",
+    "in_progress_at": "2026-09-29T17:32:24+00:00",
+    "finalizing_at": "2026-09-29T17:37:48+00:00",
+    "completed_at": "2026-09-29T17:38:28+00:00",
+    "failed_at": null,
+    "expired_at": null,
+    "request_counts": {
+      "completed": 1,
+      "failed": 0,
+      "total": 1
+    },
+    "errors": null,
+    "output_file_id": "file-fe46f8d9-c622-4d98-8c71-53b0531bf65d",
+    "error_file_id": null
+  },
+  "timeline": [
+    {
+      "observed_at": "2026-09-29T17:30:43.257065+00:00",
+      "status": "validating"
+    },
+    {
+      "observed_at": "2026-09-29T17:32:44.165268+00:00",
+      "status": "in_progress",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-29T17:38:15.500655+00:00",
+      "status": "finalizing",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-29T17:39:15.930056+00:00",
+      "status": "completed",
+      "counts": {
+        "completed": 1,
+        "failed": 0,
+        "total": 1
+      }
+    }
+  ],
+  "polls": 8,
+  "records": [
+    {
+      "run_id": "probe-20260929-1730",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "probe-20260929-1730-code",
+      "success": true,
+      "batch_id": "batch_00349b77-c31f-4bc1-a00d-d3771b851839",
+      "batch_status": "completed",
+      "latency_s": 466,
+      "total_s": 512.672991,
+      "end_to_end_s": 536.246056,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 335,
+      "output_preview": "```python\ndef p95(values):\n    if not values:\n        raise ValueError(\"empty list\")\n    xs = sorted(values)\n    k = (len(xs) - 1) * 0.95\n    i = int(k)\n    f = k - i\n    return xs[i] * (1 - f) + xs[m",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 24,
+        "completion_tokens": 130,
+        "reasoning_tokens": 16,
+        "cached_tokens": 0
+      }
+    }
+  ]
+}

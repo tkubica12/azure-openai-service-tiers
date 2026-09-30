@@ -1,0 +1,273 @@
+{
+  "run_id": "main-r24",
+  "mode": "priority",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "priority",
+  "message": {
+    "enqueued_at": "2026-09-29T14:37:25.870000+00:00",
+    "scheduled_enqueue_at": "2026-09-29T14:37:25.850000+00:00",
+    "received_at": "2026-09-29T14:37:55.183428+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 29.333428,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "priority",
+    "replica": "worker-priority--irgvhg6-6994964b95-bfhwn",
+    "revision": "worker-priority--irgvhg6",
+    "process_started_at": "2026-09-29T14:37:53.854561+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T14:38:23.543473+00:00",
+  "records": [
+    {
+      "run_id": "main-r24",
+      "mode": "priority",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r24-extract",
+      "success": true,
+      "started_at": "2026-09-29T14:37:55.260545+00:00",
+      "finished_at": "2026-09-29T14:38:02.959507+00:00",
+      "latency_s": 7.69890247299918,
+      "total_s": 7.698961272995803,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T14:37:55.260553+00:00",
+          "duration_s": 7.69890247299918,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "ba04de84-c7cd-4acc-b42e-af3140f07bfe",
+            "x-request-id": "3236ba25-d33c-44a0-b69d-fe9bbaaac450",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99954"
+          }
+        }
+      ],
+      "requested_service_tier": "priority",
+      "service_tier": "priority",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 113,
+      "output_preview": "{\n  \"name\": \"Petra Novak\",\n  \"company\": \"Contoso Logistics\",\n  \"city\": \"Brno\",\n  \"requested_date\": \"14 October\"\n}",
+      "usage": {
+        "prompt_tokens": 46,
+        "completion_tokens": 77,
+        "reasoning_tokens": 31,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "ba04de84-c7cd-4acc-b42e-af3140f07bfe",
+        "x-request-id": "3236ba25-d33c-44a0-b69d-fe9bbaaac450",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99954"
+      }
+    },
+    {
+      "run_id": "main-r24",
+      "mode": "priority",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r24-code",
+      "success": true,
+      "started_at": "2026-09-29T14:38:02.959693+00:00",
+      "finished_at": "2026-09-29T14:38:11.791516+00:00",
+      "latency_s": 8.831771022989415,
+      "total_s": 8.831824823006173,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T14:38:02.959698+00:00",
+          "duration_s": 8.831771022989415,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "aa502dac-4f4c-4e49-b0e7-9873c093919a",
+            "x-request-id": "09adbafc-c02f-4f5b-a69e-212f2c9819a4",
+            "x-ratelimit-remaining-requests": "97",
+            "x-ratelimit-remaining-tokens": "99976"
+          }
+        }
+      ],
+      "requested_service_tier": "priority",
+      "service_tier": "priority",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 342,
+      "output_preview": "```python\ndef p95(values: list[float]) -> float:\n    if not values:\n        raise ValueError(\"values must not be empty\")\n\n    data = sorted(values)\n    index = 0.95 * (len(data) - 1)\n    lower = int(i",
+      "usage": {
+        "prompt_tokens": 24,
+        "completion_tokens": 132,
+        "reasoning_tokens": 24,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "aa502dac-4f4c-4e49-b0e7-9873c093919a",
+        "x-request-id": "09adbafc-c02f-4f5b-a69e-212f2c9819a4",
+        "x-ratelimit-remaining-requests": "97",
+        "x-ratelimit-remaining-tokens": "99976"
+      }
+    },
+    {
+      "run_id": "main-r24",
+      "mode": "priority",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r24-translate",
+      "success": true,
+      "started_at": "2026-09-29T14:38:11.791654+00:00",
+      "finished_at": "2026-09-29T14:38:13.935642+00:00",
+      "latency_s": 2.14393924101023,
+      "total_s": 2.143992541008629,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T14:38:11.791657+00:00",
+          "duration_s": 2.14393924101023,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "bff82432-44be-498d-b1d8-3a74740edce6",
+            "x-request-id": "23f0573e-e9ec-4298-ab78-76f0fb46f221",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99978"
+          }
+        }
+      ],
+      "requested_service_tier": "priority",
+      "service_tier": "priority",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 171,
+      "output_preview": "**Czech:** D\u00e1vkov\u00e9 zpracov\u00e1n\u00ed je levn\u011bj\u0161\u00ed, ale v\u00fdsledky jsou k dispozici pozd\u011bji.\n\n**German:** Die Stapelverarbeitung ist g\u00fcnstiger, aber die Ergebnisse liegen sp\u00e4ter vor.",
+      "usage": {
+        "prompt_tokens": 22,
+        "completion_tokens": 47,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "bff82432-44be-498d-b1d8-3a74740edce6",
+        "x-request-id": "23f0573e-e9ec-4298-ab78-76f0fb46f221",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99978"
+      }
+    },
+    {
+      "run_id": "main-r24",
+      "mode": "priority",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r24-reason",
+      "success": true,
+      "started_at": "2026-09-29T14:38:13.935789+00:00",
+      "finished_at": "2026-09-29T14:38:16.600469+00:00",
+      "latency_s": 2.6646298200066667,
+      "total_s": 2.6646836190047907,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T14:38:13.935793+00:00",
+          "duration_s": 2.6646298200066667,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "96f80cd7-6aec-4db3-978d-f72cda078bba",
+            "x-request-id": "64be1ba5-71c4-4f16-8b49-33693f9e626f",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99949"
+          }
+        }
+      ],
+      "requested_service_tier": "priority",
+      "service_tier": "priority",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 245,
+      "output_preview": "Messages per day:\n\n\\[\n\\frac{24 \\times 60}{20} = 72\n\\]\n\nBecause the app scales back to zero after 5 idle minutes\u2014well before the next message arrives 20 minutes later\u2014each message triggers a new cold s",
+      "usage": {
+        "prompt_tokens": 51,
+        "completion_tokens": 111,
+        "reasoning_tokens": 36,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "96f80cd7-6aec-4db3-978d-f72cda078bba",
+        "x-request-id": "64be1ba5-71c4-4f16-8b49-33693f9e626f",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99949"
+      }
+    },
+    {
+      "run_id": "main-r24",
+      "mode": "priority",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r24-summarize",
+      "success": true,
+      "started_at": "2026-09-29T14:38:16.600611+00:00",
+      "finished_at": "2026-09-29T14:38:23.519655+00:00",
+      "latency_s": 6.918995444997563,
+      "total_s": 6.919047043993487,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T14:38:16.600614+00:00",
+          "duration_s": 6.918995444997563,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "b022ee75-f478-4fec-985b-5234323299ce",
+            "x-request-id": "17ecbc4f-b2ce-4a88-b7ec-8ffa4f0ef2b7",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99975"
+          }
+        }
+      ],
+      "requested_service_tier": "priority",
+      "service_tier": "priority",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 487,
+      "output_preview": "- **Decouples services:** Producers and consumers operate independently, so a failure or slowdown in one service does not immediately disrupt others.\n- **Buffers traffic spikes:** Queues absorb bursts",
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 89,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "b022ee75-f478-4fec-985b-5234323299ce",
+        "x-request-id": "17ecbc4f-b2ce-4a88-b7ec-8ffa4f0ef2b7",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99975"
+      }
+    }
+  ]
+}

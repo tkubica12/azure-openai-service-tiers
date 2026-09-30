@@ -1,0 +1,105 @@
+{
+  "run_id": "probe-20260930-0400",
+  "mode": "batch",
+  "pair": "B",
+  "deployment": "gpt-54-mini-batch",
+  "message": {
+    "enqueued_at": "2026-09-30T04:00:19.161000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-30T04:00:41.312793+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 22.151793,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "batch",
+    "replica": "worker-batch--0000004-6f6959fff6-fksn6",
+    "revision": "worker-batch--0000004",
+    "process_started_at": "2026-09-30T04:07:09.159471+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-30T04:09:11.887409+00:00",
+  "batch": {
+    "status": "completed",
+    "created_at": "2026-09-30T04:00:45+00:00",
+    "in_progress_at": "2026-09-30T04:03:20+00:00",
+    "finalizing_at": "2026-09-30T04:08:19+00:00",
+    "completed_at": "2026-09-30T04:09:00+00:00",
+    "failed_at": null,
+    "expired_at": null,
+    "request_counts": {
+      "completed": 1,
+      "failed": 0,
+      "total": 1
+    },
+    "errors": null,
+    "output_file_id": "file-8459ec6a-ef90-4437-b398-16e86fa3ac8f",
+    "error_file_id": null
+  },
+  "timeline": [
+    {
+      "observed_at": "2026-09-30T04:00:45.912353+00:00",
+      "status": "validating"
+    },
+    {
+      "observed_at": "2026-09-30T04:03:47.020393+00:00",
+      "status": "in_progress",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-30T04:09:11.708765+00:00",
+      "status": "completed",
+      "counts": {
+        "completed": 1,
+        "failed": 0,
+        "total": 1
+      }
+    }
+  ],
+  "polls": 8,
+  "records": [
+    {
+      "run_id": "probe-20260930-0400",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "probe-20260930-0400-summarize",
+      "success": true,
+      "batch_id": "batch_788af286-c519-4115-b8fe-9b8b4ed8323d",
+      "batch_status": "completed",
+      "latency_s": 495,
+      "total_s": 505.796412,
+      "end_to_end_s": 532.547765,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 572,
+      "output_preview": "- **Decouple services:** Message queues let components communicate without needing to be online at the same time, so a temporary failure in one service doesn\u2019t immediately break the whole application.",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 121,
+        "reasoning_tokens": 7,
+        "cached_tokens": 0
+      }
+    }
+  ]
+}

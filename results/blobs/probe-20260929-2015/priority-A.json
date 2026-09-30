@@ -1,0 +1,85 @@
+{
+  "run_id": "probe-20260929-2015",
+  "mode": "priority",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "priority",
+  "message": {
+    "enqueued_at": "2026-09-29T20:15:21.093000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T20:15:46.464879+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 25.371879,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "priority",
+    "replica": "worker-priority--0000001-696cd55948-54szp",
+    "revision": "worker-priority--0000001",
+    "process_started_at": "2026-09-29T20:15:45.226130+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T20:15:47.517557+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260929-2015",
+      "mode": "priority",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "probe-20260929-2015-classify",
+      "success": true,
+      "started_at": "2026-09-29T20:15:46.538740+00:00",
+      "finished_at": "2026-09-29T20:15:47.498134+00:00",
+      "latency_s": 0.9593358960701153,
+      "total_s": 0.9593925930093974,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T20:15:46.538748+00:00",
+          "duration_s": 0.9593358960701153,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "c1902cd0-ccf4-4a41-97d9-77fc44fa5eb8",
+            "x-request-id": "04d60f14-0c0d-4aa1-abaa-f4cd9a3d9285",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99952"
+          }
+        }
+      ],
+      "requested_service_tier": "priority",
+      "service_tier": "priority",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 110,
+      "output_preview": "Positive \u2014 despite the late delivery, the customer praises the prompt refund and says the product works great.",
+      "usage": {
+        "prompt_tokens": 48,
+        "completion_tokens": 23,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "c1902cd0-ccf4-4a41-97d9-77fc44fa5eb8",
+        "x-request-id": "04d60f14-0c0d-4aa1-abaa-f4cd9a3d9285",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99952"
+      }
+    }
+  ]
+}

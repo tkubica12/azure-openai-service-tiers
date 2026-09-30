@@ -1,0 +1,85 @@
+{
+  "run_id": "probe-20260930-0530",
+  "mode": "priority",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "priority",
+  "message": {
+    "enqueued_at": "2026-09-30T05:30:35.010000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-30T05:30:56.264560+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 21.25456,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "priority",
+    "replica": "worker-priority--0000001-696cd55948-7nn2n",
+    "revision": "worker-priority--0000001",
+    "process_started_at": "2026-09-30T05:30:54.994677+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-30T05:30:59.060654+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260930-0530",
+      "mode": "priority",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "probe-20260930-0530-code",
+      "success": true,
+      "started_at": "2026-09-30T05:30:56.334920+00:00",
+      "finished_at": "2026-09-30T05:30:59.023307+00:00",
+      "latency_s": 2.6883327499963343,
+      "total_s": 2.6883878499793354,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-30T05:30:56.334927+00:00",
+          "duration_s": 2.6883327499963343,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "b1d8fecf-0d8e-44f5-8909-f8494848c0c5",
+            "x-request-id": "e82962ff-a1d0-45e4-99bf-4e9c7c8b6e77",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99976"
+          }
+        }
+      ],
+      "requested_service_tier": "priority",
+      "service_tier": "priority",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 334,
+      "output_preview": "```python\ndef p95(values):\n    if not values:\n        raise ValueError(\"values must not be empty\")\n\n    xs = sorted(values)\n    pos = 0.95 * (len(xs) - 1)\n    lo = int(pos)\n    hi = min(lo + 1, len(xs",
+      "usage": {
+        "prompt_tokens": 24,
+        "completion_tokens": 157,
+        "reasoning_tokens": 46,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "b1d8fecf-0d8e-44f5-8909-f8494848c0c5",
+        "x-request-id": "e82962ff-a1d0-45e4-99bf-4e9c7c8b6e77",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99976"
+      }
+    }
+  ]
+}

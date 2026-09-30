@@ -1,0 +1,85 @@
+{
+  "run_id": "probe-20260929-1300",
+  "mode": "flex",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "flex",
+  "message": {
+    "enqueued_at": "2026-09-29T13:00:23.435000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T13:05:23.367616+00:00",
+    "delivery_count": 1,
+    "pickup_delay_s": 299.932616,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "flex",
+    "replica": "worker-flex--0000003-57dcdbcfc7-twqtn",
+    "revision": "worker-flex--0000003",
+    "process_started_at": "2026-09-29T13:00:51.164224+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T13:05:26.536928+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260929-1300",
+      "mode": "flex",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "probe-20260929-1300-write",
+      "success": true,
+      "started_at": "2026-09-29T13:05:23.489817+00:00",
+      "finished_at": "2026-09-29T13:05:26.519164+00:00",
+      "latency_s": 3.0292948310000156,
+      "total_s": 3.0293485309999824,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T13:05:23.489823+00:00",
+          "duration_s": 3.0292948310000156,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "9455be6e-0e82-42b5-a4be-3f2036a3bc8a",
+            "x-request-id": "21698b27-11a0-40ad-82e2-fb4159754993",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99974"
+          }
+        }
+      ],
+      "requested_service_tier": "flex",
+      "service_tier": "flex",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 459,
+      "output_preview": "Stay hydrated on every adventure with this rugged reusable water bottle, crafted from durable stainless steel to handle the demands of the trail. Its insulated design keeps drinks cold for hours, whil",
+      "usage": {
+        "prompt_tokens": 26,
+        "completion_tokens": 86,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "9455be6e-0e82-42b5-a4be-3f2036a3bc8a",
+        "x-request-id": "21698b27-11a0-40ad-82e2-fb4159754993",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99974"
+      }
+    }
+  ]
+}

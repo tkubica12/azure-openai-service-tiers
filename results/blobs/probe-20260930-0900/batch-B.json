@@ -1,0 +1,114 @@
+{
+  "run_id": "probe-20260930-0900",
+  "mode": "batch",
+  "pair": "B",
+  "deployment": "gpt-54-mini-batch",
+  "message": {
+    "enqueued_at": "2026-09-30T09:00:45.018000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-30T09:01:15.743800+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 30.7258,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "batch",
+    "replica": "worker-batch--0000004-6f6959fff6-5bgjg",
+    "revision": "worker-batch--0000004",
+    "process_started_at": "2026-09-30T09:08:21.816154+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-30T09:09:24.016351+00:00",
+  "batch": {
+    "status": "completed",
+    "created_at": "2026-09-30T09:01:53+00:00",
+    "in_progress_at": "2026-09-30T09:02:53+00:00",
+    "finalizing_at": "2026-09-30T09:08:08+00:00",
+    "completed_at": "2026-09-30T09:08:45+00:00",
+    "failed_at": null,
+    "expired_at": null,
+    "request_counts": {
+      "completed": 1,
+      "failed": 0,
+      "total": 1
+    },
+    "errors": null,
+    "output_file_id": "file-bf3eb85f-6bb3-4fde-963f-98c95ebb5fa6",
+    "error_file_id": null
+  },
+  "timeline": [
+    {
+      "observed_at": "2026-09-30T09:01:54.366026+00:00",
+      "status": "validating"
+    },
+    {
+      "observed_at": "2026-09-30T09:02:54.878921+00:00",
+      "status": "in_progress",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-30T09:08:23.523739+00:00",
+      "status": "finalizing",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-30T09:09:23.853608+00:00",
+      "status": "completed",
+      "counts": {
+        "completed": 1,
+        "failed": 0,
+        "total": 1
+      }
+    }
+  ],
+  "polls": 7,
+  "records": [
+    {
+      "run_id": "probe-20260930-0900",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "probe-20260930-0900-write",
+      "success": true,
+      "batch_id": "batch_a4f226be-b875-4346-be19-69e3ed1eef64",
+      "batch_status": "completed",
+      "latency_s": 412,
+      "total_s": 449.487582,
+      "end_to_end_s": 518.835608,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 597,
+      "output_preview": "Stay hydrated on every trail with this durable reusable stainless-steel water bottle, built for hikers who need reliable gear in the backcountry. Its double-wall insulation helps keep drinks cold for ",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 26,
+        "completion_tokens": 129,
+        "reasoning_tokens": 3,
+        "cached_tokens": 0
+      }
+    }
+  ]
+}

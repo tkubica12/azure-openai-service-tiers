@@ -1,0 +1,114 @@
+{
+  "run_id": "probe-20260929-1945",
+  "mode": "batch",
+  "pair": "B",
+  "deployment": "gpt-54-mini-batch",
+  "message": {
+    "enqueued_at": "2026-09-29T19:45:31.037000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T19:45:54.742028+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 23.705028,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "batch",
+    "replica": "worker-batch--0000004-6f6959fff6-789h8",
+    "revision": "worker-batch--0000004",
+    "process_started_at": "2026-09-29T19:52:22.145735+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T19:54:24.502289+00:00",
+  "batch": {
+    "status": "completed",
+    "created_at": "2026-09-29T19:45:57+00:00",
+    "in_progress_at": "2026-09-29T19:47:58+00:00",
+    "finalizing_at": "2026-09-29T19:53:14+00:00",
+    "completed_at": "2026-09-29T19:53:54+00:00",
+    "failed_at": null,
+    "expired_at": null,
+    "request_counts": {
+      "completed": 1,
+      "failed": 0,
+      "total": 1
+    },
+    "errors": null,
+    "output_file_id": "file-3b57ca54-c0c7-4713-bd02-3bbf0047554d",
+    "error_file_id": null
+  },
+  "timeline": [
+    {
+      "observed_at": "2026-09-29T19:45:58.361361+00:00",
+      "status": "validating"
+    },
+    {
+      "observed_at": "2026-09-29T19:47:59.206788+00:00",
+      "status": "in_progress",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-29T19:53:24.098713+00:00",
+      "status": "finalizing",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-29T19:54:24.404255+00:00",
+      "status": "completed",
+      "counts": {
+        "completed": 1,
+        "failed": 0,
+        "total": 1
+      }
+    }
+  ],
+  "polls": 8,
+  "records": [
+    {
+      "run_id": "probe-20260929-1945",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "probe-20260929-1945-explain",
+      "success": true,
+      "batch_id": "batch_0c8e9aa8-cdf2-4ad2-9bd5-c942111f4c81",
+      "batch_status": "completed",
+      "latency_s": 477,
+      "total_s": 506.042894,
+      "end_to_end_s": 533.367255,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 316,
+      "output_preview": "\u201cLatency percentile p90\u201d means the time it takes for a system to respond is faster than 90% of the requests, and only the slowest 10% take longer. So if p90 latency is 200 ms, that means 9 out of 10 r",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 27,
+        "completion_tokens": 97,
+        "reasoning_tokens": 8,
+        "cached_tokens": 0
+      }
+    }
+  ]
+}

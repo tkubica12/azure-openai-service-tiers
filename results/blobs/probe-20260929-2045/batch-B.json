@@ -1,0 +1,114 @@
+{
+  "run_id": "probe-20260929-2045",
+  "mode": "batch",
+  "pair": "B",
+  "deployment": "gpt-54-mini-batch",
+  "message": {
+    "enqueued_at": "2026-09-29T20:45:22.602000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T20:45:59.534496+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 36.932496,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "batch",
+    "replica": "worker-batch--0000004-6f6959fff6-d6nnb",
+    "revision": "worker-batch--0000004",
+    "process_started_at": "2026-09-29T20:52:29.587600+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T20:53:32.384936+00:00",
+  "batch": {
+    "status": "completed",
+    "created_at": "2026-09-29T20:46:03+00:00",
+    "in_progress_at": "2026-09-29T20:47:24+00:00",
+    "finalizing_at": "2026-09-29T20:52:04+00:00",
+    "completed_at": "2026-09-29T20:52:43+00:00",
+    "failed_at": null,
+    "expired_at": null,
+    "request_counts": {
+      "completed": 1,
+      "failed": 0,
+      "total": 1
+    },
+    "errors": null,
+    "output_file_id": "file-dd13bb28-26fc-40eb-8bbc-6e9fdcc1e980",
+    "error_file_id": null
+  },
+  "timeline": [
+    {
+      "observed_at": "2026-09-29T20:46:03.751115+00:00",
+      "status": "validating"
+    },
+    {
+      "observed_at": "2026-09-29T20:47:04.204576+00:00",
+      "status": "in_progress",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-29T20:52:31.326109+00:00",
+      "status": "finalizing",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-29T20:53:31.602001+00:00",
+      "status": "completed",
+      "counts": {
+        "completed": 1,
+        "failed": 0,
+        "total": 1
+      }
+    }
+  ],
+  "polls": 7,
+  "records": [
+    {
+      "run_id": "probe-20260929-2045",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "probe-20260929-2045-reason",
+      "success": true,
+      "batch_id": "batch_e71bc3ec-787f-445c-b769-9a221d48c10e",
+      "batch_status": "completed",
+      "latency_s": 400,
+      "total_s": 447.850886,
+      "end_to_end_s": 489.000001,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 579,
+      "output_preview": "It will have about **72 cold starts per day**.\n\n### Why\n- A day has **1,440 minutes**.\n- Messages arrive every **20 minutes**, so:\n  - **1,440 / 20 = 72 messages per day**\n- The app scales back to **0",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 51,
+        "completion_tokens": 235,
+        "reasoning_tokens": 72,
+        "cached_tokens": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,349 @@
+{
+  "run_id": "main-r17",
+  "mode": "standard",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "default",
+  "message": {
+    "enqueued_at": "2026-09-29T12:52:25.904000+00:00",
+    "scheduled_enqueue_at": "2026-09-29T12:52:25.850000+00:00",
+    "received_at": "2026-09-29T12:52:51.570568+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 25.720568,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "standard",
+    "replica": "worker-standard--0000003-c7cc6d4cc-kcpsk",
+    "revision": "worker-standard--0000003",
+    "process_started_at": "2026-09-29T12:52:50.273093+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T12:55:09.668627+00:00",
+  "records": [
+    {
+      "run_id": "main-r17",
+      "mode": "standard",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r17-translate",
+      "success": true,
+      "started_at": "2026-09-29T12:52:51.639717+00:00",
+      "finished_at": "2026-09-29T12:52:57.260991+00:00",
+      "latency_s": 5.621226517017931,
+      "total_s": 5.621275017037988,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T12:52:51.639722+00:00",
+          "duration_s": 5.621226517017931,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "6f45113b-2c27-450a-9e90-692ffff20513",
+            "x-request-id": "bb51b7fd-1b66-4059-8c09-034219b3978c",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99978"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 161,
+      "output_preview": "**Czech:** D\u00e1vkov\u00e9 zpracov\u00e1n\u00ed je levn\u011bj\u0161\u00ed, ale v\u00fdsledky doraz\u00ed pozd\u011bji.\n\n**German:** Die Stapelverarbeitung ist g\u00fcnstiger, aber die Ergebnisse liegen sp\u00e4ter vor.",
+      "usage": {
+        "prompt_tokens": 22,
+        "completion_tokens": 46,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "6f45113b-2c27-450a-9e90-692ffff20513",
+        "x-request-id": "bb51b7fd-1b66-4059-8c09-034219b3978c",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99978"
+      }
+    },
+    {
+      "run_id": "main-r17",
+      "mode": "standard",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r17-code",
+      "success": true,
+      "started_at": "2026-09-29T12:52:57.261103+00:00",
+      "finished_at": "2026-09-29T12:53:00.823902+00:00",
+      "latency_s": 3.5627544389571995,
+      "total_s": 3.562801738968119,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T12:52:57.261105+00:00",
+          "duration_s": 3.5627544389571995,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "db009351-f3cc-485c-a6e1-4769ac8d2115",
+            "x-request-id": "f83d6ff5-d026-4973-b79e-55d708153cf9",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99976"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 351,
+      "output_preview": "```python\ndef p95(values: list[float]) -> float:\n    if not values:\n        raise ValueError(\"values cannot be empty\")\n\n    values = sorted(values)\n    index = 0.95 * (len(values) - 1)\n    lower = int",
+      "usage": {
+        "prompt_tokens": 24,
+        "completion_tokens": 131,
+        "reasoning_tokens": 25,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "db009351-f3cc-485c-a6e1-4769ac8d2115",
+        "x-request-id": "f83d6ff5-d026-4973-b79e-55d708153cf9",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99976"
+      }
+    },
+    {
+      "run_id": "main-r17",
+      "mode": "standard",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r17-summarize",
+      "success": true,
+      "started_at": "2026-09-29T12:53:00.824022+00:00",
+      "finished_at": "2026-09-29T12:54:46.313455+00:00",
+      "latency_s": 5.204029287095182,
+      "total_s": 105.48943592503201,
+      "attempt_count": 5,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T12:53:00.824024+00:00",
+          "duration_s": 17.71290984901134,
+          "status": 500,
+          "error": {
+            "type": "InternalServerError",
+            "code": null,
+            "message": "Error code: 500 - {'error': {'message': 'The server is overloaded or not ready yet. Please try again later.', 'type': 'service_unavailable_error', 'param': None, 'code': None}}"
+          },
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "5c88920e-f733-4b2a-8804-d84c14305894",
+            "x-request-id": "c5317032-76d8-407c-97aa-ec9c3c077f83"
+          }
+        },
+        {
+          "attempt": 2,
+          "started_at": "2026-09-29T12:53:19.944697+00:00",
+          "duration_s": 21.783265014993958,
+          "status": 500,
+          "error": {
+            "type": "InternalServerError",
+            "code": null,
+            "message": "Error code: 500 - {'error': {'message': 'The server is overloaded or not ready yet. Please try again later.', 'type': 'service_unavailable_error', 'param': None, 'code': None}}"
+          },
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "b82922b8-3e78-4163-b6f7-8ab24a1bddb6",
+            "x-request-id": "e3807f69-dfd4-4f65-a56b-ed48c6af79ba"
+          }
+        },
+        {
+          "attempt": 3,
+          "started_at": "2026-09-29T12:53:47.263504+00:00",
+          "duration_s": 17.891186750959605,
+          "status": 500,
+          "error": {
+            "type": "InternalServerError",
+            "code": null,
+            "message": "Error code: 500 - {'error': {'message': 'The server is overloaded or not ready yet. Please try again later.', 'type': 'service_unavailable_error', 'param': None, 'code': None}}"
+          },
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "688c052f-441d-4e78-bb05-d32b0521ff8d",
+            "x-request-id": "369a7ecd-04da-4dd8-8145-9893fa9eb0a3"
+          }
+        },
+        {
+          "attempt": 4,
+          "started_at": "2026-09-29T12:54:10.612132+00:00",
+          "duration_s": 18.0796748069115,
+          "status": 500,
+          "error": {
+            "type": "InternalServerError",
+            "code": null,
+            "message": "Error code: 500 - {'error': {'message': 'The server is overloaded or not ready yet. Please try again later.', 'type': 'service_unavailable_error', 'param': None, 'code': None}}"
+          },
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "beffa914-b1c1-4561-97f3-13b429ce8a5c",
+            "x-request-id": "7d53ab41-f838-46a7-bed2-dd5d69861673"
+          }
+        },
+        {
+          "attempt": 5,
+          "started_at": "2026-09-29T12:54:41.109384+00:00",
+          "duration_s": 5.204029287095182,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "db3cf2d6-11d6-499c-86d5-ed15cf3e1da4",
+            "x-request-id": "17f5c6a8-0916-4055-bf35-17a03ef1df7d"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 470,
+      "output_preview": "- **Decouple services:** Producers and consumers operate independently, preventing failures or slowdowns in one service from immediately disrupting others.\n- **Buffer traffic spikes:** Queues absorb b",
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 83,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "db3cf2d6-11d6-499c-86d5-ed15cf3e1da4",
+        "x-request-id": "17f5c6a8-0916-4055-bf35-17a03ef1df7d"
+      }
+    },
+    {
+      "run_id": "main-r17",
+      "mode": "standard",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r17-classify",
+      "success": true,
+      "started_at": "2026-09-29T12:54:46.313542+00:00",
+      "finished_at": "2026-09-29T12:55:07.749649+00:00",
+      "latency_s": 1.2085013861069456,
+      "total_s": 21.43611106998287,
+      "attempt_count": 2,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T12:54:46.313544+00:00",
+          "duration_s": 17.68995215196628,
+          "status": 500,
+          "error": {
+            "type": "InternalServerError",
+            "code": null,
+            "message": "Error code: 500 - {'error': {'message': 'The server is overloaded or not ready yet. Please try again later.', 'type': 'service_unavailable_error', 'param': None, 'code': None}}"
+          },
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "67b6ec3a-9850-45b9-9ead-131e54f49c87",
+            "x-request-id": "a504de83-dd6f-4377-8a8a-a32c3340b99d"
+          }
+        },
+        {
+          "attempt": 2,
+          "started_at": "2026-09-29T12:55:06.541093+00:00",
+          "duration_s": 1.2085013861069456,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "d1152062-6b51-43aa-b503-f9f73931fb14",
+            "x-request-id": "4a7e855c-5d9f-45f4-a5dc-d7c6f139afa1",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99952"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 110,
+      "output_preview": "Positive \u2014 despite the late delivery, the customer praises the prompt refund and says the product works great.",
+      "usage": {
+        "prompt_tokens": 48,
+        "completion_tokens": 23,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "d1152062-6b51-43aa-b503-f9f73931fb14",
+        "x-request-id": "4a7e855c-5d9f-45f4-a5dc-d7c6f139afa1",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99952"
+      }
+    },
+    {
+      "run_id": "main-r17",
+      "mode": "standard",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "main-r17-explain",
+      "success": true,
+      "started_at": "2026-09-29T12:55:07.749774+00:00",
+      "finished_at": "2026-09-29T12:55:09.626635+00:00",
+      "latency_s": 1.8768146929796785,
+      "total_s": 1.8768642919603735,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T12:55:07.749777+00:00",
+          "duration_s": 1.8768146929796785,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "76f7417c-62d7-48c0-8b14-28d56a20abfd",
+            "x-request-id": "46ca4cf1-b43e-4bfe-907b-f791efde3d2a",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99973"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 255,
+      "output_preview": "\u201cLatency p90\u201d is the response time that 90% of requests meet or beat. For example, if p90 latency is 2 seconds, 90% of requests finish within 2 seconds, while 10% take longer. It helps show the experi",
+      "usage": {
+        "prompt_tokens": 27,
+        "completion_tokens": 107,
+        "reasoning_tokens": 34,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "76f7417c-62d7-48c0-8b14-28d56a20abfd",
+        "x-request-id": "46ca4cf1-b43e-4bfe-907b-f791efde3d2a",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99973"
+      }
+    }
+  ]
+}

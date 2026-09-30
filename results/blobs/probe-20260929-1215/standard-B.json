@@ -1,0 +1,85 @@
+{
+  "run_id": "probe-20260929-1215",
+  "mode": "standard",
+  "pair": "B",
+  "deployment": "gpt-54-mini",
+  "service_tier_requested": "default",
+  "message": {
+    "enqueued_at": "2026-09-29T12:15:34.831000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T12:16:07.056460+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 32.22546,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "standard",
+    "replica": "worker-standard--0000003-c7cc6d4cc-29bmp",
+    "revision": "worker-standard--0000003",
+    "process_started_at": "2026-09-29T12:16:05.768662+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T12:16:09.231329+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260929-1215",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "probe-20260929-1215-classify",
+      "success": true,
+      "started_at": "2026-09-29T12:16:07.122346+00:00",
+      "finished_at": "2026-09-29T12:16:09.230266+00:00",
+      "latency_s": 2.1078645929228514,
+      "total_s": 2.1079199931118637,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T12:16:07.122352+00:00",
+          "duration_s": 2.1078645929228514,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "f017d3e2-1253-4714-b6a8-b1eba04c8c1e",
+            "x-request-id": "00c93174-010f-44f6-90a7-d5f46e2d53d1",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99952"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 162,
+      "output_preview": "**Positive** \u2014 although the delivery was late, the customer highlights quick support resolution and says the product \u201cworks great,\u201d which outweighs the complaint.",
+      "usage": {
+        "prompt_tokens": 48,
+        "completion_tokens": 81,
+        "reasoning_tokens": 42,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "f017d3e2-1253-4714-b6a8-b1eba04c8c1e",
+        "x-request-id": "00c93174-010f-44f6-90a7-d5f46e2d53d1",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99952"
+      }
+    }
+  ]
+}

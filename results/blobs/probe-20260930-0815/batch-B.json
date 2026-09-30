@@ -1,0 +1,114 @@
+{
+  "run_id": "probe-20260930-0815",
+  "mode": "batch",
+  "pair": "B",
+  "deployment": "gpt-54-mini-batch",
+  "message": {
+    "enqueued_at": "2026-09-30T08:15:32.930000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-30T08:16:03.182508+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 30.252508,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "batch",
+    "replica": "worker-batch--0000004-6f6959fff6-grtbb",
+    "revision": "worker-batch--0000004",
+    "process_started_at": "2026-09-30T08:23:16.406735+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-30T08:25:19.116134+00:00",
+  "batch": {
+    "status": "completed",
+    "created_at": "2026-09-30T08:16:37+00:00",
+    "in_progress_at": "2026-09-30T08:19:15+00:00",
+    "finalizing_at": "2026-09-30T08:24:01+00:00",
+    "completed_at": "2026-09-30T08:24:45+00:00",
+    "failed_at": null,
+    "expired_at": null,
+    "request_counts": {
+      "completed": 1,
+      "failed": 0,
+      "total": 1
+    },
+    "errors": null,
+    "output_file_id": "file-9cd151d8-4461-41f6-8d61-b0a067eb7f7d",
+    "error_file_id": null
+  },
+  "timeline": [
+    {
+      "observed_at": "2026-09-30T08:16:37.540717+00:00",
+      "status": "validating"
+    },
+    {
+      "observed_at": "2026-09-30T08:18:38.278490+00:00",
+      "status": "in_progress",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-30T08:24:18.541054+00:00",
+      "status": "finalizing",
+      "counts": {
+        "completed": 0,
+        "failed": 0,
+        "total": 1
+      }
+    },
+    {
+      "observed_at": "2026-09-30T08:25:18.929048+00:00",
+      "status": "completed",
+      "counts": {
+        "completed": 1,
+        "failed": 0,
+        "total": 1
+      }
+    }
+  ],
+  "polls": 8,
+  "records": [
+    {
+      "run_id": "probe-20260930-0815",
+      "mode": "batch",
+      "pair": "B",
+      "deployment": "gpt-54-mini-batch",
+      "prompt_id": "probe-20260930-0815-classify",
+      "success": true,
+      "batch_id": "batch_eba00af1-3340-4d0e-9872-b903f47f355a",
+      "batch_status": "completed",
+      "latency_s": 488,
+      "total_s": 521.388331,
+      "end_to_end_s": 585.999048,
+      "service_tier": null,
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 154,
+      "output_preview": "**Positive** \u2014 although the delivery was late, the quick shipping refund and the fact that the product \u201cworks great\u201d make the overall sentiment favorable.",
+      "status_code": 200,
+      "error": null,
+      "usage": {
+        "prompt_tokens": 48,
+        "completion_tokens": 57,
+        "reasoning_tokens": 18,
+        "cached_tokens": 0
+      }
+    }
+  ]
+}

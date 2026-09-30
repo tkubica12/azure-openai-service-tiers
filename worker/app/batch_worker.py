@@ -38,8 +38,22 @@ def _schedule_poll(sender, run_id: str, batch_id: str, poll: int) -> None:
     sender.schedule_messages(msg, utcnow() + timedelta(seconds=POLL_INTERVAL_S))
 
 
+def _find_batch(client, run_id: str):
+    """Batch create is not idempotent: a gateway timeout (504) can still leave a created batch behind."""
+    for b in client.batches.list(limit=100).data:
+        if (b.metadata or {}).get("run_id") == run_id:
+            return b
+    return None
+
+
 def submit(job: dict, timing: dict, status_sender) -> None:
     client = openai_client()
+    existing = _find_batch(client, job["run_id"])
+    if existing:
+        log.info("run=%s batch %s already exists (redelivery), adopting it", job["run_id"], existing.id)
+        _submit_state(job, timing, status_sender, existing, existing.input_file_id, None, utcnow(), utcnow(),
+                      "adopted on redelivery")
+        return
     deployment = env("BATCH_PAIR_BATCH_DEPLOYMENT")
     params = job.get("params", {})
     lines = [
@@ -65,20 +79,38 @@ def submit(job: dict, timing: dict, status_sender) -> None:
             break
         time.sleep(2)
     t_file_ready = utcnow()
-    batch = client.batches.create(
-        input_file_id=file.id,
-        endpoint=BATCH_ENDPOINT,
-        completion_window="24h",
-        metadata={"run_id": job["run_id"]},
-    )
+    note = None
+    try:
+        batch = client.batches.create(
+            input_file_id=file.id,
+            endpoint=BATCH_ENDPOINT,
+            completion_window="24h",
+            metadata={"run_id": job["run_id"]},
+        )
+    except Exception as e:  # noqa: BLE001
+        log.warning("run=%s batch create failed (%s), checking whether it was created anyway", job["run_id"], e)
+        batch = None
+        for _ in range(10):
+            time.sleep(15)
+            batch = _find_batch(client, job["run_id"])
+            if batch:
+                break
+        if not batch:
+            raise
+        note = f"create returned {type(e).__name__}, batch found afterwards"
+    _submit_state(job, timing, status_sender, batch, file.id, file.status, t_upload, t_file_ready, note)
+
+
+def _submit_state(job, timing, status_sender, batch, file_id, file_status, t_upload, t_file_ready, note) -> None:
     submitted_at = utcnow()
-    log.info("run=%s submitted batch %s (file %s status %s)", job["run_id"], batch.id, file.id, file.status)
+    log.info("run=%s submitted batch %s (file %s status %s) %s", job["run_id"], batch.id, file_id, file_status, note or "")
     state = {
         "run_id": job["run_id"],
-        "deployment": deployment,
+        "deployment": env("BATCH_PAIR_BATCH_DEPLOYMENT"),
         "batch_id": batch.id,
-        "input_file_id": file.id,
-        "input_file_status": file.status,
+        "input_file_id": file_id,
+        "input_file_status": file_status,
+        "submit_note": note,
         "prompts": [p["id"] for p in job["prompts"]],
         "message": timing,
         "worker_submit": worker_info(),

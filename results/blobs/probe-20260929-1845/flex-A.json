@@ -1,0 +1,85 @@
+{
+  "run_id": "probe-20260929-1845",
+  "mode": "flex",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "flex",
+  "message": {
+    "enqueued_at": "2026-09-29T18:45:23.322000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-29T18:45:59.542031+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 36.220031,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "flex",
+    "replica": "worker-flex--0000004-6568dccf5d-nqdlf",
+    "revision": "worker-flex--0000004",
+    "process_started_at": "2026-09-29T18:45:58.427509+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-29T18:46:02.434301+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260929-1845",
+      "mode": "flex",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "probe-20260929-1845-reason",
+      "success": true,
+      "started_at": "2026-09-29T18:45:59.611295+00:00",
+      "finished_at": "2026-09-29T18:46:02.420537+00:00",
+      "latency_s": 2.8091880150022916,
+      "total_s": 2.8092415139835794,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-29T18:45:59.611302+00:00",
+          "duration_s": 2.8091880150022916,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "5e0199fc-4984-4cd5-83c5-eaebcd3bbb7e",
+            "x-request-id": "bcd17119-fe90-4462-8539-f721de445fd8",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99949"
+          }
+        }
+      ],
+      "requested_service_tier": "flex",
+      "service_tier": "flex",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 257,
+      "output_preview": "Messages arrive **72 times per day**:\n\n\\[\n24 \\times 60 \\div 20 = 72\n\\]\n\nBecause the app scales to zero after 5 idle minutes\u2014well before the next message arrives 20 minutes later\u2014each message triggers ",
+      "usage": {
+        "prompt_tokens": 51,
+        "completion_tokens": 127,
+        "reasoning_tokens": 50,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "5e0199fc-4984-4cd5-83c5-eaebcd3bbb7e",
+        "x-request-id": "bcd17119-fe90-4462-8539-f721de445fd8",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99949"
+      }
+    }
+  ]
+}

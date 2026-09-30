@@ -1,0 +1,85 @@
+{
+  "run_id": "probe-20260930-0000",
+  "mode": "standard",
+  "pair": "B",
+  "deployment": "gpt-54-mini",
+  "service_tier_requested": "default",
+  "message": {
+    "enqueued_at": "2026-09-30T00:00:23.457000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-30T00:00:53.015523+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 29.558523,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "standard",
+    "replica": "worker-standard--0000004-55d4447bb6-gzcg7",
+    "revision": "worker-standard--0000004",
+    "process_started_at": "2026-09-30T00:00:51.756277+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-30T00:00:55.331068+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260930-0000",
+      "mode": "standard",
+      "pair": "B",
+      "deployment": "gpt-54-mini",
+      "prompt_id": "probe-20260930-0000-summarize",
+      "success": true,
+      "started_at": "2026-09-30T00:00:53.096519+00:00",
+      "finished_at": "2026-09-30T00:00:55.306827+00:00",
+      "latency_s": 2.2101890240446664,
+      "total_s": 2.210310322989244,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-30T00:00:53.096524+00:00",
+          "duration_s": 2.2101890240446664,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "14ec3dec-f53f-4d5d-bd05-9cddf4c07d31",
+            "x-request-id": "c1e2680a-b8c8-4bc6-bb5a-562f9aa58bfe",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99975"
+          }
+        }
+      ],
+      "requested_service_tier": "default",
+      "service_tier": "default",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "finish_reason": "stop",
+      "output_chars": 565,
+      "output_preview": "- **They decouple services:** Producers and consumers don\u2019t have to be online at the same time, so if one component is slow or temporarily unavailable, messages can still be queued and processed later",
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 110,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "14ec3dec-f53f-4d5d-bd05-9cddf4c07d31",
+        "x-request-id": "c1e2680a-b8c8-4bc6-bb5a-562f9aa58bfe",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99975"
+      }
+    }
+  ]
+}

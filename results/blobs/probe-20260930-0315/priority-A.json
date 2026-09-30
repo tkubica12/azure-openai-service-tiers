@@ -1,0 +1,85 @@
+{
+  "run_id": "probe-20260930-0315",
+  "mode": "priority",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "priority",
+  "message": {
+    "enqueued_at": "2026-09-30T03:15:18.043000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-30T03:15:41.462117+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 23.419117,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "priority",
+    "replica": "worker-priority--0000001-696cd55948-zxxxs",
+    "revision": "worker-priority--0000001",
+    "process_started_at": "2026-09-30T03:15:40.263111+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-30T03:15:42.947267+00:00",
+  "records": [
+    {
+      "run_id": "probe-20260930-0315",
+      "mode": "priority",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "probe-20260930-0315-translate",
+      "success": true,
+      "started_at": "2026-09-30T03:15:41.535817+00:00",
+      "finished_at": "2026-09-30T03:15:42.927074+00:00",
+      "latency_s": 1.3912055790000295,
+      "total_s": 1.3912580809999895,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-30T03:15:41.535823+00:00",
+          "duration_s": 1.3912055790000295,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "725a8f9c-0240-420e-b00a-22e86d21cadd",
+            "x-request-id": "a20f534f-851f-4239-8b78-f7b2ef88e042",
+            "x-ratelimit-remaining-requests": "99",
+            "x-ratelimit-remaining-tokens": "99978"
+          }
+        }
+      ],
+      "requested_service_tier": "priority",
+      "service_tier": "priority",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 166,
+      "output_preview": "**Czech:** D\u00e1vkov\u00e9 zpracov\u00e1n\u00ed je levn\u011bj\u0161\u00ed, ale v\u00fdsledky doraz\u00ed pozd\u011bji.\n\n**German:** Die Stapelverarbeitung ist g\u00fcnstiger, aber die Ergebnisse liegen erst sp\u00e4ter vor.",
+      "usage": {
+        "prompt_tokens": 22,
+        "completion_tokens": 47,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "725a8f9c-0240-420e-b00a-22e86d21cadd",
+        "x-request-id": "a20f534f-851f-4239-8b78-f7b2ef88e042",
+        "x-ratelimit-remaining-requests": "99",
+        "x-ratelimit-remaining-tokens": "99978"
+      }
+    }
+  ]
+}
