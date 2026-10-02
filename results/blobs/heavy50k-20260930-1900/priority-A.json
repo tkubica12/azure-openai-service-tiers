@@ -1,0 +1,92 @@
+{
+  "run_id": "heavy50k-20260930-1900",
+  "mode": "priority",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "priority",
+  "message": {
+    "enqueued_at": "2026-09-30T19:00:20.408000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-09-30T19:00:44.040323+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 23.632323,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "priority",
+    "replica": "worker-priority--0000005-7ccf74fbfd-vzvvn",
+    "revision": "worker-priority--0000005",
+    "process_started_at": "2026-09-30T19:00:42.768870+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-09-30T19:01:19.794787+00:00",
+  "records": [
+    {
+      "run_id": "heavy50k-20260930-1900",
+      "mode": "priority",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "heavy50k-20260930-1900-triage",
+      "success": true,
+      "started_at": "2026-09-30T19:00:44.854711+00:00",
+      "finished_at": "2026-09-30T19:01:19.728773+00:00",
+      "latency_s": 34.87395790501614,
+      "ttft_s": 1.408454841002822,
+      "ttlt_s": 34.87395790501614,
+      "headers_s": 1.2831610869907308,
+      "generation_s": 33.46550306401332,
+      "output_tps": 143.67033391977358,
+      "e2e_tps": 137.89659358705285,
+      "stream_chunks": 4810,
+      "total_s": 34.8740640039905,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-09-30T19:00:44.854720+00:00",
+          "duration_s": 34.87395790501614,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "0c72bdef-d269-4e5e-8101-4efa4d2749eb",
+            "x-request-id": "122276b2-c7c2-4617-b23f-2c3cf028573b",
+            "x-ratelimit-remaining-requests": "298",
+            "x-ratelimit-remaining-tokens": "154993"
+          }
+        }
+      ],
+      "requested_service_tier": "priority",
+      "service_tier": "priority",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 26722,
+      "output_preview": "### T001\nCategory: Notifications\nPriority: P1\nSummary: Litware Smart Lock duplicates emails and lost connectivity after firmware update, impacting eighteen users under a Premium contractual deadline d",
+      "usage": {
+        "prompt_tokens": 48568,
+        "completion_tokens": 4809,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "0c72bdef-d269-4e5e-8101-4efa4d2749eb",
+        "x-request-id": "122276b2-c7c2-4617-b23f-2c3cf028573b",
+        "x-ratelimit-remaining-requests": "298",
+        "x-ratelimit-remaining-tokens": "154993"
+      }
+    }
+  ]
+}
