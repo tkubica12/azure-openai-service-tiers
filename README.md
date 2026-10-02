@@ -222,6 +222,10 @@ Clean-up: `az group delete -n rg-openai-flex-demo --yes` (and purge the soft-del
 > no cached input tokens). The probe runs every 30 minutes, with finalization scheduled for 2026-10-09 09:30 UTC. Full-period p50/p90/p99 and per-run detail in
 > [`results/report.html`](results/report.html).
 
+The report leads with distributions (TTFT logarithmic, TTLT linear). The TTLT timeline uses Czech time
+(CEST, UTC+2 for this campaign), with night bands at 22:00–06:00 and weekend shading for Saturday/Sunday.
+Percentiles and paired comparisons are collapsed; failed-request and retry counts remain visible.
+
 | Tier (n=104, median) | TTFT | TTLT | Output tok/s | Output tokens | Cost / request |
 |---|---:|---:|---:|---:|---:|
 | Standard | 1.88 s | 43.33 s | 119.7 | 4998.5 | $0.294 |

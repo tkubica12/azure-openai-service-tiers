@@ -10,7 +10,7 @@ import json
 import math
 import statistics
 from collections import Counter, defaultdict
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 from common import RESULTS_DIR, ROOT
@@ -156,14 +156,18 @@ def svg_strip(groups: dict[str, list[float]], title: str, unit: str = "s", log: 
         p90 = pct(vals, 90)
         parts.append(f'<rect x="{X(q1):.1f}" y="{cy - 12}" width="{max(X(q3) - X(q1), 1):.1f}" height="24" '
                      f'fill="{color}" opacity="0.18" stroke="{color}"/>')
-        parts.append(f'<line x1="{X(q2):.1f}" y1="{cy - 14}" x2="{X(q2):.1f}" y2="{cy + 14}" stroke="{color}" '
-                     f'stroke-width="3"/>')
-        parts.append(f'<line x1="{X(p90):.1f}" y1="{cy - 10}" x2="{X(p90):.1f}" y2="{cy + 10}" stroke="{color}" '
-                     f'stroke-dasharray="3,2" stroke-width="2"/>')
+        radius = max(1.0, min(3.0, 3.0 * math.sqrt(30 / len(vals))))
+        opacity = 0.45 if len(vals) >= 100 else 0.6
         for j, v in enumerate(vals):
             jitter = ((j * 7919) % 17 - 8) * 0.9
-            parts.append(f'<circle cx="{X(v):.1f}" cy="{cy + jitter:.1f}" r="3" fill="{color}" opacity="0.75">'
+            parts.append(f'<circle cx="{X(v):.1f}" cy="{cy + jitter:.1f}" r="{radius:.2f}" fill="{color}" opacity="{opacity}">'
                          f'<title>{esc(name)}: {v:.2f} {esc(unit)}</title></circle>')
+        parts.append(f'<line x1="{X(q2):.1f}" y1="{cy - 14}" x2="{X(q2):.1f}" y2="{cy + 14}" stroke="white" '
+                     f'stroke-width="5" pointer-events="none"/>')
+        parts.append(f'<line x1="{X(q2):.1f}" y1="{cy - 14}" x2="{X(q2):.1f}" y2="{cy + 14}" stroke="{color}" '
+                     f'stroke-width="3" pointer-events="none"/>')
+        parts.append(f'<line x1="{X(p90):.1f}" y1="{cy - 10}" x2="{X(p90):.1f}" y2="{cy + 10}" stroke="{color}" '
+                     f'stroke-dasharray="3,2" stroke-width="2" pointer-events="none"/>')
     parts.append("</svg>")
     parts.append('<p class="legend">Box = p25–p75, thick line = median (p50), dashed line = p90, dots = '
                  'individual samples.</p>')
@@ -171,7 +175,8 @@ def svg_strip(groups: dict[str, list[float]], title: str, unit: str = "s", log: 
 
 
 def svg_timeseries(series: dict[str, list[tuple[datetime, float]]], title: str, unit: str = "s",
-                   width: int = 820, height: int = 300, log: bool = False) -> str:
+                   width: int = 820, height: int = 300, log: bool = False,
+                   czech_calendar: bool = False) -> str:
     series = {k: v for k, v in series.items() if v}
     if not series:
         return "<p><em>no data</em></p>"
@@ -189,6 +194,21 @@ def svg_timeseries(series: dict[str, list[tuple[datetime, float]]], title: str, 
              f'<text x="{left}" y="18" class="ct">{esc(title)}</text>',
              f'<line x1="{left}" y1="{top + ph}" x2="{left + pw}" y2="{top + ph}" class="axis"/>',
              f'<line x1="{left}" y1="{top}" x2="{left}" y2="{top + ph}" class="axis"/>']
+    local_tz = timezone(timedelta(hours=PRAGUE_OFFSET_H)) if czech_calendar else t0.tzinfo
+    if czech_calendar:
+        day = t0.astimezone(local_tz).replace(hour=0, minute=0, second=0, microsecond=0)
+        while day <= t1:
+            for start, end, color in (
+                (day, day + timedelta(days=1), "#ede9fe") if day.weekday() >= 5
+                else (day, day, "#ffffff"),
+                (day, day + timedelta(hours=6), "#cbd5e1"),
+                (day + timedelta(hours=22), day + timedelta(days=1), "#cbd5e1"),
+            ):
+                start, end = max(start, t0), min(end, t1)
+                if end > start:
+                    parts.append(f'<rect x="{X(start):.1f}" y="{top}" width="{X(end)-X(start):.1f}" '
+                                 f'height="{ph}" fill="{color}" opacity="0.55"/>')
+            day += timedelta(days=1)
     for k in range(5):
         v = vmin + (vmax - vmin) * k / 4 if not log else 10 ** (f(vmin) + (f(vmax) - f(vmin)) * k / 4)
         y = Y(v)
@@ -199,8 +219,8 @@ def svg_timeseries(series: dict[str, list[tuple[datetime, float]]], title: str, 
         t = t0.timestamp() + span * k / 5
         x = left + pw * k / 5
         parts.append(f'<text x="{x:.1f}" y="{top + ph + 18}" class="tick">'
-                     f'{datetime.fromtimestamp(t, tz=t0.tzinfo).strftime("%d.%m. %H:%M" if multi_day else "%H:%M")}</text>')
-    parts.append(f'<text x="{left + pw / 2}" y="{height - 8}" class="tick">time of request (UTC) · y: {esc(unit)}'
+                     f'{datetime.fromtimestamp(t, tz=local_tz).strftime("%d.%m. %H:%M" if multi_day else "%H:%M")}</text>')
+    parts.append(f'<text x="{left + pw / 2}" y="{height - 8}" class="tick">time of request ({"CEST / Czech time" if czech_calendar else "UTC"}) · y: {esc(unit)}'
                  f'{" (log)" if log else ""}</text>')
     lx = left + 10
     for name, vals in series.items():
@@ -208,7 +228,7 @@ def svg_timeseries(series: dict[str, list[tuple[datetime, float]]], title: str, 
         color = COLORS.get(mode, "#6b7280")
         for t, v in vals:
             parts.append(f'<circle cx="{X(t):.1f}" cy="{Y(v):.1f}" r="3.2" fill="{color}" opacity="0.75">'
-                         f'<title>{esc(name)} {t:%H:%M:%S}: {v:.2f} {esc(unit)}</title></circle>')
+                         f'<title>{esc(name)} {t.astimezone(local_tz):%a %d.%m. %H:%M:%S}: {v:.2f} {esc(unit)}</title></circle>')
         parts.append(f'<circle cx="{lx}" cy="{top + 6}" r="5" fill="{color}"/>'
                      f'<text x="{lx + 9}" y="{top + 10}" class="lg">{esc(name)}</text>')
         lx += 18 + 7 * len(name)
@@ -781,21 +801,25 @@ def heavy_body(hd: dict, rows: list[dict]) -> str:
               for key in ("ttft_s", "ttlt_s", "output_tps")}
     series = {LABEL[m]: [(dt(r["started_at"]), r["ttlt_s"]) for r in ok.get(m, {}).values()] for m in TIERS}
     return f"""
-<div class="kpis">{tier_card('standard')}{tier_card('priority')}{tier_card('flex')}</div>
 <p class="sub">{len(runs)} runs ({len(all3)} with all three tiers ok) · {span}</p>
 {excl_note}
-<h3>Latency percentiles</h3>
-{pct_table(rows)}
-<h3>Paired comparison with Standard</h3>
-{ratio_table}
 <h3>Distribution</h3>
+<p class="cap">TTFT uses a logarithmic axis (equal spacing = equal ratios); TTLT uses a linear axis
+(equal spacing = equal seconds). Do not compare distances between these two charts.</p>
 {svg_strip(strips['ttft_s'], "Time to first token (log scale)", log=True)}
 {svg_strip(strips['ttlt_s'], "Time to last token")}
 {svg_strip(strips['output_tps'], "Output tokens/s after first token", unit="tok/s")}
-{svg_timeseries(series, "Time to last token over time") if len(runs) > 1 else ""}
-<h3>Same work in every tier?</h3>
-{cons_table}
-<p class="cap">Cost uses the retail price of the tier the API actually served (returned <code>service_tier</code>).</p>"""
+<h3>Time to last token over time</h3>
+<p class="cap">Czech time (CEST, UTC+2). Grey bands = night 22:00–06:00; lavender = Saturday/Sunday.
+Dots are successful requests, not averages. Hover for date, day and time.</p>
+{svg_timeseries(series, "Time to last token over time", czech_calendar=True) if len(runs) > 1 else ""}
+<p class="cap">Failed requests: {sum(row['requests'] - row['ok'] for row in rows)}.
+Non-200 attempts (including retries): {esc('; '.join(LABEL[row['mode']] + ': ' + (', '.join(f'{k}×{v}' for k, v in row['codes'].items()) or 'none') for row in rows))}.
+Failed requests have no completed latency and are excluded from the distributions.</p>
+<details><summary>Percentiles and paired comparison</summary>
+{pct_table(rows)}
+{ratio_table}
+</details>"""
 
 
 def pilot_table(hd: dict) -> str:
@@ -1318,32 +1342,8 @@ def build_heavy(campaigns: list[str] | None, out_path: Path) -> None:
 <h2>1. Results</h2>
 {heavy_body(hd, rows)}
 
-<h2>2. How it is measured</h2>
-<div class="arch">
- <div class="box"><b>probe-job</b>cron */30</div><div class="arrow">→</div>
- <div class="box"><b>Service Bus</b>topic llm-tests</div><div class="arrow">→</div>
- <div class="box"><b>Container Apps</b>3 workers, scale 0→1</div><div class="arrow">→</div>
- <div class="box"><b>Foundry</b>gpt-5.6-sol<br>private endpoint</div><div class="arrow">→</div>
- <div class="box"><b>Blob Storage</b>JSON results<br>private endpoint</div>
-</div>
-<ul class="tight">
- <li>Every run each worker sends the <b>same</b> prompt (540 support tickets, answer 70 of them in a fixed format) to the same
- deployment; only <code>service_tier</code> differs. A per-request nonce at the start of the prompt prevents prompt caching.</li>
- <li><b>TTFT</b> = first content token, <b>TTLT</b> = end of stream, <b>tok/s</b> = output tokens ÷ (TTLT − TTFT).</li>
- <li>VNet-integrated Container Apps, private endpoints, one managed identity (Entra ID), no keys.</li>
-</ul>
-<pre>stream = client.chat.completions.create(
-    model=deployment, messages=messages,    # ≈50k input tokens
-    <span class="hl">service_tier="priority"</span>,          # "flex" | "default" (Standard)
-    reasoning_effort="none", max_completion_tokens=8000,
-    stream=True, stream_options={{"include_usage": True}})</pre>
-<p class="cap">Same code for all tiers. Flex: long timeout + retry on 429. Priority: check the returned
-<code>service_tier</code> ("default" = downgraded, billed as Standard).</p>
-
-<h2>3. Billing</h2>
-<p>One deployment and quota for all tiers; Cost Management charges them on separate meters: Standard on regular meters,
-Priority on <b>PP</b> meters (2×), Flex on <b>Fl</b> meters (0.5×). Rejected Flex requests (429) are not billed.
-Evidence: <a href="report-phase1.html">report-phase1.html</a>, section 9.</p>
+<p class="cap">TTFT = first content token; TTLT = end of stream; output tok/s = output tokens ÷ (TTLT − TTFT).
+Same prompt and deployment in all tiers. Architecture and billing details remain in the repository README.</p>
 
 <details><summary>Earlier data: pilot (≈4.6k in / 1.1k out, {len(pilot['runs'])} runs) and Phase 1</summary>
 <p class="cap">Pilot, 30 Sep – 1 Oct, every 15 min, p50 values. Short-prompt Phase 1 incl. the Batch API reference:
