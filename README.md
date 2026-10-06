@@ -218,7 +218,7 @@ Clean-up: `az group delete -n rg-openai-flex-demo --yes` (and purge the soft-del
 ### Phase 2 – heavy streaming test, 50k in / 5k out (TTFT / TTLT / tokens per second)
 
 > **Collection in progress** – counting restarted on 2026-09-30 12:00 UTC. Clean runs so far:
-> 104 clean runs from `heavy50k-20260930-1230` through `heavy50k-20261002-1600` (312/312 successful requests,
+> 274 clean runs from `heavy50k-20260930-1230` through `heavy50k-20261006-0500` (822/822 successful requests,
 > no cached input tokens). The probe runs every 30 minutes, with finalization scheduled for 2026-10-09 09:30 UTC. Full-period p50/p90/p99 and per-run detail in
 > [`results/report.html`](results/report.html).
 
@@ -226,21 +226,24 @@ The report leads with distributions (TTFT logarithmic, TTLT linear). The TTLT ti
 (CEST, UTC+2 for this campaign), with night bands at 22:00–06:00 and weekend shading for Saturday/Sunday.
 Percentiles and paired comparisons are collapsed; failed-request and retry counts remain visible.
 
-| Tier (n=104, median) | TTFT | TTLT | Output tok/s | Output tokens | Cost / request |
+| Tier (n=274, median) | TTFT | TTLT | Output tok/s | Output tokens | Cost / request |
 |---|---:|---:|---:|---:|---:|
-| Standard | 1.88 s | 43.33 s | 119.7 | 4998.5 | $0.294 |
-| Priority | 1.40 s | 39.14 s | 132.0 | 4984.5 | $0.588 |
-| Flex | 1.66 s | 43.48 s | 120.0 | 4990.5 | $0.147 |
+| Standard | 1.67 s | 41.90 s | 124.9 | 4990.5 | $0.294 |
+| Priority | 1.36 s | 38.73 s | 133.6 | 4977 | $0.588 |
+| Flex | 1.63 s | 41.47 s | 126.4 | 4988.5 | $0.147 |
 
-| Tier (n=104) | TTFT p90 | TTFT p99 | TTLT p90 | TTLT p99 |
+| Tier (n=274) | TTFT p90 | TTFT p99 | TTLT p90 | TTLT p99 |
 |---|---:|---:|---:|---:|
-| Standard | 2.53 s | 6.14 s | 48.61 s | 53.30 s |
-| Priority | 1.84 s | 5.57 s | 42.43 s | 45.63 s |
-| Flex | 2.25 s | 6.15 s | 51.56 s | 87.69 s |
+| Standard | 2.55 s | 5.89 s | 46.38 s | 51.84 s |
+| Priority | 1.78 s | 14.17 s | 41.97 s | 68.57 s |
+| Flex | 3.32 s | 5.86 s | 49.15 s | 80.70 s |
 
 Flex matches Standard's median TTLT at half the token price, but has a longer tail in this sample.
-Priority's median TTLT is about 10% lower than Standard's at twice the token price.
-With 104 observations per tier, p99 remains sensitive to individual slow requests.
+Priority's median TTLT is about 8% lower than Standard's at twice the token price.
+The sample now includes a full weekend. No non-200 attempts were recorded. One Priority request
+(`heavy50k-20261003-1630`, 0.36% of Priority requests) was served as Standard; it remains in the
+requested-Priority series. Priority's p99 TTLT is now higher than Standard's despite its faster median.
+With 274 observations per tier, p99 remains sensitive to individual slow requests.
 
 Pilot at 4.6k in / 1.1k out (2 runs, p50): TTFT 1.60 / 0.94 / 2.12 s, TTLT 12.99 / 10.65 / 12.23 s,
 93.5 / 117.4 / 107.0 tok/s (Standard / Priority / Flex).

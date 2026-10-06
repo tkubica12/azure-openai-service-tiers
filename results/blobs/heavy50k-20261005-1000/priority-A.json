@@ -1,0 +1,92 @@
+{
+  "run_id": "heavy50k-20261005-1000",
+  "mode": "priority",
+  "pair": "A",
+  "deployment": "gpt-56-sol",
+  "service_tier_requested": "priority",
+  "message": {
+    "enqueued_at": "2026-10-05T10:00:32.198000+00:00",
+    "scheduled_enqueue_at": null,
+    "received_at": "2026-10-05T10:00:59.297729+00:00",
+    "delivery_count": 0,
+    "pickup_delay_s": 27.099729,
+    "cold_start": true
+  },
+  "worker": {
+    "mode": "priority",
+    "replica": "worker-priority--0000005-7ccf74fbfd-xvv75",
+    "revision": "worker-priority--0000005",
+    "process_started_at": "2026-10-05T10:00:58.075822+00:00",
+    "dns": {
+      "storage": {
+        "host": "flexdemostu4f46j.blob.core.windows.net",
+        "ips": [
+          "10.60.2.4"
+        ]
+      },
+      "openai": {
+        "host": "flexdemo-foundry-u4f46j.openai.azure.com",
+        "ips": [
+          "10.60.2.6"
+        ]
+      }
+    }
+  },
+  "completed_at": "2026-10-05T10:01:36.548770+00:00",
+  "records": [
+    {
+      "run_id": "heavy50k-20261005-1000",
+      "mode": "priority",
+      "pair": "A",
+      "deployment": "gpt-56-sol",
+      "prompt_id": "heavy50k-20261005-1000-triage",
+      "success": true,
+      "started_at": "2026-10-05T10:00:59.523039+00:00",
+      "finished_at": "2026-10-05T10:01:36.495468+00:00",
+      "latency_s": 36.97233228999903,
+      "ttft_s": 1.6238609209976858,
+      "ttlt_s": 36.97233228999903,
+      "headers_s": 1.227345195999078,
+      "generation_s": 35.348471369001345,
+      "output_tps": 141.30738350344447,
+      "e2e_tps": 135.128072549305,
+      "stream_chunks": 4997,
+      "total_s": 36.972432388000016,
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-10-05T10:00:59.523046+00:00",
+          "duration_s": 36.97233228999903,
+          "status": 200,
+          "headers": {
+            "x-ms-region": "Sweden Central",
+            "apim-request-id": "12ef818b-6c60-423f-8282-ee2b223feef1",
+            "x-request-id": "377fb839-cad0-4311-a749-007239038b40",
+            "x-ratelimit-remaining-requests": "299",
+            "x-ratelimit-remaining-tokens": "251432"
+          }
+        }
+      ],
+      "requested_service_tier": "priority",
+      "service_tier": "priority",
+      "model": "gpt-5.6-sol-2026-07-09",
+      "finish_reason": "stop",
+      "output_chars": 27745,
+      "output_preview": "### T001\nCategory: Notifications\nPriority: P1\nSummary: Premium customer reports duplicate smart lock emails and post firmware connectivity failure, affecting 18 users for 25 days under a contractual d",
+      "usage": {
+        "prompt_tokens": 48568,
+        "completion_tokens": 4996,
+        "reasoning_tokens": 0,
+        "cached_tokens": 0
+      },
+      "headers": {
+        "x-ms-region": "Sweden Central",
+        "apim-request-id": "12ef818b-6c60-423f-8282-ee2b223feef1",
+        "x-request-id": "377fb839-cad0-4311-a749-007239038b40",
+        "x-ratelimit-remaining-requests": "299",
+        "x-ratelimit-remaining-tokens": "251432"
+      }
+    }
+  ]
+}

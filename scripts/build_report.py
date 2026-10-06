@@ -816,6 +816,8 @@ Dots are successful requests, not averages. Hover for date, day and time.</p>
 <p class="cap">Failed requests: {sum(row['requests'] - row['ok'] for row in rows)}.
 Non-200 attempts (including retries): {esc('; '.join(LABEL[row['mode']] + ': ' + (', '.join(f'{k}×{v}' for k, v in row['codes'].items()) or 'none') for row in rows))}.
 Failed requests have no completed latency and are excluded from the distributions.</p>
+<p class="cap">Returned service tiers: {esc('; '.join(LABEL[row['mode']] + ': ' + (', '.join(f'{k}×{v}' for k, v in row['tiers'].items()) or 'none') for row in rows))}.
+Charts group requests by requested tier; Priority requests served as Standard remain in the Priority series.</p>
 <details><summary>Percentiles and paired comparison</summary>
 {pct_table(rows)}
 {ratio_table}
