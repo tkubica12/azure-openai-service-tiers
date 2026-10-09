@@ -135,7 +135,7 @@ Short answers mostly measure time-to-first-token, so the probe now runs a large,
   counts prompt + `max_completion_tokens` and all three tiers share it). Batch is not part of phase 2.
 * **Why 50k/5k, not 100k/10k:** 100k/10k would need >330k TPM per slot and cost ~$2 per slot (~$100/day). 50k/5k costs
   ~$1.03 per slot (Standard $0.29, Priority $0.59, Flex $0.15), ~$50/day at 48 slots/day.
-* **Schedule:** every 30 minutes; collection extended on 2026-10-02 for another seven days. Finalization is scheduled for **2026-10-09 09:30 UTC**, when the job is deleted and the final report is built. Collection runs in Azure without the laptop; stopping and finalization use the session automation.
+* **Schedule:** every 30 minutes; collection extended on 2026-10-02 for another seven days and completed on **2026-10-09 09:30 UTC**. The probe job has been deleted; no further scheduled measurements are generated. Other demo infrastructure remains deployed and can still incur charges.
 
 ## Metering and billing
 
@@ -217,33 +217,52 @@ Clean-up: `az group delete -n rg-openai-flex-demo --yes` (and purge the soft-del
 <!-- RESULTS -->
 ### Phase 2 – heavy streaming test, 50k in / 5k out (TTFT / TTLT / tokens per second)
 
-> **Collection in progress** – counting restarted on 2026-09-30 12:00 UTC. Clean runs so far:
-> 274 clean runs from `heavy50k-20260930-1230` through `heavy50k-20261006-0500` (822/822 successful requests,
-> no cached input tokens). The probe runs every 30 minutes, with finalization scheduled for 2026-10-09 09:30 UTC. Full-period p50/p90/p99 and per-run detail in
+> **Collection complete** – the Azure probe job was deleted on 2026-10-09 after 09:30 UTC.
+> 427 clean runs from `heavy50k-20260930-1230` through `heavy50k-20261009-0930` (1281/1281 successful requests,
+> no cached input tokens, no missing half-hour slots in this interval). Full-period p50/p90/p99 and per-run detail in
 > [`results/report.html`](results/report.html).
 
 The report leads with distributions (TTFT logarithmic, TTLT linear). The TTLT timeline uses Czech time
 (CEST, UTC+2 for this campaign), with night bands at 22:00–06:00 and weekend shading for Saturday/Sunday.
 Percentiles and paired comparisons are collapsed; failed-request and retry counts remain visible.
 
-| Tier (n=274, median) | TTFT | TTLT | Output tok/s | Output tokens | Cost / request |
+| Tier (n=427, median) | TTFT | TTLT | Output tok/s | Output tokens | Cost / request |
 |---|---:|---:|---:|---:|---:|
-| Standard | 1.67 s | 41.90 s | 124.9 | 4990.5 | $0.294 |
-| Priority | 1.36 s | 38.73 s | 133.6 | 4977 | $0.588 |
-| Flex | 1.63 s | 41.47 s | 126.4 | 4988.5 | $0.147 |
+| Standard | 1.67 s | 41.95 s | 124.5 | 4982 | $0.294 |
+| Priority | 1.43 s | 38.52 s | 134.5 | 4977 | $0.588 |
+| Flex | 1.69 s | 41.80 s | 126.3 | 4990 | $0.147 |
 
-| Tier (n=274) | TTFT p90 | TTFT p99 | TTLT p90 | TTLT p99 |
+| Tier (n=427) | TTFT p90 | TTFT p99 | TTLT p90 | TTLT p99 |
 |---|---:|---:|---:|---:|
-| Standard | 2.55 s | 5.89 s | 46.38 s | 51.84 s |
-| Priority | 1.78 s | 14.17 s | 41.97 s | 68.57 s |
-| Flex | 3.32 s | 5.86 s | 49.15 s | 80.70 s |
+| Standard | 2.51 s | 5.73 s | 46.01 s | 52.82 s |
+| Priority | 1.86 s | 12.20 s | 41.65 s | 53.36 s |
+| Flex | 3.61 s | 4.53 s | 59.88 s | 118.31 s |
+
+| Tier (n=427) | Output tok/s p50 | p90 | p99 | Paired TTFT / Standard p50 | Paired TTLT / Standard p50 | Paired tok/s / Standard p50 |
+|---|---:|---:|---:|---:|---:|---:|
+| Standard | 124.48 | 132.84 | 138.41 | 1 | 1 | 1 |
+| Priority | 134.46 | 143.18 | 151.18 | 0.854 | 0.919 | 1.082 |
+| Flex | 126.34 | 151.95 | 165.07 | 1.021 | 0.985 | 1.029 |
 
 Flex matches Standard's median TTLT at half the token price, but has a longer tail in this sample.
 Priority's median TTLT is about 8% lower than Standard's at twice the token price.
 The sample now includes a full weekend. No non-200 attempts were recorded. One Priority request
-(`heavy50k-20261003-1630`, 0.36% of Priority requests) was served as Standard; it remains in the
+(`heavy50k-20261003-1630`, 0.23% of Priority requests) was served as Standard; it remains in the
 requested-Priority series. Priority's p99 TTLT is now higher than Standard's despite its faster median.
-With 274 observations per tier, p99 remains sensitive to individual slow requests.
+With 427 observations per tier, p99 remains sensitive to individual slow requests.
+
+| TTLT median (Czech time) | Night 22–06 (n=144) | Day 06–22 (n=283) | Weekend (n=96) | Weekday (n=331) |
+|---|---:|---:|---:|---:|
+| Standard | 41.57 s | 42.27 s | 40.39 s | 42.44 s |
+| Priority | 38.44 s | 38.59 s | 38.22 s | 38.67 s |
+| Flex | 42.64 s | 40.84 s | 40.88 s | 42.05 s |
+
+These buckets describe this campaign, not a causal guarantee that night or weekend traffic is faster.
+Estimated token-only cost for the 427 clean runs is **$438.79**: Standard $125.51, Priority $250.52,
+Flex $62.77, using recorded usage and the returned tier's retail rates. This excludes the cached
+12:00 run, pilots, earlier campaigns, and Azure infrastructure; it is not an actual invoice.
+At shutdown all three measured Service Bus subscriptions had zero active/dead-letter messages.
+The historical Batch subscription retains 42 dead-letter messages; Batch was not part of this campaign.
 
 Pilot at 4.6k in / 1.1k out (2 runs, p50): TTFT 1.60 / 0.94 / 2.12 s, TTLT 12.99 / 10.65 / 12.23 s,
 93.5 / 117.4 / 107.0 tok/s (Standard / Priority / Flex).
